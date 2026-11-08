@@ -186,18 +186,20 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
     {/* Hero Cover Image (Interactive Click-to-Zoom Modal) */}
     <div
       id="hero-cover-container"
-      class="group relative rounded-3xl overflow-hidden aspect-[16/9] mb-12 bg-[#0a0515] border border-purple-500/25 shadow-2xl flex items-center justify-center cursor-zoom-in select-none"
+      role="button"
+      tabindex="0"
+      class="group relative rounded-3xl overflow-hidden aspect-[16/9] mb-12 bg-[#0a0515] border border-purple-500/25 shadow-2xl flex items-center justify-center cursor-pointer select-none"
       title="Klik untuk melihat gambar penuh"
     >
       <img
         id="hero-cover-img"
         src={post.coverImageUrl}
         alt={post.title}
-        class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
+        class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500 pointer-events-none"
       />
       {/* Zoom Badge Indicator */}
-      <div class="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-[#0D0818]/80 backdrop-blur-md border border-purple-500/30 text-purple-200 text-xs font-medium flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg">
-        <svg class="w-3.5 h-3.5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-[#0D0818]/85 backdrop-blur-md border border-purple-500/40 text-purple-200 text-xs font-semibold flex items-center gap-1.5 shadow-lg group-hover:scale-105 transition-transform duration-300 pointer-events-none">
+        <svg class="w-3.5 h-3.5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -212,8 +214,8 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
       
       {/* Article Body */}
       <div class="lg:col-span-8">
-        {/* Interactive Reading Utility Bar (TTS audio, font scaling, bookmarking, and reactions) */}
-        <ArticleInteractiveBar client:load slug={post.slug} title={post.title} articleSelector=".article-prose" />
+        {/* Interactive Reading Utility Bar (TTS audio, font scaling, bookmarking) */}
+        <ArticleInteractiveBar client:load slug={post.slug} title={post.title} articleSelector=".article-prose" mode="top" />
 
         <div
           class="article-prose prose prose-invert prose-purple max-w-none text-zinc-300 leading-relaxed text-base space-y-4 prose-headings:text-white prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-code:text-purple-300 prose-code:bg-[#120B24] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:border prose-code:border-purple-500/20 prose-pre:bg-[#0D0818] prose-pre:border prose-pre:border-purple-500/25 prose-img:rounded-2xl"
@@ -314,6 +316,11 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
               Fullstack Developer berdedikasi membangun aplikasi web &amp; mobile modern dengan fokus pada performa, arsitektur bersih, dan user experience.
             </p>
           </div>
+        </div>
+
+        {/* Feedback & Social Reactions Section (Disimpan di Bagian Bawah) */}
+        <div class="mt-6">
+          <ArticleInteractiveBar client:load slug={post.slug} title={post.title} articleSelector=".article-prose" mode="bottom" />
         </div>
       </div>
 
@@ -507,7 +514,8 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
   {/* Full Image Modal Lightbox */}
   <div
     id="image-modal-lightbox"
-    class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 sm:p-8"
+    class="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-lg flex items-center justify-center p-4 sm:p-8"
+    style="display: none; opacity: 0; transition: opacity 0.25s ease;"
     role="dialog"
     aria-modal="true"
     aria-label="Tampilan Gambar Penuh"
@@ -516,7 +524,7 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
     <button
       id="modal-close-btn"
       type="button"
-      class="absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-[#180E2B]/80 hover:bg-[#2A1647] border border-purple-500/30 text-white flex items-center justify-center transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer"
+      class="absolute top-5 right-5 z-30 w-11 h-11 rounded-full bg-[#180E2B]/90 hover:bg-[#2A1647] border border-purple-500/40 text-white flex items-center justify-center transition-all shadow-2xl hover:scale-105 active:scale-95 cursor-pointer"
       title="Tutup (Esc)"
     >
       <svg class="w-5 h-5 text-purple-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -526,13 +534,13 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
     </button>
 
     {/* Controls Top Bar: Original Source link */}
-    <div class="absolute top-5 left-5 z-20 flex items-center gap-3">
+    <div class="absolute top-5 left-5 z-30 flex items-center gap-3">
       <a
         id="modal-open-original"
         href="#"
         target="_blank"
         rel="noopener noreferrer"
-        class="px-3.5 py-1.5 rounded-full bg-[#180E2B]/80 hover:bg-[#2A1647] border border-purple-500/30 text-xs text-purple-200 hover:text-white flex items-center gap-1.5 backdrop-blur-md transition-all shadow-lg"
+        class="px-3.5 py-1.5 rounded-full bg-[#180E2B]/90 hover:bg-[#2A1647] border border-purple-500/40 text-xs text-purple-200 hover:text-white flex items-center gap-1.5 backdrop-blur-md transition-all shadow-lg"
       >
         <span>Buka Asli</span>
         <svg class="w-3.5 h-3.5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -549,11 +557,11 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
         id="modal-lightbox-img"
         src=""
         alt=""
-        class="max-w-full max-h-[80vh] w-auto h-auto object-contain rounded-2xl shadow-[0_20px_60px_rgba(168,85,247,0.3)] border border-purple-500/30 transition-transform duration-300"
+        class="max-w-full max-h-[80vh] w-auto h-auto object-contain rounded-2xl shadow-[0_20px_60px_rgba(168,85,247,0.35)] border border-purple-500/40"
       />
       <p
         id="modal-image-caption"
-        class="mt-3 text-xs sm:text-sm text-zinc-300 text-center font-medium max-w-2xl px-4 line-clamp-2"
+        class="mt-3.5 text-xs sm:text-sm text-zinc-300 text-center font-medium max-w-2xl px-4 line-clamp-2"
       ></p>
     </div>
   </div>
@@ -691,39 +699,46 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
         lightboxOrigLink.href = src;
       }
 
-      lightboxModal.classList.remove('hidden');
-      // Force reflow for smooth fade-in transition
+      lightboxModal.style.display = 'flex';
+      // Force repaint
       void lightboxModal.offsetWidth;
-      lightboxModal.classList.remove('opacity-0');
-      lightboxModal.classList.add('opacity-100');
+      lightboxModal.style.opacity = '1';
       document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
       if (!lightboxModal) return;
-      lightboxModal.classList.remove('opacity-100');
-      lightboxModal.classList.add('opacity-0');
+      lightboxModal.style.opacity = '0';
       setTimeout(() => {
-        lightboxModal.classList.add('hidden');
+        lightboxModal.style.display = 'none';
         if (lightboxImg) lightboxImg.src = '';
         document.body.style.overflow = '';
-      }, 300);
+      }, 250);
     }
 
-    // Hero cover click trigger
+    // Attach click listener to Hero Cover Container
     const heroCoverContainer = document.getElementById('hero-cover-container');
     const heroCoverImg = document.getElementById('hero-cover-img');
     if (heroCoverContainer && heroCoverImg) {
-      heroCoverContainer.addEventListener('click', () => {
+      heroCoverContainer.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         openLightbox(heroCoverImg.src, heroCoverImg.alt);
+      });
+      heroCoverContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(heroCoverImg.src, heroCoverImg.alt);
+        }
       });
     }
 
-    // Also attach lightbox trigger to any images inside article-prose content
+    // Attach click listener to all images inside article content (.article-prose)
     document.querySelectorAll('.article-prose img').forEach((img) => {
       img.classList.add('cursor-zoom-in', 'hover:opacity-90', 'transition-opacity');
       img.setAttribute('title', 'Klik untuk melihat gambar penuh');
       img.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         openLightbox(img.src, img.alt);
       });
@@ -732,12 +747,13 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
     // Close button click
     if (lightboxCloseBtn) {
       lightboxCloseBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         closeLightbox();
       });
     }
 
-    // Backdrop click to close (click outside the image)
+    // Backdrop click to close (click outside the image wrapper)
     if (lightboxModal) {
       lightboxModal.addEventListener('click', (e) => {
         const contentContainer = document.getElementById('modal-content-container');
@@ -749,7 +765,7 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
 
     // Keyboard ESC key to close
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightboxModal && !lightboxModal.classList.contains('hidden')) {
+      if (e.key === 'Escape' && lightboxModal && lightboxModal.style.display !== 'none') {
         closeLightbox();
       }
     });

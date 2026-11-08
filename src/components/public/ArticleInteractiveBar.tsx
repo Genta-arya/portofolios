@@ -22,6 +22,7 @@ interface ArticleInteractiveBarProps {
   slug: string;
   title: string;
   articleSelector?: string;
+  mode?: 'all' | 'top' | 'bottom';
 }
 
 interface SavedArticle {
@@ -34,7 +35,8 @@ interface SavedArticle {
 export default function ArticleInteractiveBar({
   slug,
   title,
-  articleSelector = '.article-prose'
+  articleSelector = '.article-prose',
+  mode = 'all'
 }: ArticleInteractiveBarProps) {
   // 1. Reactions state
   const [reactions, setReactions] = useState<{ likes: number; claps: number; fires: number }>({
@@ -229,71 +231,74 @@ export default function ArticleInteractiveBar({
   return (
     <div className="w-full">
       {/* Top Reading Utility Bar: Floating Card below hero */}
-      <div className="my-8 p-3.5 sm:p-4 rounded-2xl bg-[#0D0818]/90 border border-purple-500/25 backdrop-blur-xl flex flex-wrap items-center justify-between gap-3 shadow-lg">
-        {/* Left: Reading controls (Audio, Font Size, Bookmark & Bookmark List) */}
-        <div className="flex flex-wrap items-center gap-2">
-          {ttsSupported && (
+      {(mode === 'all' || mode === 'top') && (
+        <div className="my-8 p-3.5 sm:p-4 rounded-2xl bg-[#0D0818]/90 border border-purple-500/25 backdrop-blur-xl flex flex-wrap items-center justify-between gap-3 shadow-lg">
+          {/* Left: Reading controls (Audio, Font Size, Bookmark & Bookmark List) */}
+          <div className="flex flex-wrap items-center gap-2">
+            {ttsSupported && (
+              <button
+                type="button"
+                onClick={toggleSpeech}
+                title="Bacakan Artikel (Text to Speech)"
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  isSpeaking
+                    ? 'bg-fuchsia-600 text-white shadow-md shadow-fuchsia-600/40 animate-pulse'
+                    : 'bg-[#120B24] border border-purple-500/30 text-purple-300 hover:text-white hover:border-purple-400'
+                }`}
+              >
+                {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-purple-400" />}
+                <span>{isSpeaking ? 'Hentikan Audio' : 'Bacakan Artikel'}</span>
+              </button>
+            )}
+
+            {/* Font Resizer */}
             <button
               type="button"
-              onClick={toggleSpeech}
-              title="Dengarkan Artikel (Text to Speech)"
+              onClick={cycleFontSize}
+              title="Ubah Ukuran Teks (Normal / Besar / Ekstra)"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#120B24] border border-purple-500/30 text-zinc-300 hover:text-white hover:border-purple-400 transition-all cursor-pointer"
+            >
+              <Type className="w-3.5 h-3.5 text-purple-400" />
+              <span className="uppercase text-[11px] font-mono">
+                Font: {fontSizeLevel === 'normal' ? 'A' : fontSizeLevel === 'large' ? 'A+' : 'A++'}
+              </span>
+            </button>
+
+            {/* Bookmark Button */}
+            <button
+              type="button"
+              onClick={toggleBookmark}
+              title={isBookmarked ? 'Hapus dari daftar simpan' : 'Simpan artikel ini untuk dibaca nanti'}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                isSpeaking
-                  ? 'bg-fuchsia-600 text-white shadow-md shadow-fuchsia-600/40 animate-pulse'
-                  : 'bg-[#120B24] border border-purple-500/30 text-purple-300 hover:text-white hover:border-purple-400'
+                isBookmarked
+                  ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
+                  : 'bg-[#120B24] border border-purple-500/30 text-zinc-300 hover:text-white hover:border-purple-400'
               }`}
             >
-              {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-purple-400" />}
-              <span>{isSpeaking ? 'Hentikan Audio' : 'Dengarkan Artikel'}</span>
+              <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-current text-white' : 'text-purple-400'}`} />
+              <span>{isBookmarked ? 'Tersimpan' : 'Simpan'}</span>
             </button>
-          )}
 
-          {/* Font Resizer */}
-          <button
-            type="button"
-            onClick={cycleFontSize}
-            title="Ubah Ukuran Teks (Normal / Besar / Ekstra)"
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#120B24] border border-purple-500/30 text-zinc-300 hover:text-white hover:border-purple-400 transition-all cursor-pointer"
-          >
-            <Type className="w-3.5 h-3.5 text-purple-400" />
-            <span className="uppercase text-[11px] font-mono">
-              Font: {fontSizeLevel === 'normal' ? 'A' : fontSizeLevel === 'large' ? 'A+' : 'A++'}
-            </span>
-          </button>
-
-          {/* Bookmark Button */}
-          <button
-            type="button"
-            onClick={toggleBookmark}
-            title={isBookmarked ? 'Hapus dari daftar simpan' : 'Simpan artikel ini untuk dibaca nanti'}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              isBookmarked
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
-                : 'bg-[#120B24] border border-purple-500/30 text-zinc-300 hover:text-white hover:border-purple-400'
-            }`}
-          >
-            <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-current text-white' : 'text-purple-400'}`} />
-            <span>{isBookmarked ? 'Tersimpan' : 'Simpan'}</span>
-          </button>
-
-          {/* View Saved Articles Drawer Button */}
-          <button
-            type="button"
-            onClick={() => {
-              loadSavedArticles();
-              setIsBookmarkModalOpen(true);
-            }}
-            title="Lihat daftar artikel yang telah disimpan"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#120B24] border border-purple-500/30 text-purple-300 hover:text-white hover:border-purple-400 transition-all cursor-pointer"
-          >
-            <BookmarkCheck className="w-3.5 h-3.5 text-purple-400" />
-            <span>Daftar Simpan ({savedArticles.length})</span>
-          </button>
+            {/* View Saved Articles Drawer Button */}
+            <button
+              type="button"
+              onClick={() => {
+                loadSavedArticles();
+                setIsBookmarkModalOpen(true);
+              }}
+              title="Lihat daftar artikel yang telah disimpan"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#120B24] border border-purple-500/30 text-purple-300 hover:text-white hover:border-purple-400 transition-all cursor-pointer"
+            >
+              <BookmarkCheck className="w-3.5 h-3.5 text-purple-400" />
+              <span>Daftar Simpan ({savedArticles.length})</span>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Social Reaction Bar with Emojis & Counts */}
-      <div className="my-10 p-5 rounded-3xl bg-gradient-to-br from-[#0F0820]/90 to-[#0A0515]/90 border border-purple-500/25 shadow-xl">
+      {(mode === 'all' || mode === 'bottom') && (
+        <div className="my-10 p-5 rounded-3xl bg-gradient-to-br from-[#0F0820]/90 to-[#0A0515]/90 border border-purple-500/25 shadow-xl">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="text-center sm:text-left">
             <h4 className="text-sm font-bold text-white flex items-center justify-center sm:justify-start gap-2">
@@ -358,6 +363,7 @@ export default function ArticleInteractiveBar({
           </div>
         </div>
       </div>
+      )}
 
       {/* Bookmark Modal Drawer */}
       {isBookmarkModalOpen && (
