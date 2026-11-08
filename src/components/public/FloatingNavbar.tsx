@@ -1,27 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sparkles, Box, Zap } from 'lucide-react';
 import Magnet from '../reactbits/Magnet';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 interface FloatingNavbarProps {
   currentPath?: string;
 }
 
 export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProps) {
+  const { mode, isLite, setMode } = useDisplayMode();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const navRef = useRef<HTMLElement>(null);
 
-  // 3D Parallax Tilt Physics on Mouse Hover
+  // 3D Parallax Tilt Physics on Mouse Hover (Disabled on Lite Mode)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-40, 40], [5, -5]), {
+  const rotateX = useSpring(useTransform(mouseY, [-40, 40], isLite ? [0, 0] : [5, -5]), {
     stiffness: 350,
     damping: 25,
   });
-  const rotateY = useSpring(useTransform(mouseX, [-350, 350], [-6, 6]), {
+  const rotateY = useSpring(useTransform(mouseX, [-350, 350], isLite ? [0, 0] : [-6, 6]), {
     stiffness: 350,
     damping: 25,
   });
@@ -141,8 +143,21 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
           })}
         </div>
 
-        {/* Desktop 3D Tactile Push-Button ("Let's Talk") */}
-        <div className="hidden md:flex items-center gap-3 [transform-style:preserve-3d]">
+        {/* Desktop Mode Toggle & 3D Tactile Push-Button ("Let's Talk") */}
+        <div className="hidden md:flex items-center gap-2.5 [transform-style:preserve-3d]">
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-mode-modal'))}
+            className={`px-3 py-1.5 rounded-full border text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+              isLite
+                ? 'bg-[#120B24]/90 border-cyan-500/35 text-cyan-300 hover:border-cyan-400'
+                : 'bg-[#120B24]/90 border-purple-500/35 text-purple-300 hover:border-purple-400'
+            }`}
+            title="Ubah Mode Tampilan (3D / Sederhana)"
+          >
+            {isLite ? <Zap className="w-3 h-3 text-cyan-400" /> : <Box className="w-3 h-3 text-purple-400" />}
+            <span>{isLite ? 'Lite' : '3D'}</span>
+          </button>
+
           <Magnet magnetStrength={0.2}>
             <a
               href="/#contact"
@@ -184,6 +199,16 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
               {link.label}
             </a>
           ))}
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              window.dispatchEvent(new CustomEvent('open-mode-modal'));
+            }}
+            className="w-full text-center py-2.5 rounded-xl text-xs font-bold bg-[#140A28] border border-purple-500/30 text-purple-300 flex items-center justify-center gap-2 mt-1"
+          >
+            {isLite ? <Zap className="w-3.5 h-3.5 text-cyan-400" /> : <Box className="w-3.5 h-3.5 text-purple-400" />}
+            <span>Mode Tampilan: {isLite ? 'Sederhana (Lite)' : '3D Imersif'}</span>
+          </button>
           <a
             href="/#contact"
             onClick={() => setMobileMenuOpen(false)}

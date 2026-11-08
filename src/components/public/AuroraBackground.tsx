@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue, useTransform } from 'framer-motion';
 import Prism from '../reactbits/Prism';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 interface StarParticle {
   id: number;
@@ -14,6 +15,7 @@ interface StarParticle {
 }
 
 export default function AuroraBackground() {
+  const { isLite } = useDisplayMode();
   const [mounted, setMounted] = useState(false);
   const [particles, setParticles] = useState<StarParticle[]>([]);
 
@@ -69,6 +71,22 @@ export default function AuroraBackground() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
+
+  if (isLite) {
+    return (
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#070312]">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-purple-700/15 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[400px] bg-cyan-700/10 rounded-full blur-[120px]" />
+        <div
+          className="absolute inset-0 opacity-[0.035] pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px)`,
+            backgroundSize: '32px 32px',
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#070312]">

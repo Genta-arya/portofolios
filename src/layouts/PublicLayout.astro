@@ -5,6 +5,7 @@ import AuroraBackground from '../components/public/AuroraBackground';
 import ScrollProgress from '../components/reactbits/ScrollProgress';
 import Crosshair from '../components/reactbits/Crosshair';
 import DataFetchLoader from '../components/ui/DataFetchLoader';
+import ModeSelectionModal from '../components/public/ModeSelectionModal';
 import Footer from '../components/public/Footer';
 
 interface Props {
@@ -148,6 +149,7 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="text-[#F8FAFC] antialiased min-h-screen selection:bg-purple-600 selection:text-white">
+    <ModeSelectionModal client:load />
     <ScrollProgress client:load />
     <AuroraBackground client:load />
     <Crosshair client:load color="#C084FC" thickness={1} opacity={0.65} lineStyle="dashed" />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface CrosshairProps {
   color?: string;
@@ -38,6 +39,7 @@ export default function Crosshair({
   blendMode = 'screen',
   className = '',
 }: CrosshairProps) {
+  const { isLite } = useDisplayMode();
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const [targetRect, setTargetRect] = useState<TargetLockRect | null>(null);
   const [pulses, setPulses] = useState<ClickPulse[]>([]);
@@ -180,7 +182,7 @@ export default function Crosshair({
     };
   }, [containerRef, enableClickPulse, enableTargetLock, isTouchDevice]);
 
-  if (isTouchDevice || !pos) return null;
+  if (isLite || isTouchDevice || !pos) return null;
 
   const isBounded = Boolean(containerRef);
   const positionClass = isBounded ? 'absolute' : 'fixed';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Send } from 'lucide-react';
+import { ArrowRight, Send, CheckCircle2, ShieldCheck, Sparkles, Layers, Cpu } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../ui/Icons';
 import Hero3DScene from '../three/Hero3DScene';
 import Lanyard from '../reactbits/Lanyard';
@@ -9,6 +9,7 @@ import Magnet from '../reactbits/Magnet';
 import DecryptedText from '../reactbits/DecryptedText';
 import AnimatedCounter from '../reactbits/AnimatedCounter';
 import MaskedHeading from '../reactbits/MaskedHeading';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 interface HeroSectionProps {
   fullName?: string;
@@ -21,29 +22,33 @@ export default function HeroSection({
   roleTitle = 'Fullstack Developer · Web & Mobile',
   availableForHire = true,
 }: HeroSectionProps) {
+  const { isLite } = useDisplayMode();
+
   return (
     <section id="hero" className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 overflow-hidden">
       
-      {/* 3D Lanyard ID Card - Absolute hanging from the very top (Desktop) */}
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: 'easeOut' }}
-        className="hidden lg:block absolute -top-4 left-4 sm:left-8 lg:left-10 xl:left-16 2xl:left-24 z-20 pointer-events-auto"
-      >
-        <Lanyard
-          photoUrl="/images/gentha-photo.jpg"
-          fullName={fullName}
-          roleTitle="Fullstack Software Engineer"
-          organization="SOFTWARE ENGINEERING CREDENTIAL"
-          subdivision="System Architect · Web & Mobile"
-          className="w-[300px] xl:w-[340px]"
-          canvasHeight="h-[520px] xl:h-[600px]"
-        />
-      </motion.div>
+      {/* 3D Lanyard ID Card - Only on 3D Mode (Desktop) */}
+      {!isLite && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
+          className="hidden lg:block absolute -top-4 left-4 sm:left-8 lg:left-10 xl:left-16 2xl:left-24 z-20 pointer-events-auto"
+        >
+          <Lanyard
+            photoUrl="/images/gentha-photo.jpg"
+            fullName={fullName}
+            roleTitle="Fullstack Software Engineer"
+            organization="SOFTWARE ENGINEERING CREDENTIAL"
+            subdivision="System Architect · Web & Mobile"
+            className="w-[300px] xl:w-[340px]"
+            canvasHeight="h-[520px] xl:h-[600px]"
+          />
+        </motion.div>
+      )}
 
-      {/* Hero Content Container with left padding clearance for the hanging Lanyard on Desktop */}
-      <div className="max-w-7xl xl:max-w-[1380px] mx-auto px-4 sm:px-6 w-full lg:pl-72 xl:pl-80 2xl:pl-96">
+      {/* Hero Content Container - With left padding only when 3D Lanyard is visible */}
+      <div className={`max-w-7xl xl:max-w-[1380px] mx-auto px-4 sm:px-6 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-4'}`}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center">
           
           {/* Left Column: Headlines, Bio, CTAs, Counters */}
@@ -180,14 +185,70 @@ export default function HeroSection({
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Permanent 3D Interactive Cosmic Core Globe */}
+          {/* Right Column: 3D Globe on 3D Mode, or Sleek 2D Identity Card on Lite Mode */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="lg:col-span-5 relative flex items-center justify-center w-full"
           >
-            <Hero3DScene />
+            {!isLite ? (
+              <Hero3DScene />
+            ) : (
+              /* Lightweight 2D Developer Identity Card (0% Three.js / WebGL load) */
+              <div className="w-full max-w-md p-7 rounded-3xl bg-gradient-to-b from-[#150B28]/90 via-[#0E071D]/90 to-[#070310]/90 border border-purple-500/30 shadow-[0_15px_40px_rgba(139,92,246,0.18)]">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-purple-500 to-cyan-400">
+                    <img
+                      src="/images/gentha-photo.jpg"
+                      alt={fullName}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#0D0818] flex items-center justify-center">
+                      <div className="w-3.5 h-3.5 rounded-full bg-emerald-400 animate-pulse" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <h3 className="text-base font-extrabold text-white tracking-tight">{fullName}</h3>
+                      <ShieldCheck className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <div className="text-xs text-purple-300 font-medium">{roleTitle}</div>
+                    <div className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-semibold mt-0.5">
+                      <span>● Active &amp; Ready for Projects</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Telemetry Metrics in 2D Lite Mode */}
+                <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#120B24]/90 border border-purple-500/20 mb-5 text-center">
+                  <div>
+                    <div className="text-sm font-bold text-white">15+</div>
+                    <div className="text-[10px] text-zinc-400">Proyek</div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-gradient-aurora">3+ Thn</div>
+                    <div className="text-[10px] text-zinc-400">Pengalaman</div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-cyan-400">100%</div>
+                    <div className="text-[10px] text-zinc-400">Commitment</div>
+                  </div>
+                </div>
+
+                {/* Tech Pills */}
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-purple-500/15">
+                  {['React.js', 'Astro 5', 'Express.js', 'MySQL', 'React Native', 'Tailwind CSS'].map((stack) => (
+                    <span
+                      key={stack}
+                      className="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-purple-600/15 text-purple-300 border border-purple-500/25"
+                    >
+                      {stack}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
 
         </div>

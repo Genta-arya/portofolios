@@ -6,6 +6,7 @@ import { GithubIcon } from '../ui/Icons';
 import { TiltCard, TiltItem } from '../ui/TiltCard';
 import ShinyText from '../reactbits/ShinyText';
 import DataFetchLoader from '../ui/DataFetchLoader';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface ProjectData {
   id: number;
@@ -109,6 +110,7 @@ const defaultProjects: ProjectData[] = [
 ];
 
 export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) {
+  const { isLite } = useDisplayMode();
   const [activeCategory, setActiveCategory] = useState<'all' | 'web_app' | 'mobile_app' | 'landing_page'>('all');
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
   const [isFiltering, setIsFiltering] = useState(false);
@@ -255,17 +257,17 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
                 className="h-full"
               >
               <TiltCard
-                maxTilt={13}
-                scale={1.025}
-                glareColor="rgba(217, 70, 239, 0.28)"
-                glareSize={65}
-                perspective={1000}
+                maxTilt={isLite ? 0 : 13}
+                scale={isLite ? 1.01 : 1.025}
+                glareColor={isLite ? 'transparent' : 'rgba(217, 70, 239, 0.28)'}
+                glareSize={isLite ? 0 : 65}
+                perspective={isLite ? 0 : 1000}
                 containerClassName="h-full"
                 className="group h-full rounded-3xl bg-gradient-to-b from-[#150B28]/95 via-[#0E071D]/95 to-[#070310]/95 border border-purple-500/30 hover:border-purple-400/70 shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(139,92,246,0.35)] p-3.5 sm:p-4 flex flex-col justify-between transition-all duration-300"
               >
                 <div>
-                  {/* Inset 3D Elevated Framed Thumbnail Container */}
-                  <TiltItem translateZ={25} className="w-full mb-3.5">
+                  {/* Inset Framed Thumbnail Container */}
+                  <TiltItem translateZ={isLite ? 0 : 25} className="w-full mb-3.5">
                     <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#120B24] border border-purple-500/30 shadow-inner group-hover:border-purple-400/50 transition-colors">
                       <img
                         src={project.thumbnailUrl}

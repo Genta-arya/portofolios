@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, Layers, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import CircularCarousel from '../reactbits/CircularCarousel';
 import ShinyText from '../reactbits/ShinyText';
+import { useDisplayMode } from '../../lib/displayModeStore';
 import {
   siReact,
   siAndroid,
@@ -126,6 +127,7 @@ const techItems: TechItemConfig[] = [
 ];
 
 export default function TechCircularShowcase() {
+  const { isLite } = useDisplayMode();
   const [activeTechIndex, setActiveTechIndex] = useState(0);
   const activeTech = techItems[activeTechIndex] || techItems[0];
 
@@ -156,41 +158,88 @@ export default function TechCircularShowcase() {
           </p>
         </motion.div>
 
-        {/* Circular Carousel Ring */}
-        <CircularCarousel
-          radius={340}
-          mobileRadius={210}
-          autoRotateSpeed={0.25}
-          autoRotate={true}
-          showControls={false}
-          pauseOnHover={false}
-          onActiveChange={(idx) => setActiveTechIndex(idx)}
-        >
-          {techItems.map((tech, idx) => {
-            const isActive = idx === activeTechIndex;
-            const brandColor = `#${tech.hex}`;
+        {/* Carousel: 3D Cylindrical Ring on 3D Mode, or Smooth 2D Grid on Lite Mode */}
+        {!isLite ? (
+          <CircularCarousel
+            radius={340}
+            mobileRadius={210}
+            autoRotateSpeed={0.25}
+            autoRotate={true}
+            showControls={false}
+            pauseOnHover={false}
+            onActiveChange={(idx) => setActiveTechIndex(idx)}
+          >
+            {techItems.map((tech, idx) => {
+              const isActive = idx === activeTechIndex;
+              const brandColor = `#${tech.hex}`;
 
-            return (
-              <div
-                key={tech.name}
-                className={`relative w-44 sm:w-48 h-56 sm:h-60 rounded-3xl p-5 flex flex-col items-center justify-between text-center transition-all duration-300 backdrop-blur-xl ${
-                  isActive
-                    ? 'bg-gradient-to-b from-[#1A0C35]/95 via-[#110724]/95 to-[#070312]/95 border-2 border-purple-400 shadow-[0_0_35px_rgba(168,85,247,0.5)] scale-105'
-                    : 'bg-[#0E061E]/85 border border-purple-500/30 hover:border-purple-400/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)]'
-                }`}
-              >
-                {/* Top Subtle Brand Gradient Line */}
+              return (
                 <div
-                  className="absolute top-0 left-4 right-4 h-[2px] rounded-full"
-                  style={{
-                    background: `linear-gradient(90deg, transparent, ${brandColor}, transparent)`,
-                  }}
-                />
-
-                {/* Status Badge */}
-                <div className="w-full flex justify-center">
+                  key={tech.name}
+                  className={`relative w-44 sm:w-48 h-56 sm:h-60 rounded-3xl p-5 flex flex-col items-center justify-between text-center transition-all duration-300 backdrop-blur-xl ${
+                    isActive
+                      ? 'bg-gradient-to-b from-[#1A0C35]/95 via-[#110724]/95 to-[#070312]/95 border-2 border-purple-400 shadow-[0_0_35px_rgba(168,85,247,0.5)] scale-105'
+                      : 'bg-[#0E061E]/85 border border-purple-500/30 hover:border-purple-400/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)]'
+                  }`}
+                >
+                  <div
+                    className="absolute top-0 left-4 right-4 h-[2px] rounded-full"
+                    style={{
+                      background: `linear-gradient(90deg, transparent, ${brandColor}, transparent)`,
+                    }}
+                  />
+                  <div className="w-full flex justify-center">
+                    <span
+                      className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide border shadow-sm"
+                      style={{
+                        backgroundColor: `${brandColor}18`,
+                        color: brandColor,
+                        borderColor: `${brandColor}40`,
+                      }}
+                    >
+                      {tech.badge}
+                    </span>
+                  </div>
+                  <div className="relative my-auto flex items-center justify-center">
+                    <div
+                      className="absolute w-14 h-14 rounded-full blur-xl pointer-events-none opacity-60"
+                      style={{ backgroundColor: brandColor }}
+                    />
+                    <div className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="w-full h-full drop-shadow-md"
+                        fill={brandColor}
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d={tech.svgPath} />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="w-full">
+                    <h4 className="text-base sm:text-lg font-extrabold text-white tracking-tight mb-0.5 drop-shadow">
+                      {tech.name}
+                    </h4>
+                    <p className="text-[11px] text-zinc-400 font-medium line-clamp-1">
+                      {tech.category}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </CircularCarousel>
+        ) : (
+          /* 2D Flat Tech Showcase Grid in Lite Mode (Zero 3D perspective / 0% CPU strain) */
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {techItems.map((tech) => {
+              const brandColor = `#${tech.hex}`;
+              return (
+                <div
+                  key={tech.name}
+                  className="p-4 rounded-2xl bg-[#0D0818]/90 border border-purple-500/25 flex flex-col items-center justify-between text-center gap-3 transition-all duration-200 hover:-translate-y-1 hover:border-purple-400/50"
+                >
                   <span
-                    className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide border shadow-sm"
+                    className="px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wide border"
                     style={{
                       backgroundColor: `${brandColor}18`,
                       color: brandColor,
@@ -199,42 +248,25 @@ export default function TechCircularShowcase() {
                   >
                     {tech.badge}
                   </span>
-                </div>
-
-                {/* Center SVG Brand Icon with Glowing Ambient Aura */}
-                <div className="relative my-auto flex items-center justify-center">
-                  {/* Glowing Aura Behind Icon */}
-                  <div
-                    className="absolute w-14 h-14 rounded-full blur-xl pointer-events-none opacity-60"
-                    style={{ backgroundColor: brandColor }}
-                  />
-
-                  {/* High Quality Official Brand SVG */}
-                  <div className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-10 h-10 flex items-center justify-center">
                     <svg
                       viewBox="0 0 24 24"
-                      className="w-full h-full drop-shadow-md"
+                      className="w-8 h-8"
                       fill={brandColor}
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path d={tech.svgPath} />
                     </svg>
                   </div>
+                  <div>
+                    <div className="text-xs font-bold text-white tracking-tight">{tech.name}</div>
+                    <div className="text-[10px] text-zinc-400 line-clamp-1 mt-0.5">{tech.category}</div>
+                  </div>
                 </div>
-
-                {/* Tech Title & Category Tag */}
-                <div className="w-full">
-                  <h4 className="text-base sm:text-lg font-extrabold text-white tracking-tight mb-0.5 drop-shadow">
-                    {tech.name}
-                  </h4>
-                  <p className="text-[11px] text-zinc-400 font-medium line-clamp-1">
-                    {tech.category}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </CircularCarousel>
+              );
+            })}
+          </div>
+        )}
 
         {/* Active Tech Telemetry Detail Bar */}
         <motion.div

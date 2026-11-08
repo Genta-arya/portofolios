@@ -18,6 +18,7 @@ import ElectricBorder from '../reactbits/ElectricBorder';
 import BounceCards from '../reactbits/BounceCards';
 import CardSwap from '../reactbits/CardSwap';
 import TechLogo from '../ui/TechLogo';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface TechItem {
   id?: number;
@@ -47,6 +48,7 @@ const techDescriptions: Record<string, string> = {
 };
 
 export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
+  const { isLite } = useDisplayMode();
   const [activeTab, setActiveTab] = useState<'all' | 'frontend' | 'backend' | 'mobile' | 'database' | 'devops'>('all');
   const [selectedTech, setSelectedTech] = useState<TechItem | null>(null);
   const orbitContainerRef = useRef<HTMLDivElement>(null);
@@ -172,7 +174,7 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
           </div>
         </motion.div>
 
-        {/* 3D Galaxy Canvas Experience with Electric Border */}
+        {/* Tech Stage: 3D Galaxy Canvas in 3D Mode, or Sleek 2D Grid in Lite Mode */}
         <motion.div
           ref={orbitContainerRef}
           id="tech-galaxy-stage"
@@ -182,22 +184,50 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
           transition={{ duration: 0.7 }}
           className="relative mb-10 scroll-mt-24"
         >
-          <ElectricBorder
-            color="#A855F7"
-            glowColor="#06B6D4"
-            speed={1.1}
-            chaos={0.8}
-            thickness={2}
-            borderRadius="1.5rem"
-            className="rounded-3xl"
-          >
-            <TechGalaxy3D
-              techs={items}
-              activeCategory={activeTab}
-              selectedTech={selectedTech}
-              onSelectTech={handleSelectTech}
-            />
-          </ElectricBorder>
+          {!isLite ? (
+            <ElectricBorder
+              color="#A855F7"
+              glowColor="#06B6D4"
+              speed={1.1}
+              chaos={0.8}
+              thickness={2}
+              borderRadius="1.5rem"
+              className="rounded-3xl"
+            >
+              <TechGalaxy3D
+                techs={items}
+                activeCategory={activeTab}
+                selectedTech={selectedTech}
+                onSelectTech={handleSelectTech}
+              />
+            </ElectricBorder>
+          ) : (
+            /* 2D Flat Constellation Grid in Lite Mode (Zero WebGL overhead) */
+            <div className="p-6 sm:p-8 rounded-3xl bg-[#0D0818]/90 border border-purple-500/25">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
+                {filtered.map((tech) => {
+                  const isSelected = selectedTech?.name === tech.name;
+                  return (
+                    <button
+                      key={tech.name}
+                      onClick={() => handleSelectTech(tech)}
+                      className={`p-4 rounded-2xl border text-center transition-all duration-200 flex flex-col items-center justify-between gap-3 cursor-pointer ${
+                        isSelected
+                          ? 'bg-purple-600/30 border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.35)] scale-105'
+                          : 'bg-[#120B24]/90 border-purple-500/20 hover:border-purple-400/50 hover:bg-[#180E30]'
+                      }`}
+                    >
+                      <TechLogo name={tech.name} className="w-9 h-9" />
+                      <div>
+                        <div className="text-xs font-bold text-white tracking-tight">{tech.name}</div>
+                        <div className="text-[10px] text-zinc-400 mt-0.5">{tech.roleLabel || tech.category}</div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Interactive Floating Detail HUD Overlay if a node is selected */}
           <AnimatePresence>
