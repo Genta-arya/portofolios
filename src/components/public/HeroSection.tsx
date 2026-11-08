@@ -25,7 +25,7 @@ export default function HeroSection({
   const { isLite } = useDisplayMode();
 
   return (
-    <section id="hero" className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 overflow-hidden overflow-x-clip max-w-full">
+    <section id="hero" className="relative min-h-0 lg:min-h-[90vh] flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 overflow-hidden overflow-x-clip max-w-full">
       
       {/* 3D Lanyard ID Card - Only on 3D Mode (Desktop) */}
       {!isLite && (
@@ -49,7 +49,7 @@ export default function HeroSection({
 
       {/* Hero Content Container - Generous padding on tablet and mobile to prevent text from touching screen edges */}
       <div className={`max-w-4xl lg:max-w-7xl xl:max-w-[1380px] mx-auto px-8 sm:px-16 md:px-24 lg:px-12 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-10'}`}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14 xl:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-center">
           
           {/* Left Column: Headlines, Bio, CTAs, Counters */}
           <motion.div
@@ -113,7 +113,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full mb-8"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full mb-5 sm:mb-6"
             >
               <Magnet magnetStrength={0.22}>
                 <a
@@ -162,7 +162,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-3 pt-6 border-t border-purple-500/15 w-full max-w-lg mx-auto lg:mx-0"
+              className="grid grid-cols-3 gap-3 pt-4 sm:pt-5 border-t border-purple-500/15 w-full max-w-lg mx-auto lg:mx-0"
             >
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-white tracking-tight">
