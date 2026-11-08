@@ -1,0 +1,22 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ServicesManager from '../../components/admin/ServicesManager';
+import { db } from '../../db';
+import { services, techStacks } from '../../db/schema';
+import { asc } from 'drizzle-orm';
+
+let initialServices: any[] = [];
+let initialTechs: any[] = [];
+
+try {
+  initialServices = await db.select().from(services).orderBy(asc(services.displayOrder));
+  initialTechs = await db.select().from(techStacks).orderBy(asc(techStacks.displayOrder));
+} catch (err) {
+  console.error('Error fetching services & tech in admin:', err);
+}
+---
+
+<AdminLayout title="Manajemen Layanan & Tech Stack — Gentha Admin" activeNav="services">
+  <ServicesManager client:load initialServices={initialServices} initialTechs={initialTechs} />
+</AdminLayout>
+

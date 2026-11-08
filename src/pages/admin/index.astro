@@ -1,0 +1,204 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { db } from '../../db';
+import { projects, blogPosts, contactMessages } from '../../db/schema';
+import { eq, desc, sql } from 'drizzle-orm';
+import {
+  FolderGit2,
+  FileText,
+  Eye,
+  Mail,
+  PlusCircle,
+  ArrowUpRight,
+  Clock,
+  CheckCircle,
+} from 'lucide-react';
+import { formatDate } from '../../lib/utils';
+
+let totalProjects = 0;
+let totalPosts = 0;
+let publishedPosts = 0;
+let totalViews = 0;
+let unreadMessages = 0;
+let recentMessages: any[] = [];
+let recentProjects: any[] = [];
+
+try {
+  const pList = await db.select().from(projects);
+  totalProjects = pList.length;
+  recentProjects = pList.slice(0, 5);
+
+  const bList = await db.select().from(blogPosts);
+  totalPosts = bList.length;
+  publishedPosts = bList.filter((b) => b.status === 'published').length;
+  totalViews = bList.reduce((acc, curr) => acc + (curr.viewsCount || 0), 0);
+
+  const mList = await db
+    .select()
+    .from(contactMessages)
+    .orderBy(desc(contactMessages.createdAt))
+    .limit(5);
+
+  recentMessages = mList;
+  unreadMessages = mList.filter((m) => !m.isRead).length;
+} catch (err) {
+  console.error('Admin overview query error:', err);
+}
+---
+
+<AdminLayout title="Dashboard Overview — Gentha Admin" activeNav="overview">
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    {/* Page Header */}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-purple-500/20">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Ringkasan Dashboard
+        </h1>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-1">
+          Pantau status portofolio, interaksi pengunjung, dan artikel blog secara real-time.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a
+          href="/admin/blog/new"
+          class="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all"
+        >
+          <PlusCircle className="w-4 h-4" />
+          <span>Tulis Artikel Baru</span>
+        </a>
+        <a
+          href="/admin/projects"
+          class="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#120B24] border border-purple-500/30 text-white hover:bg-purple-950/50 transition-all"
+        >
+          <PlusCircle className="w-4 h-4" />
+          <span>Kelola Proyek</span>
+        </a>
+      </div>
+    </div>
+
+    {/* Metric Cards Grid */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {/* Total Projects */}
+      <div class="p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20 relative overflow-hidden flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Proyek</span>
+          <div class="w-9 h-9 rounded-xl bg-purple-600/20 flex items-center justify-center text-purple-400">
+            <FolderGit2 className="w-4 h-4" />
+          </div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold text-white">{totalProjects}</div>
+          <div class="text-[11px] text-purple-300 mt-1">Tampil di portofolio v2</div>
+        </div>
+      </div>
+
+      {/* Blog Articles */}
+      <div class="p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20 relative overflow-hidden flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Artikel Blog</span>
+          <div class="w-9 h-9 rounded-xl bg-fuchsia-600/20 flex items-center justify-center text-fuchsia-400">
+            <FileText className="w-4 h-4" />
+          </div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold text-white">{publishedPosts} <span class="text-sm font-normal text-zinc-400">/ {totalPosts}</span></div>
+          <div class="text-[11px] text-fuchsia-300 mt-1">Artikel Terbit (Published)</div>
+        </div>
+      </div>
+
+      {/* Total Views */}
+      <div class="p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20 relative overflow-hidden flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Pembaca</span>
+          <div class="w-9 h-9 rounded-xl bg-indigo-600/20 flex items-center justify-center text-indigo-400">
+            <Eye className="w-4 h-4" />
+          </div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold text-white">{totalViews}</div>
+          <div class="text-[11px] text-indigo-300 mt-1">Akumulasi views blog</div>
+        </div>
+      </div>
+
+      {/* Unread Messages */}
+      <div class="p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20 relative overflow-hidden flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Pesan Belum Dibaca</span>
+          <div class="w-9 h-9 rounded-xl bg-emerald-600/20 flex items-center justify-center text-emerald-400">
+            <Mail className="w-4 h-4" />
+          </div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold text-white">{unreadMessages}</div>
+          <div class="text-[11px] text-emerald-300 mt-1">Pesan kontak baru</div>
+        </div>
+      </div>
+    </div>
+
+    {/* Section: Recent Messages & Quick Projects */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      {/* Left: Recent Messages */}
+      <div class="lg:col-span-7 p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-purple-500/15">
+          <h2 class="text-sm font-bold text-white uppercase tracking-wider">Pesan Kontak Terkini</h2>
+          <a href="/admin/messages" class="text-xs text-purple-400 hover:text-purple-300 transition-colors">
+            Lihat Semua Inbox →
+          </a>
+        </div>
+
+        {recentMessages.length === 0 ? (
+          <div class="text-center py-12 text-xs text-zinc-500">Belum ada pesan kontak masuk.</div>
+        ) : (
+          <div class="space-y-3">
+            {recentMessages.map((msg) => (
+              <div
+                key={msg.id}
+                class="p-4 rounded-2xl bg-[#120B24]/60 border border-purple-500/15 flex flex-col justify-between gap-2"
+              >
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-white">{msg.senderName}</span>
+                  <span class="text-[10px] text-zinc-500">{formatDate(msg.createdAt)}</span>
+                </div>
+                <div class="text-xs text-purple-300 font-medium">{msg.serviceInterest}</div>
+                <p class="text-xs text-zinc-400 line-clamp-2">{msg.message}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Right: Quick Project Showcase */}
+      <div class="lg:col-span-5 p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-purple-500/15">
+          <h2 class="text-sm font-bold text-white uppercase tracking-wider">Daftar Proyek Portofolio</h2>
+          <a href="/admin/projects" class="text-xs text-purple-400 hover:text-purple-300 transition-colors">
+            Kelola →
+          </a>
+        </div>
+
+        <div class="space-y-3">
+          {recentProjects.map((p) => (
+            <div
+              key={p.id}
+              class="flex items-center gap-3 p-3 rounded-2xl bg-[#120B24]/60 border border-purple-500/15"
+            >
+              <div class="w-12 h-12 rounded-xl overflow-hidden bg-[#180F30] shrink-0">
+                <img src={p.thumbnailUrl} alt={p.title} class="w-full h-full object-cover" />
+              </div>
+              <div class="overflow-hidden flex-1">
+                <h3 class="text-xs font-bold text-white truncate">{p.title}</h3>
+                <span class="text-[10px] text-purple-400">{p.subcategoryBadge || p.category}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</AdminLayout>
+

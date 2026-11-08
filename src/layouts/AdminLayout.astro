@@ -1,0 +1,136 @@
+---
+import '../styles/globals.css';
+import {
+  LayoutDashboard,
+  FolderGit2,
+  FileText,
+  Wrench,
+  Mail,
+  Settings,
+  LogOut,
+  ExternalLink,
+  Shield,
+} from 'lucide-react';
+
+interface Props {
+  title?: string;
+  activeNav?: string;
+}
+
+const { title = 'Admin Dashboard — Gentha Arya Pratama', activeNav = 'overview' } = Astro.props;
+
+const admin = Astro.locals.admin || { name: 'Admin', email: 'admin@example.com' };
+
+const navLinks = [
+  { id: 'overview', label: 'Dashboard Overview', href: '/admin', icon: LayoutDashboard },
+  { id: 'projects', label: 'Manajemen Proyek', href: '/admin/projects', icon: FolderGit2 },
+  { id: 'blog', label: 'Artikel & Berita', href: '/admin/blog', icon: FileText },
+  { id: 'services', label: 'Layanan & Tech Stack', href: '/admin/services', icon: Wrench },
+  { id: 'messages', label: 'Inbox Pesan', href: '/admin/messages', icon: Mail },
+  { id: 'settings', label: 'Pengaturan Profil', href: '/admin/settings', icon: Settings },
+];
+---
+
+<!doctype html>
+<html lang="id" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-[#05030A] text-[#F8FAFC] antialiased min-h-screen selection:bg-purple-600 selection:text-white flex">
+    
+    {/* Admin Sidebar */}
+    <aside class="w-64 bg-[#0A0614] border-r border-purple-500/20 shrink-0 min-h-screen flex flex-col justify-between p-5 hidden md:flex">
+      <div>
+        {/* Brand */}
+        <div class="flex items-center gap-3 px-3 py-3 mb-6 border-b border-purple-500/15">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-extrabold text-base shadow-lg shadow-purple-600/30">
+            G
+          </div>
+          <div>
+            <h1 class="text-sm font-bold text-white tracking-tight">Admin Console</h1>
+            <span class="text-[10px] text-purple-400 font-mono">v2.0 · Cosmic Aurora</span>
+          </div>
+        </div>
+
+        {/* Navigation Items */}
+        <nav class="space-y-1.5">
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            const isActive = activeNav === link.id;
+            return (
+              <a
+                href={link.href}
+                class={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  isActive
+                    ? 'bg-purple-600/30 text-white border border-purple-500/40 shadow-[0_0_15px_rgba(139,92,246,0.25)]'
+                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Icon className={`w-4 h-4 ${isActive ? 'text-purple-300' : 'text-zinc-500'}`} />
+                <span>{link.label}</span>
+              </a>
+            );
+          })}
+        </nav>
+      </div>
+
+      {/* Footer Info & Logout */}
+      <div class="pt-5 border-t border-purple-500/15 space-y-3">
+        <a
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-white hover:bg-purple-950/40 border border-transparent hover:border-purple-500/20 transition-all"
+        >
+          <span>Buka Website Publik</span>
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
+
+        <div class="p-3 rounded-xl bg-[#120B24]/80 border border-purple-500/20 flex items-center justify-between">
+          <div class="overflow-hidden">
+            <div class="text-xs font-bold text-white truncate">{admin.name}</div>
+            <div class="text-[10px] text-zinc-400 truncate">{admin.email}</div>
+          </div>
+          <a
+            href="/api/admin/auth/logout"
+            class="p-2 rounded-lg text-rose-400 hover:bg-rose-950/50 hover:text-rose-300 transition-colors"
+            title="Keluar"
+          >
+            <LogOut className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    {/* Main Content Area */}
+    <div class="flex-1 flex flex-col min-w-0 min-h-screen">
+      {/* Mobile Header Bar */}
+      <header class="md:hidden flex items-center justify-between px-4 py-3 bg-[#0A0614] border-b border-purple-500/20">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-xs">
+            G
+          </div>
+          <span class="text-xs font-bold text-white">Admin Console</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="/" target="_blank" class="p-2 text-zinc-400 hover:text-white">
+            <ExternalLink className="w-4 h-4" />
+          </a>
+          <a href="/api/admin/auth/logout" class="p-2 text-rose-400">
+            <LogOut className="w-4 h-4" />
+          </a>
+        </div>
+      </header>
+
+      {/* Main Container */}
+      <main class="flex-1 p-4 sm:p-8 overflow-y-auto">
+        <slot />
+      </main>
+    </div>
+
+  </body>
+</html>
+

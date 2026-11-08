@@ -1,0 +1,115 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import BlogSearchList from '../../components/public/BlogSearchList';
+import { db } from '../../db';
+import { blogPosts, blogCategories } from '../../db/schema';
+import { eq, desc } from 'drizzle-orm';
+import { Clock, ArrowUpRight } from 'lucide-react';
+import { formatDate } from '../../lib/utils';
+
+let allPosts: any[] = [];
+let categories: any[] = [];
+let featuredPost: any = null;
+
+try {
+  categories = await db.select().from(blogCategories);
+
+  const postsRaw = await db
+    .select({
+      id: blogPosts.id,
+      title: blogPosts.title,
+      slug: blogPosts.slug,
+      excerpt: blogPosts.excerpt,
+      coverImageUrl: blogPosts.coverImageUrl,
+      readingTimeMinutes: blogPosts.readingTimeMinutes,
+      viewsCount: blogPosts.viewsCount,
+      publishedAt: blogPosts.publishedAt,
+      createdAt: blogPosts.createdAt,
+      isFeatured: blogPosts.isFeatured,
+      categoryId: blogPosts.categoryId,
+    })
+    .from(blogPosts)
+    .where(eq(blogPosts.status, 'published'))
+    .orderBy(desc(blogPosts.createdAt));
+
+  const catMap = new Map(categories.map((c) => [c.id, c.name]));
+
+  allPosts = postsRaw.map((p) => ({
+    ...p,
+    categoryName: p.categoryId ? catMap.get(p.categoryId) : undefined,
+  }));
+
+  featuredPost = allPosts.find((p) => p.isFeatured) || allPosts[0];
+} catch (err) {
+  console.error('Error fetching blog catalog:', err);
+}
+---
+
+<PublicLayout
+  title="Blog & Wawasan Teknologi — Gentha Arya Pratama"
+  description="Kumpulan artikel, panduan teknis, dan studi kasus arsitektur web modern, database MySQL, dan rekayasa mobile oleh Gentha Arya Pratama."
+  ogImage={featuredPost?.coverImageUrl || '/projects/elibrary-smk.png'}
+>
+  <div class="pt-32 pb-24 max-w-6xl mx-auto px-4 sm:px-6">
+    
+    {/* Page Header */}
+    <div class="max-w-3xl mb-12">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/25 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
+        Knowledge Base &amp; Insights
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        Catatan Teknis, Arsitektur &amp; <span class="text-gradient-aurora">Eksplorasi Kode</span>
+      </h1>
+      <p class="text-sm sm:text-base text-zinc-400 mt-3">
+        Dokumentasi pengalaman nyata dalam merancang sistem web performan, optimasi database, dan pembuatan aplikasi mobile.
+      </p>
+    </div>
+
+    {/* Featured Post Hero Banner */}
+    {featuredPost && (
+      <div class="mb-14 rounded-3xl bg-gradient-to-br from-[#150D28] to-[#0D0818] border border-purple-500/30 p-6 sm:p-8 overflow-hidden hover:border-purple-400/60 transition-all shadow-[0_12px_40px_rgba(139,92,246,0.2)]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 aspect-[16/10] rounded-2xl overflow-hidden bg-[#120B24] border border-purple-500/20">
+            <img
+              src={featuredPost.coverImageUrl}
+              alt={featuredPost.title}
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold bg-fuchsia-600/20 text-fuchsia-300 border border-fuchsia-500/30 uppercase tracking-wider mb-4">
+                ★ Artikel Unggulan
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3 hover:text-purple-300 transition-colors">
+                <a href={`/blog/${featuredPost.slug}`}>
+                  {featuredPost.title}
+                </a>
+              </h2>
+              <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6">
+                {featuredPost.excerpt}
+              </p>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-purple-500/20">
+              <span class="text-xs text-zinc-400">
+                {formatDate(featuredPost.publishedAt || featuredPost.createdAt)}
+              </span>
+              <a
+                href={`/blog/${featuredPost.slug}`}
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/30 hover:shadow-purple-500/50 transition-all"
+              >
+                <span>Baca Sekarang</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Search & Filterable Blog List */}
+    <BlogSearchList client:load initialPosts={allPosts} categories={categories} />
+
+  </div>
+</PublicLayout>
+

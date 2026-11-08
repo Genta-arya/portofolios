@@ -1,0 +1,45 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import ProjectGrid from '../../components/public/ProjectGrid';
+import { db } from '../../db';
+import { projects } from '../../db/schema';
+import { asc } from 'drizzle-orm';
+import { ArrowLeft } from 'lucide-react';
+
+let projectList: any[] = [];
+try {
+  projectList = await db.select().from(projects).orderBy(asc(projects.displayOrder));
+} catch (err) {
+  console.error('Error fetching projects:', err);
+}
+---
+
+<PublicLayout
+  title="Katalog Proyek & Portofolio — Gentha Arya Pratama"
+  description="Daftar lengkap proyek aplikasi web enterprise, sistem informasi, aplikasi mobile Android, dan landing page performa tinggi oleh Gentha Arya Pratama."
+>
+  <div class="pt-32 pb-24 max-w-6xl mx-auto px-4 sm:px-6">
+    <a
+      href="/"
+      class="inline-flex items-center gap-2 text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors mb-8"
+    >
+      <ArrowLeft className="w-4 h-4" />
+      <span>Kembali ke Halaman Utama</span>
+    </a>
+
+    <div class="max-w-3xl mb-8">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/25 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
+        Archive &amp; Showcase
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        Koleksi Lengkap <span class="text-gradient-aurora">Karya Digital</span>
+      </h1>
+      <p class="text-sm sm:text-base text-zinc-400 mt-3">
+        Eksplorasi seluruh proyek yang telah dirancang dan dikembangkan, mulai dari sistem web skala enterprise hingga aplikasi mobile lintas platform.
+      </p>
+    </div>
+
+    <ProjectGrid client:load initialProjects={projectList} />
+  </div>
+</PublicLayout>
+

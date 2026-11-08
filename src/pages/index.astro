@@ -1,0 +1,163 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroSection from '../components/public/HeroSection';
+import ProfileWorkflow from '../components/public/ProfileWorkflow';
+import CareerExperience from '../components/public/CareerExperience';
+import ServiceCards from '../components/public/ServiceCards';
+import ProjectGrid from '../components/public/ProjectGrid';
+import TechCircularShowcase from '../components/public/TechCircularShowcase';
+import TechStackOrbit from '../components/public/TechStackOrbit';
+import ContactForm from '../components/public/ContactForm';
+import { db } from '../db';
+import { siteSettings, services, projects, techStacks, blogPosts } from '../db/schema';
+import { eq, desc, asc } from 'drizzle-orm';
+import { formatDate } from '../lib/utils';
+import { ArrowUpRight, BookOpen, Clock, Eye } from 'lucide-react';
+
+// Fetch initial data from MySQL via Drizzle ORM
+let settings = null;
+let serviceList: any[] = [];
+let projectList: any[] = [];
+let techList: any[] = [];
+let latestBlogs: any[] = [];
+
+try {
+  const [s] = await db.select().from(siteSettings).where(eq(siteSettings.id, 1)).limit(1);
+  settings = s;
+
+  serviceList = await db
+    .select()
+    .from(services)
+    .where(eq(services.isActive, true))
+    .orderBy(asc(services.displayOrder));
+
+  projectList = await db
+    .select()
+    .from(projects)
+    .orderBy(asc(projects.displayOrder));
+
+  techList = await db
+    .select()
+    .from(techStacks)
+    .orderBy(asc(techStacks.displayOrder));
+
+  latestBlogs = await db
+    .select()
+    .from(blogPosts)
+    .where(eq(blogPosts.status, 'published'))
+    .orderBy(desc(blogPosts.createdAt))
+    .limit(3);
+} catch (err) {
+  console.error('Database query in index.astro fallback:', err);
+}
+---
+
+<PublicLayout
+  title={`${settings?.fullName || 'Gentha Arya Pratama'} — Fullstack Developer · Web & Mobile`}
+  description={settings?.shortBio || 'Portofolio Gentha Arya Pratama. Fullstack Developer spesialis web enterprise dan mobile application.'}
+>
+  {/* 1. Hero Section with 3D Cosmic Scene */}
+  <HeroSection
+    client:load
+    fullName={settings?.fullName || 'Gentha Arya Pratama'}
+    roleTitle={settings?.roleTitle || 'Fullstack Developer · Web & Mobile'}
+    availableForHire={settings?.availableForHire ?? true}
+  />
+
+  {/* 2. Professional Profile & Interactive 5-Step Workflow */}
+  <ProfileWorkflow client:visible />
+
+  {/* 3. Pengalaman Kerja & Rekam Jejak Profesional */}
+  <CareerExperience client:visible />
+
+  {/* 4. Professional Services Section */}
+  <ServiceCards client:visible services={serviceList} />
+
+  {/* 4. Filterable 3D Tilt Project Cards Showcase */}
+  <ProjectGrid client:visible initialProjects={projectList} />
+
+  {/* 5. 3D Circular Carousel Tech Showcase */}
+  <TechCircularShowcase client:visible />
+
+  {/* 6. Interactive Tech Stack Orbit & Grid */}
+  <TechStackOrbit client:visible initialTechs={techList} />
+
+  {/* 6. Latest Insights & Blog Posts Section */}
+  {latestBlogs.length > 0 && (
+    <section class="py-24 relative overflow-hidden">
+      {/* Ambient Aurora Glow behind Blog */}
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-gradient-to-r from-purple-600/30 via-fuchsia-600/25 to-indigo-600/20 blur-[130px] pointer-events-none -z-10 rounded-full" />
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/25 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
+              Blog &amp; Knowledge
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Artikel &amp; Eksplorasi Teknologi
+            </h2>
+            <p class="text-sm text-zinc-400 mt-2">
+              Berbagi wawasan mengenai rekayasa software modern, arsitektur database, dan pengembangan mobile.
+            </p>
+          </div>
+          <a
+            href="/blog"
+            class="mt-4 sm:mt-0 inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors"
+          >
+            <span>Lihat Semua Artikel</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {latestBlogs.map((blog) => (
+            <a
+              key={blog.id}
+              href={`/blog/${blog.slug}`}
+              class="group rounded-3xl bg-[#0D0818]/70 border border-purple-500/20 hover:border-purple-400/50 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_12px_35px_rgba(139,92,246,0.18)] hover:-translate-y-1.5"
+            >
+              <div>
+                <div class="aspect-[16/10] rounded-2xl overflow-hidden mb-5 bg-[#120B24] border border-purple-500/20">
+                  <img
+                    src={blog.coverImageUrl}
+                    alt={blog.title}
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div class="flex items-center gap-3 text-[11px] text-zinc-400 mb-3">
+                  <span class="flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-purple-400" />
+                    <span>{blog.readingTimeMinutes} min baca</span>
+                  </span>
+                  <span>•</span>
+                  <span>{formatDate(blog.publishedAt || blog.createdAt)}</span>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 mb-2">
+                  {blog.title}
+                </h3>
+                <p class="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                  {blog.excerpt}
+                </p>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-purple-500/15 flex items-center justify-between text-xs font-semibold text-purple-400">
+                <span>Baca Selengkapnya</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* 7. Contact Section */}
+  <ContactForm
+    client:visible
+    fastworkUrl={settings?.fastworkUrl || 'https://fastwork.id/user/babfpfzm'}
+    emailContact={settings?.emailContact || 'mgentaarya@gmail.com'}
+  />
+</PublicLayout>
+

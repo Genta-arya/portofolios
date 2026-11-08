@@ -1,0 +1,137 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { db } from '../../../db';
+import { blogPosts, blogCategories } from '../../../db/schema';
+import { desc } from 'drizzle-orm';
+import { Plus, Edit, Trash2, ExternalLink, Eye, Clock } from 'lucide-react';
+import { formatDate } from '../../../lib/utils';
+
+let posts: any[] = [];
+let categories: any[] = [];
+
+try {
+  categories = await db.select().from(blogCategories);
+  const catMap = new Map(categories.map((c) => [c.id, c.name]));
+
+  const rawPosts = await db.select().from(blogPosts).orderBy(desc(blogPosts.createdAt));
+  posts = rawPosts.map((p) => ({
+    ...p,
+    categoryName: p.categoryId ? catMap.get(p.categoryId) : '-',
+  }));
+} catch (err) {
+  console.error('Error in admin/blog:', err);
+}
+---
+
+<AdminLayout title="Manajemen Artikel Blog — Gentha Admin" activeNav="blog">
+  <div class="space-y-8">
+    
+    {/* Top Header */}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-extrabold text-white">Artikel &amp; Berita Blog</h1>
+        <p class="text-xs text-zinc-400 mt-1">
+          Kelola publikasi artikel, SEO meta, dan draft tulisan Anda.
+        </p>
+      </div>
+
+      <a
+        href="/admin/blog/new"
+        class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all"
+      >
+        <Plus className="w-4 h-4" />
+        <span>Tulis Artikel Baru</span>
+      </a>
+    </div>
+
+    {/* Articles Table */}
+    <div class="rounded-3xl bg-[#0D0818]/90 border border-purple-500/20 overflow-hidden shadow-xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-[#120B24] border-b border-purple-500/20 text-zinc-400 uppercase font-semibold">
+            <tr>
+              <th class="py-4 px-6">Artikel</th>
+              <th class="py-4 px-4">Kategori</th>
+              <th class="py-4 px-4 text-center">Status</th>
+              <th class="py-4 px-4 text-center">Views</th>
+              <th class="py-4 px-4">Tanggal</th>
+              <th class="py-4 px-6 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-purple-500/10">
+            {posts.map((post) => (
+              <tr class="hover:bg-purple-950/20 transition-colors">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden bg-[#180F30] shrink-0 border border-purple-500/20">
+                      <img src={post.coverImageUrl} alt={post.title} class="w-full h-full object-cover" />
+                    </div>
+                    <div class="max-w-md">
+                      <a
+                        href={`/admin/blog/${post.id}`}
+                        class="font-bold text-white hover:text-purple-300 transition-colors line-clamp-1"
+                      >
+                        {post.title}
+                      </a>
+                      <div class="text-[11px] text-zinc-400 font-mono truncate">{post.slug}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-4">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-purple-950/60 text-purple-300 border border-purple-500/30">
+                    {post.categoryName}
+                  </span>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span
+                    class={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
+                      post.status === 'published'
+                        ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/30'
+                        : 'bg-amber-950/60 text-amber-300 border-amber-500/30'
+                    }`}
+                  >
+                    {post.status}
+                  </span>
+                </td>
+                <td class="py-4 px-4 text-center text-zinc-300 font-mono">
+                  {post.viewsCount || 0}
+                </td>
+                <td class="py-4 px-4 text-zinc-400 text-[11px]">
+                  {formatDate(post.publishedAt || post.createdAt)}
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <div class="flex items-center justify-end gap-2">
+                    <a
+                      href={`/blog/${post.slug}`}
+                      target="_blank"
+                      class="p-2 rounded-lg bg-[#120B24] border border-purple-500/30 text-zinc-400 hover:text-white"
+                      title="Lihat Halaman Publik"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <a
+                      href={`/admin/blog/${post.id}`}
+                      class="p-2 rounded-lg bg-[#120B24] border border-purple-500/30 text-purple-300 hover:text-white hover:bg-purple-900"
+                      title="Edit Artikel"
+                    >
+                      <Edit className="w-3.5 h-3.5" />
+                    </a>
+                    <button
+                      onclick={`if(confirm('Hapus artikel ini?')) { fetch('/api/admin/blog?id=${post.id}', { method: 'DELETE' }).then(() => location.reload()); }`}
+                      class="p-2 rounded-lg bg-[#120B24] border border-rose-500/30 text-rose-400 hover:text-white hover:bg-rose-950"
+                      title="Hapus Artikel"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</AdminLayout>
+

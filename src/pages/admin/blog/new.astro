@@ -1,0 +1,18 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import BlogForm from '../../../components/admin/BlogForm';
+import { db } from '../../../db';
+import { blogCategories } from '../../../db/schema';
+
+let categories: any[] = [];
+try {
+  categories = await db.select().from(blogCategories);
+} catch (err) {
+  console.error('Error fetching categories in new.astro:', err);
+}
+---
+
+<AdminLayout title="Tulis Artikel Baru — Gentha Admin" activeNav="blog">
+  <BlogForm client:load categories={categories} />
+</AdminLayout>
+

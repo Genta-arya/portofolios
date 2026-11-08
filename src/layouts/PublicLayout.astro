@@ -1,0 +1,163 @@
+---
+import '../styles/globals.css';
+import FloatingNavbar from '../components/public/FloatingNavbar';
+import AuroraBackground from '../components/public/AuroraBackground';
+import ScrollProgress from '../components/reactbits/ScrollProgress';
+import Crosshair from '../components/reactbits/Crosshair';
+import DataFetchLoader from '../components/ui/DataFetchLoader';
+import Footer from '../components/public/Footer';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  keywords?: string;
+}
+
+const {
+  title = 'Gentha Arya Pratama — Fullstack Developer · Web & Mobile',
+  description = 'Portofolio resmi Gentha Arya Pratama. Fullstack Developer spesialis perancangan sistem web enterprise berkecepatan tinggi, REST API terstruktur, serta aplikasi mobile modern.',
+  ogImage = '/projects/elibrary-smk.png',
+  type = 'website',
+  publishedTime,
+  keywords = 'Gentha Arya Pratama, Fullstack Developer, Web Developer Indonesia, React Developer, Astro Developer, React Native, Mobile App Developer, Express JS, MySQL, Frontend Engineer, Software Engineer, Portfolio Developer, Jasa Pembuatan Website, Fastwork Freelancer',
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://www.mgentaarya.my.id';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+
+const absoluteOgImage = ogImage.startsWith('http')
+  ? ogImage
+  : `${siteUrl}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+
+// Schema.org Structured Data Graph
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      'url': siteUrl,
+      'name': 'Gentha Arya Pratama — Fullstack Developer Portfolio',
+      'description': description,
+      'inLanguage': 'id-ID',
+      'publisher': {
+        '@id': `${siteUrl}/#person`,
+      },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl}/#person`,
+      'name': 'Gentha Arya Pratama',
+      'alternateName': 'Gentha Arya',
+      'url': siteUrl,
+      'jobTitle': 'Fullstack Developer',
+      'description': 'Fullstack Developer spesialis web enterprise berkecepatan tinggi dan aplikasi mobile React Native & Android.',
+      'image': `${siteUrl}/avatar.png`,
+      'sameAs': [
+        'https://github.com/Genta-arya',
+        'https://fastwork.id/user/babfpfzm',
+        'https://linkedin.com/in/mgentaarya',
+      ],
+      'knowsAbout': [
+        'Web Application Development',
+        'Mobile Application Development',
+        'React.js',
+        'Astro',
+        'Node.js',
+        'Express.js',
+        'MySQL Database Architecture',
+        'React Native',
+        'Tailwind CSS',
+        'TypeScript',
+        'RESTful APIs',
+      ],
+    },
+    ...(type === 'article' && publishedTime
+      ? [
+          {
+            '@type': 'BlogPosting',
+            '@id': `${canonicalURL.toString()}#article`,
+            'isPartOf': {
+              '@id': `${siteUrl}/#website`,
+            },
+            'author': {
+              '@id': `${siteUrl}/#person`,
+            },
+            'headline': title,
+            'description': description,
+            'image': absoluteOgImage,
+            'datePublished': publishedTime,
+            'mainEntityOfPage': canonicalURL.toString(),
+            'publisher': {
+              '@id': `${siteUrl}/#person`,
+            },
+            'inLanguage': 'id-ID',
+          },
+        ]
+      : []),
+  ],
+};
+---
+
+<!doctype html>
+<html lang="id" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Gentha Arya Pratama" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#05030A" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Gentha Arya Pratama" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:alt" content={title} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+    <meta name="twitter:creator" content="@mgentaarya" />
+    <meta name="twitter:site" content="@mgentaarya" />
+
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="text-[#F8FAFC] antialiased min-h-screen selection:bg-purple-600 selection:text-white">
+    <ScrollProgress client:load />
+    <AuroraBackground client:load />
+    <Crosshair client:load color="#C084FC" thickness={1} opacity={0.65} lineStyle="dashed" />
+    <DataFetchLoader client:load mode="fullscreen" globalListener={true} />
+    <FloatingNavbar client:load currentPath={Astro.url.pathname} />
+    
+    <main class="relative">
+      <slot />
+    </main>
+
+    <Footer client:visible />
+  </body>
+</html>

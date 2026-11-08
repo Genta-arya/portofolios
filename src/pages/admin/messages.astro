@@ -1,0 +1,91 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { db } from '../../db';
+import { contactMessages } from '../../db/schema';
+import { desc } from 'drizzle-orm';
+import { formatDate } from '../../lib/utils';
+import { Mail, Check, Trash2 } from 'lucide-react';
+
+let messages: any[] = [];
+try {
+  messages = await db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
+} catch (err) {
+  console.error('Error fetching contact messages:', err);
+}
+---
+
+<AdminLayout title="Inbox Pesan Masuk — Gentha Admin" activeNav="messages">
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-2xl font-extrabold text-white">Inbox Pesan Masuk</h1>
+      <p class="text-xs text-zinc-400 mt-1">
+        Pesan yang dikirimkan oleh pengunjung atau calon klien melalui formulir kontak.
+      </p>
+    </div>
+
+    {messages.length === 0 ? (
+      <div class="text-center py-20 rounded-3xl bg-[#0D0818]/60 border border-purple-500/20 p-8">
+        <Mail className="w-10 h-10 text-purple-400/50 mx-auto mb-3" />
+        <h3 class="text-sm font-bold text-white mb-1">Inbox Masih Kosong</h3>
+        <p class="text-xs text-zinc-400">Belum ada pesan yang masuk dari pengunjung.</p>
+      </div>
+    ) : (
+      <div class="space-y-4">
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            class={`p-6 rounded-3xl border transition-all ${
+              msg.isRead
+                ? 'bg-[#0D0818]/60 border-purple-500/15'
+                : 'bg-[#120B24] border-purple-500/40 shadow-[0_4px_20px_rgba(139,92,246,0.15)]'
+            }`}
+          >
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-3">
+                <span class="text-sm font-bold text-white">{msg.senderName}</span>
+                <span class="text-xs text-purple-300 font-mono">({msg.senderEmail})</span>
+              </div>
+              <span class="text-[11px] text-zinc-400">{formatDate(msg.createdAt)}</span>
+            </div>
+
+            <div class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-purple-950/80 text-purple-300 border border-purple-500/30 mb-3">
+              Kebutuhan: {msg.serviceInterest || 'General Inquiry'}
+            </div>
+
+            <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed bg-[#0A0512] p-4 rounded-2xl border border-purple-500/15 mb-4">
+              {msg.message}
+            </p>
+
+            <div class="flex items-center justify-between pt-2">
+              <a
+                href={`mailto:${msg.senderEmail}?subject=Balasan%20Permintaan%20Proyek%20—%20Gentha%20Arya`}
+                class="text-xs font-bold text-purple-400 hover:text-purple-300"
+              >
+                Balas via Email →
+              </a>
+
+              <div class="flex items-center gap-2">
+                {!msg.isRead && (
+                  <button
+                    onclick={`fetch('/api/admin/messages', { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ id: ${msg.id}, isRead: true }) }).then(() => location.reload())`}
+                    class="px-3 py-1 rounded-xl bg-purple-600/30 border border-purple-500/30 text-purple-200 text-xs font-semibold hover:bg-purple-600/50"
+                  >
+                    Tandai Dibaca
+                  </button>
+                )}
+                <button
+                  onclick={`if(confirm('Hapus pesan ini?')) { fetch('/api/admin/messages?id=${msg.id}', { method: 'DELETE' }).then(() => location.reload()) }`}
+                  class="p-2 rounded-xl text-rose-400 hover:bg-rose-950/60"
+                  title="Hapus Pesan"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</AdminLayout>
+

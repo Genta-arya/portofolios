@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <radialGradient id="grad1" cx="35%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#E879F9" stop-opacity="1" />
+      <stop offset="35%" stop-color="#A855F7" stop-opacity="0.95" />
+      <stop offset="65%" stop-color="#6366F1" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#1E103A" stop-opacity="1" />
+    </radialGradient>
+    <radialGradient id="grad2" cx="75%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#818CF8" stop-opacity="0.8" />
+      <stop offset="80%" stop-color="#C084FC" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#0E0520" stop-opacity="1" />
+    </radialGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E" />
+      <stop offset="50%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <filter id="blurFilter">
+      <feGaussianBlur stdDeviation="70" />
+    </filter>
+  </defs>
+
+  <!-- Deep Cosmic Base -->
+  <rect width="100%" height="100%" fill="#070312" />
+
+  <!-- Luminous Color Clouds -->
+  <g filter="url(#blurFilter)">
+    <circle cx="500" cy="380" r="420" fill="url(#grad1)" />
+    <circle cx="1150" cy="520" r="380" fill="url(#grad2)" />
+    <ellipse cx="850" cy="450" rx="480" ry="260" fill="url(#grad3)" opacity="0.6" />
+    <circle cx="280" cy="650" r="280" fill="#EC4899" opacity="0.5" />
+    <circle cx="1350" cy="250" r="300" fill="#8B5CF6" opacity="0.65" />
+  </g>
+
+  <!-- High-Frequency Specular Highlights -->
+  <circle cx="650" cy="350" r="140" fill="#FFFFFF" opacity="0.35" filter="url(#blurFilter)" />
+  <circle cx="980" cy="480" r="100" fill="#FDF4FF" opacity="0.4" filter="url(#blurFilter)" />
+</svg>
+

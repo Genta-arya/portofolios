@@ -1,0 +1,220 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import { db } from '../../db';
+import { projects } from '../../db/schema';
+import { eq, ne } from 'drizzle-orm';
+import { ArrowLeft, ExternalLink, Sparkles, CheckCircle2, Layers } from 'lucide-react';
+import { GithubIcon } from '../../components/ui/Icons';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/projects');
+
+let project: any = null;
+let otherProjects: any[] = [];
+
+try {
+  const [p] = await db.select().from(projects).where(eq(projects.slug, slug)).limit(1);
+  if (!p) return Astro.redirect('/projects');
+  project = p;
+
+  otherProjects = await db
+    .select({
+      id: projects.id,
+      title: projects.title,
+      slug: projects.slug,
+      thumbnailUrl: projects.thumbnailUrl,
+      category: projects.category,
+      subcategoryBadge: projects.subcategoryBadge,
+    })
+    .from(projects)
+    .where(ne(projects.slug, slug))
+    .limit(3);
+} catch (err) {
+  console.error('Error fetching project case study:', err);
+  return Astro.redirect('/projects');
+}
+---
+
+<PublicLayout
+  title={`${project.title} — Studi Kasus Portofolio Gentha Arya Pratama`}
+  description={project.shortDescription}
+  ogImage={project.thumbnailUrl}
+>
+  <article class="pt-32 pb-24 max-w-5xl mx-auto px-4 sm:px-6">
+    
+    {/* Navigation Breadcrumb */}
+    <div class="flex items-center gap-2 text-xs font-semibold text-zinc-400 mb-8">
+      <a href="/" class="hover:text-purple-300 transition-colors">Home</a>
+      <span>/</span>
+      <a href="/projects" class="hover:text-purple-300 transition-colors">Projects</a>
+      <span>/</span>
+      <span class="text-purple-400 truncate max-w-xs">{project.title}</span>
+    </div>
+
+    {/* Header Info */}
+    <div class="mb-10">
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <span class="px-3.5 py-1 rounded-full text-xs font-semibold bg-purple-600/20 text-purple-300 border border-purple-500/30 uppercase tracking-wider">
+          {project.subcategoryBadge || project.category}
+        </span>
+        {project.isFeatured && (
+          <span class="px-3.5 py-1 rounded-full text-xs font-semibold bg-fuchsia-600/20 text-fuchsia-300 border border-fuchsia-500/30 uppercase tracking-wider">
+            ★ Featured Work
+          </span>
+        )}
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+        {project.title}
+      </h1>
+
+      <p class="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-3xl">
+        {project.shortDescription}
+      </p>
+
+      {/* Action Buttons */}
+      <div class="flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-purple-500/20">
+        {project.hireCtaUrl && (
+          <a
+            href={project.hireCtaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          >
+            <span>Pesan Jasa di Fastwork</span>
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        )}
+
+        {project.githubRepoUrl && project.githubRepoUrl !== '#' && (
+          <a
+            href={project.githubRepoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold bg-[#120B24] border border-purple-500/40 text-white hover:bg-purple-950/60 transition-all"
+          >
+            <GithubIcon className="w-4 h-4" />
+            <span>Lihat Source Code di GitHub</span>
+          </a>
+        )}
+      </div>
+    </div>
+
+    {/* Big Hero Showcase Image */}
+    <div class="rounded-3xl overflow-hidden aspect-[16/10] mb-14 bg-[#120B24] border border-purple-500/30 shadow-[0_12px_45px_rgba(139,92,246,0.2)]">
+      <img
+        src={project.thumbnailUrl}
+        alt={project.title}
+        class="w-full h-full object-cover object-top"
+      />
+    </div>
+
+    {/* Case Study Details Grid */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-16">
+      
+      {/* Left Column: Full Content & Architecture */}
+      <div class="lg:col-span-8 space-y-8">
+        <div class="p-8 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20">
+          <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <Layers className="w-5 h-5 text-purple-400" />
+            <span>Gambaran Sistem &amp; Arsitektur</span>
+          </h2>
+          <div class="prose prose-invert max-w-none text-zinc-300 text-sm leading-relaxed space-y-4">
+            <p>{project.fullContent || project.shortDescription}</p>
+          </div>
+        </div>
+
+        {/* Key Features Callout */}
+        <div class="p-8 rounded-3xl bg-gradient-to-br from-[#120B24]/90 to-[#0D0818]/90 border border-purple-500/20">
+          <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>Nilai Unggulan Proyek</span>
+          </h3>
+          <ul class="space-y-3 text-xs sm:text-sm text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0"></span>
+              <span>Struktur kode modular dan clean architecture untuk kemudahan ekspansi fitur.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0"></span>
+              <span>Integrasi database relasional berkinerja tinggi dengan indexing optimal.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0"></span>
+              <span>Antarmuka pengguna responsif (mobile &amp; desktop) dengan feedback visual real-time.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Right Column: Tech Specs & Direct Contact */}
+      <div class="lg:col-span-4 space-y-6">
+        
+        {/* Tech Stack Specs */}
+        <div class="p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20">
+          <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-4">
+            Teknologi yang Digunakan
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {project.techStack?.map((t: string) => (
+              <span
+                key={t}
+                class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-950/60 text-purple-200 border border-purple-500/30"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Card: Hire Gentha for Similar Projects */}
+        <div class="p-6 rounded-3xl bg-gradient-to-br from-purple-950/60 to-fuchsia-950/40 border border-purple-500/30">
+          <h3 class="text-sm font-bold text-white mb-1.5">Tertarik dengan sistem seperti ini?</h3>
+          <p class="text-xs text-zinc-300 leading-relaxed mb-4">
+            Saya siap membantu merancang dan membangun aplikasi web atau mobile kustom sesuai alur bisnis Anda.
+          </p>
+          <a
+            href={project.hireCtaUrl || '/#contact'}
+            target={project.hireCtaUrl ? '_blank' : '_self'}
+            rel="noopener noreferrer"
+            class="w-full py-2.5 rounded-xl text-xs font-bold bg-white text-purple-950 hover:bg-zinc-200 transition-colors flex items-center justify-center gap-1.5 shadow-md"
+          >
+            <span>Konsultasi Proyek Sekarang</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* Other Projects Recommendations */}
+    {otherProjects.length > 0 && (
+      <div class="pt-12 border-t border-purple-500/20">
+        <h2 class="text-xl font-bold text-white mb-6">Proyek Unggulan Lainnya</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {otherProjects.map((item) => (
+            <a
+              key={item.id}
+              href={`/projects/${item.slug}`}
+              class="group rounded-2xl bg-[#0D0818]/70 border border-purple-500/20 hover:border-purple-400/50 p-4 block transition-all hover:-translate-y-1"
+            >
+              <div class="aspect-[16/10] rounded-xl overflow-hidden mb-3 bg-[#120B24]">
+                <img
+                  src={item.thumbnailUrl}
+                  alt={item.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <h3 class="text-xs font-bold text-white group-hover:text-purple-300 transition-colors truncate">
+                {item.title}
+              </h3>
+              <span class="text-[10px] text-purple-400">{item.subcategoryBadge || item.category}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+  </article>
+</PublicLayout>
+

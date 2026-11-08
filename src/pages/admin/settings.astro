@@ -1,0 +1,29 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import SettingsForm from '../../components/admin/SettingsForm';
+import { db } from '../../db';
+import { siteSettings } from '../../db/schema';
+import { eq } from 'drizzle-orm';
+
+let initialSettings: any = {};
+try {
+  const [s] = await db.select().from(siteSettings).where(eq(siteSettings.id, 1)).limit(1);
+  initialSettings = s || {};
+} catch (err) {
+  console.error('Error fetching siteSettings in admin:', err);
+}
+---
+
+<AdminLayout title="Pengaturan Profil — Gentha Admin" activeNav="settings">
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-2xl font-extrabold text-white">Pengaturan Profil &amp; Status</h1>
+      <p class="text-xs text-zinc-400 mt-1">
+        Ubah identitas, tautan media sosial, bio singkat, dan status ketersediaan kerja Anda.
+      </p>
+    </div>
+
+    <SettingsForm client:load initialSettings={initialSettings} />
+  </div>
+</AdminLayout>
+

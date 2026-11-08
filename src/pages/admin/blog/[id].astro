@@ -1,0 +1,28 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import BlogForm from '../../../components/admin/BlogForm';
+import { db } from '../../../db';
+import { blogPosts, blogCategories } from '../../../db/schema';
+import { eq } from 'drizzle-orm';
+
+const { id } = Astro.params;
+if (!id) return Astro.redirect('/admin/blog');
+
+let post: any = null;
+let categories: any[] = [];
+
+try {
+  categories = await db.select().from(blogCategories);
+  const [p] = await db.select().from(blogPosts).where(eq(blogPosts.id, Number(id))).limit(1);
+  if (!p) return Astro.redirect('/admin/blog');
+  post = p;
+} catch (err) {
+  console.error('Error fetching post for edit:', err);
+  return Astro.redirect('/admin/blog');
+}
+---
+
+<AdminLayout title={`Edit Artikel: ${post.title} — Gentha Admin`} activeNav="blog">
+  <BlogForm client:load initialData={post} categories={categories} />
+</AdminLayout>
+

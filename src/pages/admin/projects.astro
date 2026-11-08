@@ -1,0 +1,19 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ProjectManager from '../../components/admin/ProjectManager';
+import { db } from '../../db';
+import { projects } from '../../db/schema';
+import { desc } from 'drizzle-orm';
+
+let initialProjects: any[] = [];
+try {
+  initialProjects = await db.select().from(projects).orderBy(desc(projects.displayOrder), desc(projects.id));
+} catch (err) {
+  console.error('Error in admin/projects:', err);
+}
+---
+
+<AdminLayout title="Manajemen Proyek — Gentha Admin" activeNav="projects">
+  <ProjectManager client:load initialProjects={initialProjects} />
+</AdminLayout>
+
