@@ -8,9 +8,13 @@ export default function Footer() {
           
           {/* Logo & Tagline */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-fuchsia-500 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-purple-600/30">
-                G
+            <div className="flex items-center gap-2.5 mb-2">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#160B33] to-[#0A0518] p-1 border border-purple-500/40 shadow-md shadow-purple-600/30 flex items-center justify-center">
+                <img
+                  src="/brand-logo.svg"
+                  alt="Gentha Arya Brand Logo"
+                  className="w-full h-full object-contain filter drop-shadow-[0_1px_4px_rgba(168,85,247,0.8)]"
+                />
               </div>
               <span className="text-base font-bold text-white tracking-tight">
                 Gentha Arya Pratama
@@ -21,7 +25,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links & Backlink Profiles */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-zinc-400">
             <a href="/#hero" className="hover:text-purple-300 transition-colors">Home</a>
             <a href="/#profile" className="hover:text-purple-300 transition-colors">Profile</a>
@@ -30,6 +34,17 @@ export default function Footer() {
             <a href="/#tech-circular" className="hover:text-purple-300 transition-colors">Tech Stack</a>
             <a href="/article" className="hover:text-purple-300 transition-colors">Article</a>
             <a href="/#contact" className="hover:text-purple-300 transition-colors">Contact</a>
+            <a
+              href="https://fastwork.id/user/babfpfzm"
+              target="_blank"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1A0E2E] border border-purple-500/30 text-amber-300 hover:text-white hover:border-amber-400 transition-all font-semibold shadow-sm"
+              title="Hire Gentha Arya on Fastwork"
+            >
+              <svg className="w-3.5 h-3.5 fill-current text-amber-400" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+              <span>Fastwork Profile</span>
+            </a>
           </div>
 
         </div>

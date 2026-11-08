@@ -5,7 +5,7 @@ import { blogPosts, blogCategories } from '../../db/schema';
 import { eq, ne, desc } from 'drizzle-orm';
 import { formatDate } from '../../lib/utils';
 import { Clock, Eye, Share2, Calendar, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, MessageSquare, Check, Copy, Smartphone, Laptop, Briefcase } from 'lucide-react';
-import { FacebookIcon, TelegramIcon, DiscordIcon, WhatsAppIcon, LinkedinIcon } from '../../components/ui/Icons';
+import { FacebookIcon, TelegramIcon, DiscordIcon, WhatsAppIcon, LinkedinIcon, FastworkIcon } from '../../components/ui/Icons';
 import ArticleInteractiveBar from '../../components/public/ArticleInteractiveBar';
 import MarkdownIt from 'markdown-it';
 
@@ -183,13 +183,28 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
       </div>
     </div>
 
-    {/* Hero Cover Image */}
-    <div class="rounded-3xl overflow-hidden aspect-[16/9] mb-12 bg-[#0a0515] border border-purple-500/25 shadow-2xl flex items-center justify-center">
+    {/* Hero Cover Image (Interactive Click-to-Zoom Modal) */}
+    <div
+      id="hero-cover-container"
+      class="group relative rounded-3xl overflow-hidden aspect-[16/9] mb-12 bg-[#0a0515] border border-purple-500/25 shadow-2xl flex items-center justify-center cursor-zoom-in select-none"
+      title="Klik untuk melihat gambar penuh"
+    >
       <img
+        id="hero-cover-img"
         src={post.coverImageUrl}
         alt={post.title}
-        class="w-full h-full object-contain"
+        class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
       />
+      {/* Zoom Badge Indicator */}
+      <div class="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-[#0D0818]/80 backdrop-blur-md border border-purple-500/30 text-purple-200 text-xs font-medium flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg">
+        <svg class="w-3.5 h-3.5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          <line x1="11" y1="8" x2="11" y2="14"></line>
+          <line x1="8" y1="11" x2="14" y2="11"></line>
+        </svg>
+        <span>Lihat Gambar Penuh</span>
+      </div>
     </div>
 
     {/* Content Layout (Article Body + Sidebar TOC) */}
@@ -397,11 +412,10 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
             <a
               href="https://fastwork.id/user/babfpfzm"
               target="_blank"
-              rel="noopener noreferrer"
               class="w-full py-3 px-4 rounded-xl text-xs font-bold text-center text-white bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/40 hover:shadow-purple-500/60 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 block select-none cursor-pointer"
             >
-              <Briefcase class="w-4 h-4" />
-              <span>Order Sekarang di Fastwork</span>
+              <FastworkIcon className="w-4 h-4 text-amber-300" />
+              <span>Konsultasi Sekarang</span>
               <ArrowUpRight class="w-3.5 h-3.5" />
             </a>
 
@@ -489,6 +503,60 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
     )}
 
   </article>
+
+  {/* Full Image Modal Lightbox */}
+  <div
+    id="image-modal-lightbox"
+    class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 sm:p-8"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Tampilan Gambar Penuh"
+  >
+    {/* Close Button Top Right */}
+    <button
+      id="modal-close-btn"
+      type="button"
+      class="absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-[#180E2B]/80 hover:bg-[#2A1647] border border-purple-500/30 text-white flex items-center justify-center transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer"
+      title="Tutup (Esc)"
+    >
+      <svg class="w-5 h-5 text-purple-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    {/* Controls Top Bar: Original Source link */}
+    <div class="absolute top-5 left-5 z-20 flex items-center gap-3">
+      <a
+        id="modal-open-original"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-3.5 py-1.5 rounded-full bg-[#180E2B]/80 hover:bg-[#2A1647] border border-purple-500/30 text-xs text-purple-200 hover:text-white flex items-center gap-1.5 backdrop-blur-md transition-all shadow-lg"
+      >
+        <span>Buka Asli</span>
+        <svg class="w-3.5 h-3.5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+    </div>
+
+    {/* Modal Image Wrapper */}
+    <div class="relative max-w-6xl max-h-[85vh] w-full flex flex-col items-center justify-center select-none" id="modal-content-container">
+      <img
+        id="modal-lightbox-img"
+        src=""
+        alt=""
+        class="max-w-full max-h-[80vh] w-auto h-auto object-contain rounded-2xl shadow-[0_20px_60px_rgba(168,85,247,0.3)] border border-purple-500/30 transition-transform duration-300"
+      />
+      <p
+        id="modal-image-caption"
+        class="mt-3 text-xs sm:text-sm text-zinc-300 text-center font-medium max-w-2xl px-4 line-clamp-2"
+      ></p>
+    </div>
+  </div>
 
   {/* Client script for auto-incrementing view count, copy button, and code block copy buttons */}
   <script define:vars={{ slug }}>
@@ -604,6 +672,87 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
         }
       });
     }
+
+    // Modal Full Image Lightbox Logic (Hero Cover & Article Content Images)
+    const lightboxModal = document.getElementById('image-modal-lightbox');
+    const lightboxImg = document.getElementById('modal-lightbox-img');
+    const lightboxCaption = document.getElementById('modal-image-caption');
+    const lightboxCloseBtn = document.getElementById('modal-close-btn');
+    const lightboxOrigLink = document.getElementById('modal-open-original');
+
+    function openLightbox(src, altText) {
+      if (!lightboxModal || !lightboxImg) return;
+      lightboxImg.src = src;
+      lightboxImg.alt = altText || 'Preview Gambar';
+      if (lightboxCaption) {
+        lightboxCaption.textContent = altText || '';
+      }
+      if (lightboxOrigLink) {
+        lightboxOrigLink.href = src;
+      }
+
+      lightboxModal.classList.remove('hidden');
+      // Force reflow for smooth fade-in transition
+      void lightboxModal.offsetWidth;
+      lightboxModal.classList.remove('opacity-0');
+      lightboxModal.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightboxModal) return;
+      lightboxModal.classList.remove('opacity-100');
+      lightboxModal.classList.add('opacity-0');
+      setTimeout(() => {
+        lightboxModal.classList.add('hidden');
+        if (lightboxImg) lightboxImg.src = '';
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    // Hero cover click trigger
+    const heroCoverContainer = document.getElementById('hero-cover-container');
+    const heroCoverImg = document.getElementById('hero-cover-img');
+    if (heroCoverContainer && heroCoverImg) {
+      heroCoverContainer.addEventListener('click', () => {
+        openLightbox(heroCoverImg.src, heroCoverImg.alt);
+      });
+    }
+
+    // Also attach lightbox trigger to any images inside article-prose content
+    document.querySelectorAll('.article-prose img').forEach((img) => {
+      img.classList.add('cursor-zoom-in', 'hover:opacity-90', 'transition-opacity');
+      img.setAttribute('title', 'Klik untuk melihat gambar penuh');
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(img.src, img.alt);
+      });
+    });
+
+    // Close button click
+    if (lightboxCloseBtn) {
+      lightboxCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeLightbox();
+      });
+    }
+
+    // Backdrop click to close (click outside the image)
+    if (lightboxModal) {
+      lightboxModal.addEventListener('click', (e) => {
+        const contentContainer = document.getElementById('modal-content-container');
+        if (contentContainer && !contentContainer.contains(e.target) && e.target !== lightboxOrigLink && !lightboxOrigLink?.contains(e.target)) {
+          closeLightbox();
+        }
+      });
+    }
+
+    // Keyboard ESC key to close
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightboxModal && !lightboxModal.classList.contains('hidden')) {
+        closeLightbox();
+      }
+    });
   </script>
 </PublicLayout>
 

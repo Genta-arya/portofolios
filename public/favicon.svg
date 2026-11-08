@@ -1,12 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8B5CF6"/>
-      <stop offset="100%" stop-color="#D946EF"/>
+    <!-- Outer Glow -->
+    <filter id="neon-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Linear Gradients -->
+    <linearGradient id="hex-border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="35%" stop-color="#818CF8" />
+      <stop offset="70%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#F472B6" />
+    </linearGradient>
+
+    <linearGradient id="hex-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F0926" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#1E103F" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0B051A" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="g-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="30%" stop-color="#E0E7FF" />
+      <stop offset="70%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+
+    <linearGradient id="facet-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="25" fill="#05030A"/>
-  <rect x="5" y="5" width="90" height="90" rx="20" fill="url(#grad)" fill-opacity="0.2" stroke="url(#grad)" stroke-width="4"/>
-  <text x="50%" y="65%" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="#FFFFFF" text-anchor="middle">G</text>
-</svg>
 
+  <!-- Ambient Back Drop Shadow -->
+  <polygon points="60,10 105,35 105,85 60,110 15,85 15,35" fill="#A855F7" opacity="0.35" filter="url(#neon-glow)" />
+
+  <!-- Outer Isometric Hexagonal Crystal -->
+  <polygon points="60,12 103,36 103,84 60,108 17,84 17,36" fill="url(#hex-fill)" stroke="url(#hex-border)" stroke-width="3" stroke-linejoin="round" />
+
+  <!-- Top Prism Bevel Reflection -->
+  <polygon points="60,14 100,37 60,60 20,37" fill="url(#facet-shine)" />
+
+  <!-- Inner Concentric Hex Frame -->
+  <polygon points="60,26 89,42 89,78 60,94 31,78 31,42" fill="#070312" stroke="#8B5CF6" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.75" />
+
+  <!-- Modern Sharp Geometric Monogram 'G' -->
+  <path d="M78 44 C74 38 67 35 60 35 C46 35 36 46 36 60 C36 74 46 85 60 85 C72 85 80 77 82 66 L59 66 L59 55 L93 55 C94 59 94 63 94 66 C94 84 81 96 60 96 C40 96 24 80 24 60 C24 40 40 24 60 24 C71 24 80 28 86 35 L78 44 Z"
+        fill="url(#g-grad)"
+        filter="drop-shadow(0 2px 8px rgba(192, 132, 252, 0.7))" />
+
+  <!-- Glowing Accent Core Dot -->
+  <circle cx="60" cy="60" r="3.5" fill="#38BDF8" filter="drop-shadow(0 0 6px #38BDF8)" />
+</svg>

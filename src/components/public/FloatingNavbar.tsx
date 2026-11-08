@@ -94,13 +94,13 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
 
         {/* Brand 3D Cube Logo & Identity */}
         <a href="/" className="flex items-center gap-2.5 group select-none [transform-style:preserve-3d]">
-          {/* 3D Extruded Cube Gem Badge */}
-          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-800 via-purple-600 to-fuchsia-500 flex items-center justify-center border-t border-t-white/50 border-x border-purple-400/40 border-b-2 border-b-[#3B0764] shadow-[0_4px_0_#3B0764,0_8px_18px_rgba(168,85,247,0.5),inset_0_2px_3px_rgba(255,255,255,0.45),inset_0_-2px_4px_rgba(0,0,0,0.5)] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_0_#3B0764,0_12px_24px_rgba(192,132,252,0.65)] group-active:translate-y-0.5 group-active:shadow-[0_2px_0_#3B0764]">
-            {/* Top Shine Flare */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/30 via-transparent to-black/30 pointer-events-none" />
-            <span className="relative z-10 font-black text-white text-base sm:text-lg tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              G
-            </span>
+          {/* 3D Extruded Hex Crystal Brand Emblem */}
+          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-[#160B33] to-[#0A0518] p-1 border border-purple-500/40 shadow-[0_4px_14px_rgba(168,85,247,0.45),inset_0_1px_1px_rgba(255,255,255,0.2)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_20px_rgba(192,132,252,0.65)] group-active:translate-y-0.5 flex items-center justify-center">
+            <img
+              src="/brand-logo.svg"
+              alt="Gentha Arya Brand Logo"
+              className="w-full h-full object-contain filter drop-shadow-[0_2px_6px_rgba(168,85,247,0.8)]"
+            />
           </div>
 
           <div className="flex flex-col">
