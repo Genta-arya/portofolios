@@ -16,7 +16,7 @@ export default defineConfig({
   ],
   vite: {
     ssr: {
-      noExternal: ['three', '@react-three/fiber', '@react-three/drei', 'gsap'],
+      noExternal: ['three', '@react-three/fiber', '@react-three/drei', 'gsap', 'detect-gpu'],
     },
   },
 });
