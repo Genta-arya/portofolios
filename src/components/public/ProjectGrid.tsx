@@ -27,6 +27,87 @@ interface ProjectGridProps {
   initialProjects?: ProjectData[];
 }
 
+const defaultProjects: ProjectData[] = [
+  {
+    id: 1,
+    title: 'E-Library SMKN 2 Ketapang',
+    slug: 'elibrary-smkn-2-ketapang',
+    category: 'web_app',
+    subcategoryBadge: 'Sistem Informasi Sekolah',
+    shortDescription: 'Sistem manajemen perpustakaan sekolah terintegrasi dengan katalog buku digital, peminjaman barcode, dan laporan statistik otomatis.',
+    techStack: ['React', 'Express.js', 'MySQL', 'Tailwind CSS'],
+    thumbnailUrl: '/projects/elibrary-smk.png',
+    liveDemoUrl: 'https://perpustakaan.smkn2ketapang.sch.id',
+    githubRepoUrl: 'https://github.com/Genta-arya/e-library-smkn2',
+    isFeatured: true,
+  },
+  {
+    id: 2,
+    title: 'SIMPEG KPU Kabupaten Sekadau',
+    slug: 'simpeg-kpu-kabupaten-sekadau',
+    category: 'web_app',
+    subcategoryBadge: 'Enterprise HR Portal',
+    shortDescription: 'Portal sistem informasi manajemen kepegawaian internal KPU untuk presensi, tracking berkas pensiun, dan arsip digital pegawai.',
+    techStack: ['React', 'Express.js', 'MySQL', 'JWT Auth'],
+    thumbnailUrl: '/projects/simpeg-kpu-sekadau.png',
+    liveDemoUrl: '#',
+    githubRepoUrl: 'https://github.com/Genta-arya/simpeg-kpu',
+    isFeatured: true,
+  },
+  {
+    id: 3,
+    title: 'SakuLink E-Wallet & Digital Payment',
+    slug: 'sakulink-ewallet',
+    category: 'mobile_app',
+    subcategoryBadge: 'Mobile Fintech App',
+    shortDescription: 'Aplikasi mobile dompet digital dengan transfer saldo instan, scan QRIS dinamis, dan riwayat mutasi terenkripsi.',
+    techStack: ['React Native', 'Kotlin', 'Express.js', 'MySQL'],
+    thumbnailUrl: '/projects/sakulink-wallet.png',
+    liveDemoUrl: '#',
+    githubRepoUrl: 'https://github.com/Genta-arya/sakulink-wallet',
+    isFeatured: true,
+  },
+  {
+    id: 4,
+    title: 'Info Gempa BMKG & Mitigasi Bencana',
+    slug: 'info-gempa-bmkg',
+    category: 'mobile_app',
+    subcategoryBadge: 'Real-Time Telemetry',
+    shortDescription: 'Aplikasi mobile pemantau gempa bumi dan cuaca real-time terintegrasi open API BMKG dengan visual radius peta interaktif.',
+    techStack: ['React Native', 'Expo', 'Leaflet Map', 'REST API'],
+    thumbnailUrl: '/projects/info-gempa-bmkg.png',
+    liveDemoUrl: '#',
+    githubRepoUrl: 'https://github.com/Genta-arya/gempa-bmkg',
+    isFeatured: true,
+  },
+  {
+    id: 5,
+    title: 'Boezang Apple Store & Service Specialist',
+    slug: 'boezang-apple-service',
+    category: 'landing_page',
+    subcategoryBadge: 'High-Converting Web',
+    shortDescription: 'Landing page premium untuk service center spesialis Apple dengan fitur booking online, tracking status reparasi, dan SEO lokal.',
+    techStack: ['Astro', 'React', 'Tailwind CSS', 'Framer Motion'],
+    thumbnailUrl: '/projects/boezang-apple.png',
+    liveDemoUrl: '#',
+    githubRepoUrl: 'https://github.com/Genta-arya/boezang-apple',
+    isFeatured: true,
+  },
+  {
+    id: 6,
+    title: 'Arsip Ijazah Digital SMKN 2 Ketapang',
+    slug: 'arsip-ijazah-digital-smkn-2',
+    category: 'web_app',
+    subcategoryBadge: 'Secure Document Vault',
+    shortDescription: 'Platform digitalisasi dan verifikasi keaslian dokumen kelulusan berbasis hash kriptografi dan QR Code security watermark.',
+    techStack: ['React', 'Node.js', 'MySQL', 'PDFKit'],
+    thumbnailUrl: '/projects/arsip-ijazah-smk.png',
+    liveDemoUrl: '#',
+    githubRepoUrl: 'https://github.com/Genta-arya/arsip-ijazah',
+    isFeatured: true,
+  },
+];
+
 export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) {
   const [activeCategory, setActiveCategory] = useState<'all' | 'web_app' | 'mobile_app' | 'landing_page'>('all');
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
@@ -82,9 +163,11 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
     setCurrentPage(1);
   }, [activeCategory]);
 
+  const projectsList = initialProjects && initialProjects.length > 0 ? initialProjects : defaultProjects;
+
   const filtered = activeCategory === 'all'
-    ? initialProjects
-    : initialProjects.filter((p) => p.category === activeCategory);
+    ? projectsList
+    : projectsList.filter((p) => p.category === activeCategory);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;

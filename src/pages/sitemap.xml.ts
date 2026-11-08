@@ -9,8 +9,12 @@ export const GET: APIRoute = async () => {
   let posts: any[] = [];
   let projectItems: any[] = [];
   try {
-    posts = await db.select().from(blogPosts).where(eq(blogPosts.status, 'published'));
-    projectItems = await db.select().from(projects);
+    const [p, pr] = await Promise.all([
+      db.select().from(blogPosts).where(eq(blogPosts.status, 'published')).catch(() => []),
+      db.select().from(projects).catch(() => []),
+    ]);
+    posts = p || [];
+    projectItems = pr || [];
   } catch (e) {
     console.error('Sitemap query error:', e);
   }

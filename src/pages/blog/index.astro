@@ -12,29 +12,32 @@ let categories: any[] = [];
 let featuredPost: any = null;
 
 try {
-  categories = await db.select().from(blogCategories);
+  const [categoriesRes, postsRaw] = await Promise.all([
+    db.select().from(blogCategories).catch(() => []),
+    db
+      .select({
+        id: blogPosts.id,
+        title: blogPosts.title,
+        slug: blogPosts.slug,
+        excerpt: blogPosts.excerpt,
+        coverImageUrl: blogPosts.coverImageUrl,
+        readingTimeMinutes: blogPosts.readingTimeMinutes,
+        viewsCount: blogPosts.viewsCount,
+        publishedAt: blogPosts.publishedAt,
+        createdAt: blogPosts.createdAt,
+        isFeatured: blogPosts.isFeatured,
+        categoryId: blogPosts.categoryId,
+      })
+      .from(blogPosts)
+      .where(eq(blogPosts.status, 'published'))
+      .orderBy(desc(blogPosts.createdAt))
+      .catch(() => []),
+  ]);
 
-  const postsRaw = await db
-    .select({
-      id: blogPosts.id,
-      title: blogPosts.title,
-      slug: blogPosts.slug,
-      excerpt: blogPosts.excerpt,
-      coverImageUrl: blogPosts.coverImageUrl,
-      readingTimeMinutes: blogPosts.readingTimeMinutes,
-      viewsCount: blogPosts.viewsCount,
-      publishedAt: blogPosts.publishedAt,
-      createdAt: blogPosts.createdAt,
-      isFeatured: blogPosts.isFeatured,
-      categoryId: blogPosts.categoryId,
-    })
-    .from(blogPosts)
-    .where(eq(blogPosts.status, 'published'))
-    .orderBy(desc(blogPosts.createdAt));
+  categories = categoriesRes || [];
+  const catMap = new Map(categories.map((c: any) => [c.id, c.name]));
 
-  const catMap = new Map(categories.map((c) => [c.id, c.name]));
-
-  allPosts = postsRaw.map((p) => ({
+  allPosts = (postsRaw || []).map((p: any) => ({
     ...p,
     categoryName: p.categoryId ? catMap.get(p.categoryId) : undefined,
   }));

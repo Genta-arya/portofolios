@@ -14,7 +14,7 @@ import { eq, desc, asc } from 'drizzle-orm';
 import { formatDate } from '../lib/utils';
 import { ArrowUpRight, BookOpen, Clock, Eye } from 'lucide-react';
 
-// Fetch initial data from MySQL via Drizzle ORM
+// Fetch initial data from MySQL concurrently with fallback protection
 let settings = null;
 let serviceList: any[] = [];
 let projectList: any[] = [];
@@ -22,31 +22,19 @@ let techList: any[] = [];
 let latestBlogs: any[] = [];
 
 try {
-  const [s] = await db.select().from(siteSettings).where(eq(siteSettings.id, 1)).limit(1);
-  settings = s;
+  const [sRes, servicesRes, projectsRes, techRes, blogsRes] = await Promise.all([
+    db.select().from(siteSettings).where(eq(siteSettings.id, 1)).limit(1).catch(() => []),
+    db.select().from(services).where(eq(services.isActive, true)).orderBy(asc(services.displayOrder)).catch(() => []),
+    db.select().from(projects).orderBy(asc(projects.displayOrder)).catch(() => []),
+    db.select().from(techStacks).orderBy(asc(techStacks.displayOrder)).catch(() => []),
+    db.select().from(blogPosts).where(eq(blogPosts.status, 'published')).orderBy(desc(blogPosts.createdAt)).limit(3).catch(() => []),
+  ]);
 
-  serviceList = await db
-    .select()
-    .from(services)
-    .where(eq(services.isActive, true))
-    .orderBy(asc(services.displayOrder));
-
-  projectList = await db
-    .select()
-    .from(projects)
-    .orderBy(asc(projects.displayOrder));
-
-  techList = await db
-    .select()
-    .from(techStacks)
-    .orderBy(asc(techStacks.displayOrder));
-
-  latestBlogs = await db
-    .select()
-    .from(blogPosts)
-    .where(eq(blogPosts.status, 'published'))
-    .orderBy(desc(blogPosts.createdAt))
-    .limit(3);
+  settings = sRes[0] || null;
+  serviceList = servicesRes || [];
+  projectList = projectsRes || [];
+  techList = techRes || [];
+  latestBlogs = blogsRes || [];
 } catch (err) {
   console.error('Database query in index.astro fallback:', err);
 }
