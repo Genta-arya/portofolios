@@ -154,11 +154,11 @@ while ((match = headingRegex.exec(renderedContent)) !== null) {
     </div>
 
     {/* Hero Cover Image */}
-    <div class="rounded-3xl overflow-hidden aspect-[16/9] mb-12 bg-[#120B24] border border-purple-500/25 shadow-2xl">
+    <div class="rounded-3xl overflow-hidden aspect-[16/9] mb-12 bg-[#0a0515] border border-purple-500/25 shadow-2xl flex items-center justify-center">
       <img
         src={post.coverImageUrl}
         alt={post.title}
-        class="w-full h-full object-cover"
+        class="w-full h-full object-contain"
       />
     </div>
 

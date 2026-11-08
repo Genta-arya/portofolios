@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Search, Clock, ArrowUpRight, BookOpen } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, Clock, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
 import { formatDate } from '../../lib/utils';
 import DataFetchLoader from '../ui/DataFetchLoader';
 
@@ -22,16 +22,27 @@ interface BlogSearchListProps {
   categories: { id: number; name: string; slug: string }[];
 }
 
+const ITEMS_PER_PAGE = 5;
+
 export default function BlogSearchList({ initialPosts = [], categories = [] }: BlogSearchListProps) {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isFiltering, setIsFiltering] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [paginationMode, setPaginationMode] = useState<'pages' | 'infinite'>('pages');
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  // Reset page when category or search changes
+  useEffect(() => {
+    setCurrentPage(1);
+    setVisibleCount(ITEMS_PER_PAGE);
+  }, [search, selectedCategory]);
 
   const handleSelectCategory = (catName: string) => {
     if (catName === selectedCategory) return;
     setIsFiltering(true);
     setSelectedCategory(catName);
-    setTimeout(() => setIsFiltering(false), 350);
+    setTimeout(() => setIsFiltering(false), 300);
   };
 
   const filtered = initialPosts.filter((post) => {
@@ -46,10 +57,30 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
     return matchesSearch && matchesCat;
   });
 
+  // Calculate pagination
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
+  const paginatedPosts = paginationMode === 'pages'
+    ? filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+    : filtered.slice(0, visibleCount);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+    // Smooth scroll back to list top
+    const element = document.getElementById('article-list-container');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + ITEMS_PER_PAGE, filtered.length));
+  };
+
   return (
-    <div>
+    <div id="article-list-container" className="scroll-mt-24">
       {/* Search and Category Filter Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 bg-[#0D0818]/90 p-4 rounded-3xl border border-purple-500/20">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-[#0D0818]/90 p-4 rounded-3xl border border-purple-500/20 shadow-lg">
         
         {/* Search Input */}
         <div className="relative w-full md:w-96">
@@ -91,6 +122,39 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
         </div>
       </div>
 
+      {/* Meta Bar: Total Count & View Mode Toggle */}
+      <div className="flex items-center justify-between text-xs text-zinc-400 mb-6 px-1">
+        <div>
+          Menampilkan <span className="font-semibold text-purple-300">{paginatedPosts.length}</span> dari{' '}
+          <span className="font-semibold text-white">{filtered.length}</span> artikel
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] text-zinc-500 hidden sm:inline">Navigasi:</span>
+          <div className="inline-flex rounded-xl bg-[#0D0818] border border-purple-500/20 p-1">
+            <button
+              onClick={() => setPaginationMode('pages')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer ${
+                paginationMode === 'pages'
+                  ? 'bg-purple-600 text-white shadow'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              Halaman
+            </button>
+            <button
+              onClick={() => setPaginationMode('infinite')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer ${
+                paginationMode === 'infinite'
+                  ? 'bg-purple-600 text-white shadow'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              Muat Lebih Banyak
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Articles Grid Area with Gradient Waves Data Fetch Loader */}
       <div className="relative min-h-[350px]">
         <DataFetchLoader
@@ -107,25 +171,25 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
         </div>
       ) : (
         <div className="flex flex-col gap-5 sm:gap-6">
-          {filtered.map((post) => (
+          {paginatedPosts.map((post) => (
             <article
               key={post.id}
               className="group relative rounded-3xl bg-gradient-to-r from-[#0E081D]/90 via-[#120B24]/80 to-[#0A0615]/90 border border-purple-500/20 hover:border-purple-400/50 p-4 sm:p-6 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(139,92,246,0.18)] hover:-translate-y-1"
             >
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 sm:gap-6">
-                {/* Thumbnail Container */}
+                {/* Thumbnail Container: Aspect ratio 16/9 with contain + dark backdrop to guarantee zero cropping */}
                 <a
                   href={`/blog/${post.slug}`}
-                  className="relative w-full sm:w-64 md:w-72 sm:min-w-[256px] md:min-w-[288px] aspect-[16/10] rounded-2xl overflow-hidden bg-[#120B24] border border-purple-500/25 shrink-0 block"
+                  className="relative w-full sm:w-64 md:w-72 sm:min-w-[256px] md:min-w-[288px] aspect-[16/9] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-[#0a0515] border border-purple-500/25 shrink-0 flex items-center justify-center block shadow-inner"
                 >
                   <img
                     src={post.coverImageUrl}
                     alt={post.title}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                   />
                   {post.categoryName && (
-                    <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#0D0818]/90 text-purple-300 border border-purple-500/30 backdrop-blur-md">
+                    <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#0D0818]/90 text-purple-300 border border-purple-500/30 backdrop-blur-md z-10 shadow-sm">
                       {post.categoryName}
                     </div>
                   )}
@@ -179,6 +243,80 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
               </div>
             </article>
           ))}
+        </div>
+      )}
+
+      {/* Pagination Controls */}
+      {filtered.length > ITEMS_PER_PAGE && (
+        <div className="mt-10 pt-6 border-t border-purple-500/15">
+          {paginationMode === 'pages' ? (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs text-zinc-400">
+                Halaman <span className="font-semibold text-white">{currentPage}</span> dari{' '}
+                <span className="font-semibold text-white">{totalPages}</span>
+              </span>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all ${
+                    currentPage === 1
+                      ? 'opacity-40 cursor-not-allowed text-zinc-500 bg-[#0D0818] border border-purple-500/10'
+                      : 'text-zinc-300 hover:text-white bg-[#120B24] border border-purple-500/30 hover:border-purple-400 cursor-pointer'
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>Sebelumnya</span>
+                </button>
+
+                <div className="hidden sm:flex items-center gap-1.5">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`w-9 h-9 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        currentPage === page
+                          ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/30'
+                          : 'text-zinc-400 hover:text-white bg-[#120B24] border border-purple-500/20 hover:border-purple-400/40'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all ${
+                    currentPage === totalPages
+                      ? 'opacity-40 cursor-not-allowed text-zinc-500 bg-[#0D0818] border border-purple-500/10'
+                      : 'text-zinc-300 hover:text-white bg-[#120B24] border border-purple-500/30 hover:border-purple-400 cursor-pointer'
+                  }`}
+                >
+                  <span>Selanjutnya</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center">
+              {visibleCount < filtered.length ? (
+                <button
+                  onClick={handleLoadMore}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-105 transition-all cursor-pointer"
+                >
+                  <Layers className="w-4 h-4" />
+                  <span>Muat Artikel Lainnya ({filtered.length - visibleCount} tersisa)</span>
+                </button>
+              ) : (
+                <p className="text-xs text-zinc-500">
+                  🎉 Anda telah melihat semua {filtered.length} artikel yang tersedia.
+                </p>
+              )}
+            </div>
+          )}
         </div>
       )}
       </div>
