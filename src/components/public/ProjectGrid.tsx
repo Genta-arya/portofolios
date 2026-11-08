@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Eye, Sparkles, X, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Eye, X, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { TiltCard, TiltItem } from '../ui/TiltCard';
 import ShinyText from '../reactbits/ShinyText';
@@ -203,7 +203,7 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
         >
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/25 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
               <ShinyText text="Selected Works" speed={1.6} />
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">

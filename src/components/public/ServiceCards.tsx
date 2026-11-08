@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, Smartphone, Sparkles, ArrowUpRight } from 'lucide-react';
+import { LayoutDashboard, Smartphone, Globe, ArrowUpRight } from 'lucide-react';
 import PixelCard from '../reactbits/PixelCard';
 import DepthCarousel from '../reactbits/DepthCarousel';
 import ShinyText from '../reactbits/ShinyText';
@@ -28,7 +28,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
       title: 'Landing Page & Profile',
       subtitle: 'High-Converting & Responsive Website',
       description: 'Perancangan landing page profil bisnis, UMKM, institusi pendidikan, dan e-commerce dengan visual cosmic/aurora modern, animasi halus, serta SEO teroptimasi.',
-      iconName: 'Sparkles',
+      iconName: 'Globe',
       tags: ['Astro', 'React', 'Framer Motion', 'Tailwind CSS', 'SEO Friendly'],
       ctaUrl: 'https://fastwork.id/user/babfpfzm/web-development-28040514?source=seller-center_my-service',
       isPopular: false,
@@ -85,7 +85,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
           className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-fuchsia-600/10 border border-fuchsia-500/25 text-fuchsia-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-fuchsia-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-fuchsia-400 shadow-[0_0_8px_rgba(232,121,249,0.8)]" />
             <ShinyText text="Layanan Profesional" speed={1.6} />
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -108,7 +108,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
                 if (svc.title.toLowerCase().includes('mobile') || svc.iconName === 'Smartphone') {
                   return <Smartphone className="w-6 h-6" />;
                 }
-                return <Sparkles className="w-6 h-6" />;
+                return <Globe className="w-6 h-6" />;
               };
 
               return (
@@ -197,7 +197,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
                 if (svc.title.toLowerCase().includes('mobile') || svc.iconName === 'Smartphone') {
                   return <Smartphone className="w-6 h-6" />;
                 }
-                return <Sparkles className="w-6 h-6" />;
+                return <Globe className="w-6 h-6" />;
               };
 
               return (

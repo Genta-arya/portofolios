@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Layers, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { Layers, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import CircularCarousel from '../reactbits/CircularCarousel';
 import ShinyText from '../reactbits/ShinyText';
 import { useDisplayMode } from '../../lib/displayModeStore';
@@ -149,7 +149,7 @@ export default function TechCircularShowcase() {
           className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
             <ShinyText text="Eksplorasi Teknologi" speed={1.7} />
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">

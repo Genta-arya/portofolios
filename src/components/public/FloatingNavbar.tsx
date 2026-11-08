@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Menu, X, ArrowUpRight, Sparkles, Box, Zap } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Box, Zap } from 'lucide-react';
 import Magnet from '../reactbits/Magnet';
 import { useDisplayMode } from '../../lib/displayModeStore';
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  Sparkles, 
   Clock, 
   ArrowUpRight, 
   Calendar 
@@ -91,7 +90,7 @@ export default function BlogHeadlineCarousel({ posts = [] }: BlogHeadlineCarouse
       {/* Top Badge & Carousel Controls Header */}
       <div className="flex items-center justify-between mb-4 px-1">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 text-purple-300 border border-purple-500/30 shadow-sm uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
           <span>Top 5 Headline Wawasan Terkini</span>
         </div>
 

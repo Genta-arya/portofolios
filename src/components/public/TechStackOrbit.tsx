@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Code,
-  Sparkles,
   Layers,
   Cpu,
   Database,
@@ -132,7 +131,7 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/25 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
             <span>Keahlian &amp; Teknologi</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">

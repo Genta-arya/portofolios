@@ -7,7 +7,6 @@ import {
   Smartphone,
   Calendar,
   MapPin,
-  Sparkles,
   ShieldCheck,
   Award,
   ChevronRight,

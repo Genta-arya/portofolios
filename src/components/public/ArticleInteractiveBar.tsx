@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Heart, 
-  Sparkles, 
   Bookmark, 
   Type, 
   Volume2, 
@@ -386,8 +385,8 @@ export default function ArticleInteractiveBar({
       <div className="my-10 p-5 rounded-3xl bg-gradient-to-br from-[#0F0820]/90 to-[#0A0515]/90 border border-purple-500/25 shadow-xl">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="text-center sm:text-left">
-            <h4 className="text-sm font-bold text-white flex items-center justify-center sm:justify-start gap-1.5">
-              <Sparkles className="w-4 h-4 text-purple-400" />
+            <h4 className="text-sm font-bold text-white flex items-center justify-center sm:justify-start gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
               <span>Bagaimana pendapat Anda tentang artikel ini?</span>
             </h4>
             <p className="text-xs text-zinc-400 mt-0.5">

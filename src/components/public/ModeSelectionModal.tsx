@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Zap, Box, Smartphone, Check, SlidersHorizontal, X } from 'lucide-react';
+import { Zap, Box, Smartphone, Check, SlidersHorizontal, X } from 'lucide-react';
 import { useDisplayMode, type DisplayMode } from '../../lib/displayModeStore';
 
 export default function ModeSelectionModal() {
@@ -114,7 +114,7 @@ export default function ModeSelectionModal() {
               {/* Header */}
               <div className="text-center mb-6 sm:mb-8 relative pr-6 sm:pr-0">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-600/15 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
-                  <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
                   <span>Kustomisasi Pengalaman</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">

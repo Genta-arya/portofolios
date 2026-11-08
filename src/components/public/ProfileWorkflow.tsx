@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layers, CheckCircle2, Cpu, ShieldCheck, Rocket, Terminal, Sparkles } from 'lucide-react';
+import { Layers, CheckCircle2, Cpu, ShieldCheck, Rocket, Terminal } from 'lucide-react';
 import { TiltCard, TiltItem } from '../ui/TiltCard';
 import AccordionGallery from '../reactbits/AccordionGallery';
 import ElectricBorder from '../reactbits/ElectricBorder';
@@ -77,7 +77,7 @@ export default function ProfileWorkflow() {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/25 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
             <span>Alur Kerja</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">

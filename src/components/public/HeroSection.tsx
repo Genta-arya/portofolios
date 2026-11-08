@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Send, CheckCircle2, ShieldCheck, Sparkles, Layers, Cpu } from 'lucide-react';
+import { ArrowRight, Send, CheckCircle2, ShieldCheck, Layers, Cpu } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../ui/Icons';
 import Hero3DScene from '../three/Hero3DScene';
 import Lanyard from '../reactbits/Lanyard';
