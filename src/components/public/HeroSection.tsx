@@ -27,13 +27,13 @@ export default function HeroSection({
   return (
     <section id="hero" className="relative min-h-0 lg:min-h-[90vh] flex items-center justify-center pt-20 sm:pt-24 pb-4 sm:pb-8 overflow-hidden overflow-x-clip max-w-full">
       
-      {/* 3D Lanyard ID Card - Only on 3D Mode (Desktop) */}
+      {/* 3D Lanyard ID Card - Only on 3D Mode (Desktop XL+) */}
       {!isLite && (
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
-          className="hidden lg:block absolute -top-4 left-4 sm:left-8 lg:left-10 xl:left-16 2xl:left-24 z-20 pointer-events-auto"
+          className="hidden xl:block absolute -top-4 left-4 sm:left-8 xl:left-16 2xl:left-24 z-20 pointer-events-auto"
         >
           <Lanyard
             photoUrl="/images/gentha-photo.jpg"
@@ -48,15 +48,15 @@ export default function HeroSection({
       )}
 
       {/* Hero Content Container - Generous padding on tablet and mobile to prevent text from touching screen edges */}
-      <div className={`max-w-4xl lg:max-w-7xl xl:max-w-[1380px] mx-auto px-8 sm:px-16 md:px-24 lg:px-12 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-10'}`}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 md:gap-3 lg:gap-12 items-center">
+      <div className={`max-w-4xl xl:max-w-[1380px] mx-auto px-6 sm:px-12 md:px-16 xl:px-12 w-full ${!isLite ? 'xl:pl-80 2xl:pl-96' : 'xl:pl-10'}`}>
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-3 md:gap-4 xl:gap-12 items-center">
           
           {/* Left Column: Headlines, Bio, CTAs, Counters */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full"
+            className="xl:col-span-7 flex flex-col items-center xl:items-start text-center xl:text-left z-10 w-full"
           >
             {/* Availability Badge with React Bits Shiny Text */}
             <motion.div
@@ -73,7 +73,7 @@ export default function HeroSection({
             </motion.div>
 
             {/* Headline Title with Official React Bits MaskedHeading */}
-            <div className="w-full max-w-xl mx-auto lg:mx-0 px-2 sm:px-4 md:px-6 lg:px-0 mb-3 sm:mb-4">
+            <div className="w-full max-w-xl mx-auto xl:mx-0 px-2 sm:px-4 md:px-6 xl:px-0 mb-3 sm:mb-4">
               <MaskedHeading
                 text="Membangun Solusi Digital Modern, Cepat & Skalabel"
                 tag="h1"
@@ -92,7 +92,7 @@ export default function HeroSection({
                 outline={true}
                 outlineColor="rgba(192, 132, 252, 0.45)"
                 outlineWidth={1}
-                className="tracking-tight lg:text-left [&_.masked-heading\_\_measure]:text-center lg:[&_.masked-heading\_\_measure]:text-left"
+                className="tracking-tight xl:text-left [&_.masked-heading\_\_measure]:text-center xl:[&_.masked-heading\_\_measure]:text-left"
               />
             </div>
 
@@ -101,7 +101,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-4 sm:mb-5 max-w-lg mx-auto lg:mx-0 text-center lg:text-left px-2 sm:px-4 lg:px-0"
+              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-4 sm:mb-5 max-w-lg mx-auto xl:mx-0 text-center xl:text-left px-2 sm:px-4 xl:px-0"
             >
               Halo! Saya <DecryptedText text={fullName} speed={35} className="text-purple-300 font-semibold" />, pengembang{' '}
               <span className="text-white font-medium">Aplikasi Web Enterprise</span> dan{' '}
@@ -113,7 +113,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full mb-3 sm:mb-4"
+              className="flex flex-wrap items-center justify-center xl:justify-start gap-3 w-full mb-3 sm:mb-4"
             >
               <Magnet magnetStrength={0.22}>
                 <a
@@ -162,7 +162,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-3 pt-3 sm:pt-4 border-t border-purple-500/15 w-full max-w-lg mx-auto lg:mx-0"
+              className="grid grid-cols-3 gap-3 pt-3 sm:pt-4 border-t border-purple-500/15 w-full max-w-lg mx-auto xl:mx-0"
             >
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -190,7 +190,7 @@ export default function HeroSection({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-5 relative flex items-center justify-center w-full"
+            className="xl:col-span-5 relative flex items-center justify-center w-full"
           >
             {!isLite ? (
               <Hero3DScene />
