@@ -169,11 +169,32 @@ function generateSvgThumbnail(meta) {
   const icon1 = resolveBrandIcon(meta.primaryBrand);
   const icon2 = resolveBrandIcon(meta.secondaryBrand || 'React');
 
-  // Split title lines
+  // Wrap title lines cleanly into chunks of max ~24 chars so it never overlaps icons
   const titleWords = (meta.title || '').toUpperCase().split(' ');
-  const half = Math.ceil(titleWords.length / 2);
-  const line1 = titleWords.slice(0, half).join(' ');
-  const line2 = titleWords.slice(half).join(' ');
+  const lines = [];
+  let cur = '';
+  const maxLineChars = 24;
+  for (const w of titleWords) {
+    if ((cur + ' ' + w).trim().length <= maxLineChars) {
+      cur = (cur + ' ' + w).trim();
+    } else {
+      if (cur) lines.push(cur);
+      cur = w;
+    }
+  }
+  if (cur) lines.push(cur);
+
+  const fontSize = lines.length >= 3 ? 32 : (lines.length === 2 ? 38 : 44);
+  const lineGap = fontSize + 12;
+  const startY = lines.length >= 3 ? 205 : (lines.length === 2 ? 230 : 255);
+  const subtitleY = lines.length * lineGap + 20;
+
+  const titleSvg = lines.map((l, idx) => 
+    `<tspan x="0" dy="${idx === 0 ? 0 : lineGap}">${escapeXml(l)}</tspan>`
+  ).join('');
+
+  let subText = meta.subtitle || meta.excerpt || '';
+  if (subText.length > 70) subText = subText.slice(0, 67) + '...';
 
   const tagsSvg = (meta.tags || ['Tech', 'Engineering', 'Coding']).slice(0, 4).map((t, idx) => {
     const xPos = 80 + idx * 145;
@@ -240,13 +261,12 @@ function generateSvgThumbnail(meta) {
   </g>
 
   <!-- Title & Subtitle -->
-  <g transform="translate(80, 240)">
-    <text fill="url(#titleGrad)" font-size="44" font-family="Arial, sans-serif" font-weight="900" letter-spacing="-0.5">
-      <tspan x="0" dy="0">${escapeXml(line1)}</tspan>
-      ${line2 ? `<tspan x="0" dy="54">${escapeXml(line2)}</tspan>` : ''}
+  <g transform="translate(80, ${startY})">
+    <text fill="url(#titleGrad)" font-size="${fontSize}" font-family="Arial, sans-serif" font-weight="900" letter-spacing="-0.5">
+      ${titleSvg}
     </text>
-    <text x="0" y="${line2 ? 110 : 70}" fill="#94A3B8" font-size="19" font-family="Arial, sans-serif" font-weight="normal">
-      ${escapeXml(meta.subtitle || meta.excerpt || '')}
+    <text x="0" y="${subtitleY}" fill="#94A3B8" font-size="18" font-family="Arial, sans-serif" font-weight="normal">
+      ${escapeXml(subText)}
     </text>
   </g>
 
@@ -467,4 +487,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { runArticlePipeline };
+module.exports = { runArticlePipeline, generateSvgThumbnail };
