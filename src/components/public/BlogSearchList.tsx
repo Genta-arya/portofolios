@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Clock, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Layers, Bookmark } from 'lucide-react';
+import { Search, Clock, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Bookmark } from 'lucide-react';
 import { formatDate } from '../../lib/utils';
 import DataFetchLoader from '../ui/DataFetchLoader';
 
@@ -24,14 +24,68 @@ interface BlogSearchListProps {
 
 const ITEMS_PER_PAGE = 5;
 
+/**
+ * Generate windowed page numbers with ellipsis for large datasets (e.g., 1000 items)
+ * Example outputs:
+ *  - 5 pages: [1, 2, 3, 4, 5]
+ *  - 20 pages at page 1: [1, 2, 3, '...', 20]
+ *  - 20 pages at page 10: [1, '...', 8, 9, 10, 11, 12, '...', 20]
+ *  - 20 pages at page 20: [1, '...', 18, 19, 20]
+ */
+function getPaginationItems(current: number, total: number): (number | string)[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const items: (number | string)[] = [];
+
+  // Always show first page
+  items.push(1);
+
+  const leftSibling = Math.max(current - 1, 2);
+  const rightSibling = Math.min(current + 1, total - 1);
+
+  if (leftSibling > 2) {
+    items.push('...left');
+  } else if (leftSibling === 2) {
+    items.push(2);
+  }
+
+  for (let i = Math.max(leftSibling, 3); i <= Math.min(rightSibling, total - 2); i++) {
+    items.push(i);
+  }
+
+  if (rightSibling < total - 1) {
+    items.push('...right');
+  } else if (rightSibling === total - 1 && !items.includes(total - 1)) {
+    items.push(total - 1);
+  }
+
+  // Always show last page
+  if (total > 1) {
+    items.push(total);
+  }
+
+  // Ensure unique list preserving order
+  const uniqueItems: (number | string)[] = [];
+  for (const it of items) {
+    if (typeof it === 'number') {
+      if (!uniqueItems.includes(it)) {
+        uniqueItems.push(it);
+      }
+    } else {
+      uniqueItems.push(it);
+    }
+  }
+
+  return uniqueItems;
+}
+
 export default function BlogSearchList({ initialPosts = [], categories = [] }: BlogSearchListProps) {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isFiltering, setIsFiltering] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginationMode, setPaginationMode] = useState<'pages' | 'infinite'>('pages');
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-
   const [savedSlugs, setSavedSlugs] = useState<string[]>([]);
 
   useEffect(() => {
@@ -44,7 +98,6 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
   // Reset page when category or search changes
   useEffect(() => {
     setCurrentPage(1);
-    setVisibleCount(ITEMS_PER_PAGE);
   }, [search, selectedCategory]);
 
   const handleSelectCategory = (catName: string) => {
@@ -59,22 +112,19 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
       post.title.toLowerCase().includes(search.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(search.toLowerCase());
 
-    if (selectedCategory === 'bookmarks') {
-      return matchesSearch && savedSlugs.includes(post.slug);
-    }
-
     const matchesCat =
-      selectedCategory === 'all' ||
-      post.categoryName?.toLowerCase() === selectedCategory.toLowerCase();
+      selectedCategory === 'all'
+        ? true
+        : selectedCategory === 'bookmarks'
+        ? savedSlugs.includes(post.slug)
+        : post.categoryName === selectedCategory;
 
     return matchesSearch && matchesCat;
   });
 
   // Calculate pagination
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
-  const paginatedPosts = paginationMode === 'pages'
-    ? filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
-    : filtered.slice(0, visibleCount);
+  const paginatedPosts = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
@@ -89,9 +139,7 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
     }
   };
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + ITEMS_PER_PAGE, filtered.length));
-  };
+  const paginationItems = getPaginationItems(currentPage, totalPages);
 
   return (
     <div id="article-list-container" className="scroll-mt-24">
@@ -103,10 +151,10 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
           <input
             type="text"
+            placeholder="Cari judul artikel, topik, atau kata kunci..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Cari judul atau topik artikel..."
-            className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#120B24] border border-purple-500/30 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-all"
+            className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#140A28] border border-purple-500/30 text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-all shadow-inner"
           />
         </div>
 
@@ -153,41 +201,6 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
         </div>
       </div>
 
-      {/* Meta Bar: Total Count & View Mode Toggle */}
-      <div className="flex items-center justify-between text-xs text-zinc-400 mb-6 px-1">
-        <div>
-          Menampilkan <span className="font-semibold text-purple-300">{paginatedPosts.length}</span> dari{' '}
-          <span className="font-semibold text-white">{filtered.length}</span> artikel
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] text-zinc-500 hidden sm:inline">Navigasi:</span>
-          <div className="inline-flex rounded-xl bg-[#0D0818] border border-purple-500/20 p-1">
-            <button
-              type="button"
-              onClick={() => setPaginationMode('pages')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer ${
-                paginationMode === 'pages'
-                  ? 'bg-purple-600 text-white shadow'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              Halaman
-            </button>
-            <button
-              type="button"
-              onClick={() => setPaginationMode('infinite')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer ${
-                paginationMode === 'infinite'
-                  ? 'bg-purple-600 text-white shadow'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              Muat Lebih Banyak
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Articles Grid Area with isolated DataFetchLoader */}
       <div className="relative min-h-[350px]">
         <DataFetchLoader
@@ -203,7 +216,7 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
             <p className="text-xs text-zinc-400">Coba ubah kata kunci pencarian atau pilih topik lainnya.</p>
           </div>
         ) : (
-          <div key={`page-${currentPage}-${paginationMode}`} className="flex flex-col gap-5 sm:gap-6">
+          <div key={`page-${currentPage}`} className="flex flex-col gap-5 sm:gap-6">
             {paginatedPosts.map((post) => (
               <article
                 key={post.id}
@@ -212,7 +225,7 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 sm:gap-6">
                   {/* Thumbnail Container: Aspect ratio 16/9 with contain + dark backdrop to guarantee zero cropping */}
                   <a
-                    href={`/blog/${post.slug}`}
+                    href={`/article/${post.slug}`}
                     className="relative w-full sm:w-64 md:w-72 sm:min-w-[256px] md:min-w-[288px] aspect-[16/9] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-[#0a0515] border border-purple-500/25 shrink-0 flex items-center justify-center block shadow-inner"
                   >
                     <img
@@ -251,7 +264,7 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
 
                       {/* Title */}
                       <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-300 transition-colors leading-snug mb-2 line-clamp-2">
-                        <a href={`/blog/${post.slug}`}>
+                        <a href={`/article/${post.slug}`}>
                           {post.title}
                         </a>
                       </h3>
@@ -265,7 +278,7 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
                     {/* Action Link & Read Indicator */}
                     <div className="pt-3 border-t border-purple-500/15 flex items-center justify-between">
                       <a
-                        href={`/blog/${post.slug}`}
+                        href={`/article/${post.slug}`}
                         className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors"
                       >
                         <span>Baca Selengkapnya</span>
@@ -280,82 +293,77 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
         )}
       </div>
 
-      {/* Pagination Controls - Placed OUTSIDE the relative container with pointer-events-auto */}
-      {filtered.length > ITEMS_PER_PAGE && (
-        <div className="mt-10 pt-6 border-t border-purple-500/15 relative z-20 pointer-events-auto">
-          {paginationMode === 'pages' ? (
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-xs text-zinc-400">
-                Halaman <span className="font-semibold text-white">{currentPage}</span> dari{' '}
-                <span className="font-semibold text-white">{totalPages}</span>
-              </span>
+      {/* Optimized Numeric Pagination Buttons */}
+      {totalPages > 1 && (
+        <div className="mt-10 pt-6 border-t border-purple-500/15 flex justify-center items-center relative z-20 pointer-events-auto">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Prev Button */}
+            <button
+              type="button"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              aria-label="Halaman sebelumnya"
+              className={`flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold transition-all select-none ${
+                currentPage === 1
+                  ? 'opacity-35 cursor-not-allowed text-zinc-500 bg-[#0D0818] border border-purple-500/10'
+                  : 'text-zinc-300 hover:text-white bg-[#120B24] border border-purple-500/30 hover:border-purple-400 active:scale-95 cursor-pointer shadow-sm'
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Sebelumnya</span>
+            </button>
 
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all select-none ${
-                    currentPage === 1
-                      ? 'opacity-40 cursor-not-allowed text-zinc-500 bg-[#0D0818] border border-purple-500/10'
-                      : 'text-zinc-300 hover:text-white bg-[#120B24] border border-purple-500/30 hover:border-purple-400 active:scale-95 cursor-pointer'
-                  }`}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  <span>Sebelumnya</span>
-                </button>
-
-                {/* Page numbers (visible on all screens with flex) */}
-                <div className="flex items-center gap-1 sm:gap-1.5">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      type="button"
-                      onClick={() => handlePageChange(page)}
-                      className={`min-w-[34px] sm:min-w-[36px] h-9 px-2.5 rounded-xl text-xs font-bold transition-all select-none cursor-pointer ${
-                        currentPage === page
-                          ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/40 ring-1 ring-purple-400/50'
-                          : 'text-zinc-400 hover:text-white bg-[#120B24] border border-purple-500/20 hover:border-purple-400/40 active:scale-95'
-                      }`}
+            {/* Smart Windowed Page Numbers with Ellipsis */}
+            <div className="flex items-center gap-1 sm:gap-1.5">
+              {paginationItems.map((item, idx) => {
+                if (typeof item === 'string') {
+                  return (
+                    <span
+                      key={`ellipsis-${idx}`}
+                      className="w-7 h-9 flex items-center justify-center text-xs text-zinc-500 font-mono select-none"
                     >
-                      {page}
-                    </button>
-                  ))}
-                </div>
+                      ...
+                    </span>
+                  );
+                }
 
-                <button
-                  type="button"
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all select-none ${
-                    currentPage === totalPages
-                      ? 'opacity-40 cursor-not-allowed text-zinc-500 bg-[#0D0818] border border-purple-500/10'
-                      : 'text-zinc-300 hover:text-white bg-[#120B24] border border-purple-500/30 hover:border-purple-400 active:scale-95 cursor-pointer'
-                  }`}
-                >
-                  <span>Selanjutnya</span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
+                const pageNum = item as number;
+                const isActive = currentPage === pageNum;
+
+                return (
+                  <button
+                    key={pageNum}
+                    type="button"
+                    onClick={() => handlePageChange(pageNum)}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`min-w-[34px] sm:min-w-[38px] h-9 px-2.5 rounded-xl text-xs font-bold transition-all select-none cursor-pointer ${
+                      isActive
+                        ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/40 ring-1 ring-purple-400/50 scale-105'
+                        : 'text-zinc-400 hover:text-white bg-[#120B24] border border-purple-500/20 hover:border-purple-400/40 active:scale-95'
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
             </div>
-          ) : (
-            <div className="text-center">
-              {visibleCount < filtered.length ? (
-                <button
-                  type="button"
-                  onClick={handleLoadMore}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                >
-                  <Layers className="w-4 h-4" />
-                  <span>Muat Artikel Lainnya ({filtered.length - visibleCount} tersisa)</span>
-                </button>
-              ) : (
-                <p className="text-xs text-zinc-500">
-                  🎉 Anda telah melihat semua {filtered.length} artikel yang tersedia.
-                </p>
-              )}
-            </div>
-          )}
+
+            {/* Next Button */}
+            <button
+              type="button"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              aria-label="Halaman selanjutnya"
+              className={`flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold transition-all select-none ${
+                currentPage === totalPages
+                  ? 'opacity-35 cursor-not-allowed text-zinc-500 bg-[#0D0818] border border-purple-500/10'
+                  : 'text-zinc-300 hover:text-white bg-[#120B24] border border-purple-500/30 hover:border-purple-400 active:scale-95 cursor-pointer shadow-sm'
+              }`}
+            >
+              <span className="hidden sm:inline">Selanjutnya</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       )}
     </div>

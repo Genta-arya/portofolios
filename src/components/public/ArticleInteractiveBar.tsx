@@ -106,38 +106,64 @@ export default function ArticleInteractiveBar({
       }
     } catch (_e) {}
 
-    // Calculation of reading progress: accurately measuring article prose bounding box
+    // Calculation of reading progress: robust cross-browser implementation
     const calculateProgress = () => {
-      const element = document.querySelector(articleSelector) || document.querySelector('article');
-      if (!element) return;
+      // 1. Try measuring specifically within the article content
+      const articleEl = (document.querySelector(articleSelector) || document.querySelector('article')) as HTMLElement | null;
+      
+      const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight || 800;
 
-      const rect = element.getBoundingClientRect();
-      const elementTop = rect.top + window.scrollY;
-      const elementHeight = rect.height;
-      const currentScroll = window.scrollY;
-      const windowHeight = window.innerHeight;
+      if (articleEl) {
+        const rect = articleEl.getBoundingClientRect();
+        const elementTop = rect.top + scrollTop;
+        const elementHeight = rect.height || articleEl.scrollHeight;
 
-      // Start calculating when top enters viewport, reach 100% when bottom is reached
-      const start = elementTop - 120; // navbar offset
-      const end = elementTop + elementHeight - windowHeight;
+        // Reading range: from when user scrolls past utility bar to the end of article content
+        const start = Math.max(0, elementTop - windowHeight * 0.4);
+        const end = Math.max(start + 100, elementTop + elementHeight - windowHeight * 0.7);
 
-      if (currentScroll <= start) {
-        setReadProgress(0);
-      } else if (currentScroll >= end) {
+        if (scrollTop <= start) {
+          setReadProgress(0);
+        } else if (scrollTop >= end) {
+          setReadProgress(100);
+        } else {
+          const pct = Math.round(((scrollTop - start) / (end - start)) * 100);
+          setReadProgress(Math.min(100, Math.max(0, pct)));
+        }
+        return;
+      }
+
+      // 2. Global Document Fallback
+      const docHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      const totalScrollable = docHeight - windowHeight;
+
+      if (totalScrollable <= 0) {
         setReadProgress(100);
       } else {
-        const percentage = Math.round(((currentScroll - start) / (end - start)) * 100);
-        setReadProgress(Math.min(100, Math.max(0, percentage)));
+        const pct = Math.round((scrollTop / totalScrollable) * 100);
+        setReadProgress(Math.min(100, Math.max(0, pct)));
       }
     };
 
+    // Calculate immediately and after short tick for Astro client hydration
     calculateProgress();
+    const tick = setTimeout(calculateProgress, 250);
+
     window.addEventListener('scroll', calculateProgress, { passive: true });
     window.addEventListener('resize', calculateProgress, { passive: true });
+    document.addEventListener('scroll', calculateProgress, { passive: true });
 
     return () => {
+      clearTimeout(tick);
       window.removeEventListener('scroll', calculateProgress);
       window.removeEventListener('resize', calculateProgress);
+      document.removeEventListener('scroll', calculateProgress);
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }

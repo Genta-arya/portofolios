@@ -22,7 +22,7 @@ export const GET: APIRoute = async () => {
   const staticPages = [
     '',
     '/projects',
-    '/blog',
+    '/article',
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -53,7 +53,7 @@ export const GET: APIRoute = async () => {
     .map(
       (post) => `
     <url>
-      <loc>${siteUrl}/blog/${post.slug}</loc>
+      <loc>${siteUrl}/article/${post.slug}</loc>
       <lastmod>${(post.updatedAt || post.createdAt).toISOString()}</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>

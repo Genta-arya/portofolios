@@ -69,7 +69,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
     { label: 'Services', href: '/#services', id: 'services' },
     { label: 'Portfolio', href: '/#portfolio', id: 'portfolio' },
     { label: 'Tech Stack', href: '/#tech-circular', id: 'tech-circular' },
-    { label: 'Article', href: '/blog', isExternalPage: true },
+    { label: 'Article', href: '/article', isExternalPage: true },
   ];
 
   return (
@@ -116,7 +116,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
         <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-[#070312]/85 border border-purple-500/25 shadow-[inset_0_2px_6px_rgba(0,0,0,0.95),0_1px_0_rgba(255,255,255,0.08)] [transform-style:preserve-3d]">
           {navLinks.map((link) => {
             const isActive = link.isExternalPage
-              ? currentPath.startsWith('/blog')
+              ? currentPath.startsWith('/article') || currentPath.startsWith('/blog')
               : activeSection === link.id;
 
             return (
@@ -223,7 +223,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
 
               {navLinks.map((link) => {
                 const isActive = link.isExternalPage
-                  ? currentPath.startsWith('/blog')
+                  ? currentPath.startsWith('/article') || currentPath.startsWith('/blog')
                   : activeSection === link.id;
 
                 return (

@@ -93,7 +93,7 @@ try {
             </p>
           </div>
           <a
-            href="/blog"
+            href="/article"
             class="mt-4 sm:mt-0 inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors"
           >
             <span>Lihat Semua Artikel</span>
@@ -105,7 +105,7 @@ try {
           {latestBlogs.map((blog) => (
             <a
               key={blog.id}
-              href={`/blog/${blog.slug}`}
+              href={`/article/${blog.slug}`}
               class="group rounded-3xl bg-[#0D0818]/70 border border-purple-500/20 hover:border-purple-400/50 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_12px_35px_rgba(139,92,246,0.18)] hover:-translate-y-1.5"
             >
               <div>
