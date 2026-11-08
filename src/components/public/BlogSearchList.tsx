@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Clock, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
+import { Search, Clock, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Layers, Bookmark } from 'lucide-react';
 import { formatDate } from '../../lib/utils';
 import DataFetchLoader from '../ui/DataFetchLoader';
 
@@ -32,6 +32,15 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
   const [paginationMode, setPaginationMode] = useState<'pages' | 'infinite'>('pages');
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
+  const [savedSlugs, setSavedSlugs] = useState<string[]>([]);
+
+  useEffect(() => {
+    try {
+      const bms = JSON.parse(localStorage.getItem('gentha_blog_bookmarks') || '[]');
+      setSavedSlugs(bms.map((b: any) => b.slug));
+    } catch (_e) {}
+  }, []);
+
   // Reset page when category or search changes
   useEffect(() => {
     setCurrentPage(1);
@@ -49,6 +58,10 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
     const matchesSearch =
       post.title.toLowerCase().includes(search.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(search.toLowerCase());
+
+    if (selectedCategory === 'bookmarks') {
+      return matchesSearch && savedSlugs.includes(post.slug);
+    }
 
     const matchesCat =
       selectedCategory === 'all' ||
@@ -124,6 +137,19 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
               {c.name}
             </button>
           ))}
+          {/* Saved Articles Bookmark Tab */}
+          <button
+            type="button"
+            onClick={() => handleSelectCategory('bookmarks')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+              selectedCategory === 'bookmarks'
+                ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/40 ring-1 ring-purple-400'
+                : 'text-zinc-400 hover:text-white bg-[#120B24] border border-purple-500/20'
+            }`}
+          >
+            <Bookmark className={`w-3.5 h-3.5 ${selectedCategory === 'bookmarks' ? 'fill-current' : 'text-purple-400'}`} />
+            <span>Tersimpan ({savedSlugs.length})</span>
+          </button>
         </div>
       </div>
 
