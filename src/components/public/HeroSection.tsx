@@ -47,16 +47,16 @@ export default function HeroSection({
         </motion.div>
       )}
 
-      {/* Hero Content Container - With left padding only when 3D Lanyard is visible */}
-      <div className={`max-w-7xl xl:max-w-[1380px] mx-auto px-4 sm:px-6 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-4'}`}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center">
+      {/* Hero Content Container - Centered on mobile & tablet with generous padding */}
+      <div className={`max-w-4xl lg:max-w-7xl xl:max-w-[1380px] mx-auto px-6 sm:px-12 md:px-16 lg:px-8 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-8'}`}>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 xl:gap-12 items-center">
           
           {/* Left Column: Headlines, Bio, CTAs, Counters */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-            className="lg:col-span-7 flex flex-col items-start text-left z-10 w-full"
+            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full"
           >
             {/* Availability Badge with React Bits Shiny Text */}
             <motion.div
@@ -73,7 +73,7 @@ export default function HeroSection({
             </motion.div>
 
             {/* Headline Title with Official React Bits MaskedHeading */}
-            <div className="w-full mb-5">
+            <div className="w-full max-w-2xl mx-auto lg:mx-0 mb-5">
               <MaskedHeading
                 text="Membangun Solusi Digital Modern, Cepat & Skalabel"
                 tag="h1"
@@ -84,15 +84,15 @@ export default function HeroSection({
                 drift={16}
                 reveal="rise"
                 trigger="view"
-                align="left"
+                align="center"
                 weight={800}
-                textScale={0.09}
+                textScale={0.075}
                 spotlight={true}
                 spotlightRadius={180}
                 outline={true}
                 outlineColor="rgba(192, 132, 252, 0.45)"
                 outlineWidth={1}
-                className="tracking-tight"
+                className="tracking-tight lg:text-left [&_.masked-heading\_\_measure]:text-center lg:[&_.masked-heading\_\_measure]:text-left"
               />
             </div>
 
@@ -101,7 +101,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-6 max-w-xl"
+              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0 text-center lg:text-left"
             >
               Halo! Saya <DecryptedText text={fullName} speed={35} className="text-purple-300 font-semibold" />, pengembang{' '}
               <span className="text-white font-medium">Aplikasi Web Enterprise</span> dan{' '}
@@ -113,7 +113,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-3 w-full mb-8"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full mb-8"
             >
               <Magnet magnetStrength={0.22}>
                 <a
@@ -162,7 +162,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-3 pt-6 border-t border-purple-500/15 w-full max-w-lg"
+              className="grid grid-cols-3 gap-3 pt-6 border-t border-purple-500/15 w-full max-w-lg mx-auto lg:mx-0"
             >
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-white tracking-tight">

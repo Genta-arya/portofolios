@@ -48,7 +48,6 @@ export default function Footer() {
               <a href="/#tech-circular" className="hover:text-purple-300 transition-colors">Tech Stack</a>
               <a href="/blog" className="hover:text-purple-300 transition-colors">Blog</a>
               <a href="/#contact" className="hover:text-purple-300 transition-colors">Contact</a>
-              <a href="/admin" className="text-purple-400 hover:text-purple-200 transition-colors">Admin Portal</a>
             </div>
 
             {/* React Bits Sling Button - Slingshot Back to Top */}

@@ -6,12 +6,12 @@ const STORAGE_KEY = 'gentha_display_mode';
 const EVENT_NAME = 'gentha-display-mode-change';
 
 export function getInitialDisplayMode(): DisplayMode {
-  if (typeof window === 'undefined') return '3d';
+  if (typeof window === 'undefined') return 'lite';
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved === '3d' || saved === 'lite') {
     return saved;
   }
-  return '3d';
+  return 'lite';
 }
 
 export function setDisplayMode(mode: DisplayMode) {
@@ -22,7 +22,7 @@ export function setDisplayMode(mode: DisplayMode) {
 }
 
 export function useDisplayMode() {
-  const [mode, setModeState] = useState<DisplayMode>('3d');
+  const [mode, setModeState] = useState<DisplayMode>('lite');
   const [hasChosen, setHasChosen] = useState<boolean>(true);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ export function useDisplayMode() {
       document.documentElement.setAttribute('data-display-mode', saved);
     } else {
       setHasChosen(false);
-      // Default to 3d until user chooses
-      setModeState('3d');
+      // Default to lite until user chooses
+      setModeState('lite');
     }
 
     const handler = (e: Event) => {

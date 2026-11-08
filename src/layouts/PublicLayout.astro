@@ -195,8 +195,15 @@ const structuredData = {
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <!-- Google Fonts Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Initialize Display Mode early (Default Lite) -->
+    <script is:inline>
+      (function() {
+        try {
+          var mode = localStorage.getItem('gentha_display_mode') || 'lite';
+          document.documentElement.setAttribute('data-display-mode', mode);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="text-[#F8FAFC] antialiased min-h-screen selection:bg-purple-600 selection:text-white overflow-x-hidden w-full max-w-full relative">
     <ModeSelectionModal client:load />
