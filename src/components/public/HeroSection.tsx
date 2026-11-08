@@ -25,7 +25,7 @@ export default function HeroSection({
   const { isLite } = useDisplayMode();
 
   return (
-    <section id="hero" className="relative min-h-0 lg:min-h-[90vh] flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 overflow-hidden overflow-x-clip max-w-full">
+    <section id="hero" className="relative min-h-0 lg:min-h-[90vh] flex items-center justify-center pt-20 sm:pt-24 pb-4 sm:pb-8 overflow-hidden overflow-x-clip max-w-full">
       
       {/* 3D Lanyard ID Card - Only on 3D Mode (Desktop) */}
       {!isLite && (
@@ -49,7 +49,7 @@ export default function HeroSection({
 
       {/* Hero Content Container - Generous padding on tablet and mobile to prevent text from touching screen edges */}
       <div className={`max-w-4xl lg:max-w-7xl xl:max-w-[1380px] mx-auto px-8 sm:px-16 md:px-24 lg:px-12 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-10'}`}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 md:gap-3 lg:gap-12 items-center">
           
           {/* Left Column: Headlines, Bio, CTAs, Counters */}
           <motion.div
@@ -63,7 +63,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#120B24]/90 border border-purple-500/30 text-xs font-medium text-purple-200 shadow-[0_0_20px_rgba(139,92,246,0.2)] mb-5"
+              className="inline-flex items-center gap-2.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#120B24]/90 border border-purple-500/30 text-xs font-medium text-purple-200 shadow-[0_0_20px_rgba(139,92,246,0.2)] mb-3 sm:mb-4"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -73,7 +73,7 @@ export default function HeroSection({
             </motion.div>
 
             {/* Headline Title with Official React Bits MaskedHeading */}
-            <div className="w-full max-w-xl mx-auto lg:mx-0 px-2 sm:px-4 md:px-6 lg:px-0 mb-6">
+            <div className="w-full max-w-xl mx-auto lg:mx-0 px-2 sm:px-4 md:px-6 lg:px-0 mb-3 sm:mb-4">
               <MaskedHeading
                 text="Membangun Solusi Digital Modern, Cepat & Skalabel"
                 tag="h1"
@@ -101,7 +101,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0 text-center lg:text-left px-2 sm:px-4 lg:px-0"
+              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-4 sm:mb-5 max-w-lg mx-auto lg:mx-0 text-center lg:text-left px-2 sm:px-4 lg:px-0"
             >
               Halo! Saya <DecryptedText text={fullName} speed={35} className="text-purple-300 font-semibold" />, pengembang{' '}
               <span className="text-white font-medium">Aplikasi Web Enterprise</span> dan{' '}
@@ -113,7 +113,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full mb-5 sm:mb-6"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full mb-3 sm:mb-4"
             >
               <Magnet magnetStrength={0.22}>
                 <a
@@ -162,7 +162,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-3 pt-4 sm:pt-5 border-t border-purple-500/15 w-full max-w-lg mx-auto lg:mx-0"
+              className="grid grid-cols-3 gap-3 pt-3 sm:pt-4 border-t border-purple-500/15 w-full max-w-lg mx-auto lg:mx-0"
             >
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-white tracking-tight">
