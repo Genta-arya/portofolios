@@ -5,6 +5,7 @@ node_modules/
 # Production Build Outputs
 dist/
 .astro/
+.vercel/
 
 # Environment Files & Secrets
 .env

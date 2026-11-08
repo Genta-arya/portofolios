@@ -1,14 +1,16 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import vercel from '@astrojs/vercel';
 import node from '@astrojs/node';
+
+// Otomatis gunakan adapter Vercel saat di-build di environment Vercel (CI/CD)
+const isVercel = Boolean(process.env.VERCEL);
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.mgentaarya.my.id',
   output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+  adapter: isVercel ? vercel() : node({ mode: 'standalone' }),
   integrations: [
     react(),
   ],
