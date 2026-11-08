@@ -6,6 +6,7 @@ import ScrollProgress from '../components/reactbits/ScrollProgress';
 import Crosshair from '../components/reactbits/Crosshair';
 import DataFetchLoader from '../components/ui/DataFetchLoader';
 import ModeSelectionModal from '../components/public/ModeSelectionModal';
+import FloatingSling from '../components/public/FloatingSling';
 import Footer from '../components/public/Footer';
 
 interface Props {
@@ -70,7 +71,7 @@ const forwardedProto = Astro.request.headers.get('x-forwarded-proto') || 'https'
 const forwardedHost = Astro.request.headers.get('x-forwarded-host') || Astro.request.headers.get('host');
 const originFromHeader = forwardedHost ? `${forwardedProto}://${forwardedHost}` : null;
 
-const siteUrl = originFromHeader || (Astro.url.origin && !Astro.url.origin.includes('localhost') ? Astro.url.origin : (Astro.site?.toString().replace(/\/$/, '') || 'https://portofolio-beta-two-98.vercel.app'));
+const siteUrl = originFromHeader || (Astro.url.origin && !Astro.url.origin.includes('localhost') ? Astro.url.origin : (Astro.site?.toString().replace(/\/$/, '') || 'https://www.mgentaarya.my.id'));
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 
 const rawOgImage = (ogImage && ogImage.trim()) ? ogImage.trim() : '/og-image.png';
@@ -162,6 +163,8 @@ const structuredData = {
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Gentha Arya Pratama" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="theme-color" content="#05030A" />
     <meta name="color-scheme" content="dark" />
     <meta name="generator" content={Astro.generator} />
@@ -218,5 +221,6 @@ const structuredData = {
     </main>
 
     <Footer client:visible />
+    <FloatingSling client:load />
   </body>
 </html>

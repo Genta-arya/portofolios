@@ -4,7 +4,7 @@ import { db } from '../../db';
 import { blogPosts, blogCategories } from '../../db/schema';
 import { eq, ne, desc } from 'drizzle-orm';
 import { formatDate } from '../../lib/utils';
-import { Clock, Eye, Share2, Calendar, ArrowLeft, BookOpen, MessageSquare, Check, Copy } from 'lucide-react';
+import { Clock, Eye, Share2, Calendar, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, MessageSquare, Check, Copy } from 'lucide-react';
 import { FacebookIcon, TelegramIcon, DiscordIcon, WhatsAppIcon, LinkedinIcon } from '../../components/ui/Icons';
 import ArticleInteractiveBar from '../../components/public/ArticleInteractiveBar';
 import MarkdownIt from 'markdown-it';
@@ -18,6 +18,7 @@ if (!slug) {
 let post: any = null;
 let category: any = null;
 let relatedPosts: any[] = [];
+let moreArticles: any[] = [];
 
 try {
   const [p] = await db
@@ -40,6 +41,7 @@ try {
     category = cat;
   }
 
+  // Artikel Terkait (dalam topik/kategori yang sama jika ada, atau fallback postingan terbaru lainnya)
   relatedPosts = await db
     .select({
       id: blogPosts.id,
@@ -52,7 +54,25 @@ try {
     .from(blogPosts)
     .where(ne(blogPosts.slug, slug))
     .orderBy(desc(blogPosts.createdAt))
-    .limit(2);
+    .limit(3);
+
+  // Artikel Lainnya (Rekomendasi 3 artikel untuk section bawah)
+  moreArticles = await db
+    .select({
+      id: blogPosts.id,
+      title: blogPosts.title,
+      slug: blogPosts.slug,
+      excerpt: blogPosts.excerpt,
+      coverImageUrl: blogPosts.coverImageUrl,
+      readingTimeMinutes: blogPosts.readingTimeMinutes,
+      createdAt: blogPosts.createdAt,
+      publishedAt: blogPosts.publishedAt,
+    })
+    .from(blogPosts)
+    .where(ne(blogPosts.slug, slug))
+    .orderBy(desc(blogPosts.createdAt))
+    .offset(1)
+    .limit(3);
 } catch (err) {
   console.error('Error fetching blog post:', err);
   return Astro.redirect('/article');
@@ -331,6 +351,74 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
       </div>
 
     </div>
+
+    {/* Section: Artikel Lainnya (More Articles Recommendation Grid) */}
+    {moreArticles.length > 0 && (
+      <div class="mt-20 pt-12 border-t border-purple-500/20">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-600/15 border border-purple-500/25 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
+              <span>Rekomendasi Bacaan</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Artikel Lainnya
+            </h3>
+          </div>
+
+          <a
+            href="/article"
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors"
+          >
+            <span>Lihat Semua</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {moreArticles.map((art) => (
+            <a
+              key={art.id}
+              href={`/article/${art.slug}`}
+              class="group rounded-3xl bg-gradient-to-br from-[#0F0820]/90 to-[#0A0515]/90 border border-purple-500/20 hover:border-purple-400/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_12px_35px_rgba(139,92,246,0.2)] hover:-translate-y-1.5"
+            >
+              <div>
+                <div class="aspect-[16/9] rounded-2xl overflow-hidden mb-4 bg-[#0a0515] border border-purple-500/20 flex items-center justify-center">
+                  <img
+                    src={art.coverImageUrl}
+                    alt={art.title}
+                    loading="lazy"
+                    class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <div class="flex items-center gap-2.5 text-[11px] text-zinc-400 mb-2.5">
+                  <span class="flex items-center gap-1 text-purple-300 font-medium">
+                    <Clock className="w-3.5 h-3.5 text-purple-400" />
+                    <span>{art.readingTimeMinutes || 4} min baca</span>
+                  </span>
+                  <span>•</span>
+                  <span>{formatDate(art.publishedAt || art.createdAt)}</span>
+                </div>
+
+                <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 leading-snug mb-2">
+                  {art.title}
+                </h4>
+
+                <p class="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                  {art.excerpt}
+                </p>
+              </div>
+
+              <div class="mt-5 pt-3 border-t border-purple-500/15 flex items-center justify-between text-xs font-semibold text-purple-400 group-hover:text-purple-300">
+                <span>Baca Sekarang</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
 
   </article>
 

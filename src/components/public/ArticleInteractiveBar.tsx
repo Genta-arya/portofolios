@@ -8,7 +8,6 @@ import {
   Share2, 
   Check, 
   Copy, 
-  ArrowUp, 
   ThumbsUp,
   Flame,
   CheckCircle2,
@@ -45,10 +44,7 @@ export default function ArticleInteractiveBar({
   });
   const [userReacted, setUserReacted] = useState<{ [key: string]: boolean }>({});
 
-  // 2. Reading progress (0 - 100%)
-  const [readProgress, setReadProgress] = useState(0);
-
-  // 3. Bookmark state & Modal Drawer
+  // 2. Bookmark state & Modal Drawer
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isBookmarkModalOpen, setIsBookmarkModalOpen] = useState(false);
   const [savedArticles, setSavedArticles] = useState<SavedArticle[]>([]);
@@ -105,69 +101,12 @@ export default function ArticleInteractiveBar({
       }
     } catch (_e) {}
 
-    // Calculation of reading progress: robust cross-browser implementation
-    const calculateProgress = () => {
-      // 1. Try measuring specifically within the article content
-      const articleEl = (document.querySelector(articleSelector) || document.querySelector('article')) as HTMLElement | null;
-      
-      const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-      const windowHeight = window.innerHeight || document.documentElement.clientHeight || 800;
-
-      if (articleEl) {
-        const rect = articleEl.getBoundingClientRect();
-        const elementTop = rect.top + scrollTop;
-        const elementHeight = rect.height || articleEl.scrollHeight;
-
-        // Reading range: from when user scrolls past utility bar to the end of article content
-        const start = Math.max(0, elementTop - windowHeight * 0.4);
-        const end = Math.max(start + 100, elementTop + elementHeight - windowHeight * 0.7);
-
-        if (scrollTop <= start) {
-          setReadProgress(0);
-        } else if (scrollTop >= end) {
-          setReadProgress(100);
-        } else {
-          const pct = Math.round(((scrollTop - start) / (end - start)) * 100);
-          setReadProgress(Math.min(100, Math.max(0, pct)));
-        }
-        return;
-      }
-
-      // 2. Global Document Fallback
-      const docHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight
-      );
-      const totalScrollable = docHeight - windowHeight;
-
-      if (totalScrollable <= 0) {
-        setReadProgress(100);
-      } else {
-        const pct = Math.round((scrollTop / totalScrollable) * 100);
-        setReadProgress(Math.min(100, Math.max(0, pct)));
-      }
-    };
-
-    // Calculate immediately and after short tick for Astro client hydration
-    calculateProgress();
-    const tick = setTimeout(calculateProgress, 250);
-
-    window.addEventListener('scroll', calculateProgress, { passive: true });
-    window.addEventListener('resize', calculateProgress, { passive: true });
-    document.addEventListener('scroll', calculateProgress, { passive: true });
-
     return () => {
-      clearTimeout(tick);
-      window.removeEventListener('scroll', calculateProgress);
-      window.removeEventListener('resize', calculateProgress);
-      document.removeEventListener('scroll', calculateProgress);
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
     };
-  }, [slug, articleSelector]);
+  }, [slug]);
 
   // Handle Reactions
   const handleReaction = (type: 'likes' | 'claps' | 'fires') => {
@@ -351,34 +290,6 @@ export default function ArticleInteractiveBar({
             <span>Daftar Simpan ({savedArticles.length})</span>
           </button>
         </div>
-
-        {/* Right: Reading Progress Indicator */}
-        <div className="flex items-center gap-2 text-xs font-medium text-zinc-400">
-          <div className="hidden sm:flex items-center gap-2">
-            <span>Progress:</span>
-            <div className="w-24 h-2 bg-[#120B24] border border-purple-500/30 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-cyan-400 transition-all duration-200"
-                style={{ width: `${readProgress}%` }}
-              />
-            </div>
-          </div>
-          <span className="font-bold text-purple-300 font-mono text-xs">{readProgress}% dibaca</span>
-        </div>
-      </div>
-
-      {/* Floating Bottom Quick-Action Dock (Scroll to Top) */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5 pointer-events-none">
-        {readProgress > 20 && (
-          <button
-            type="button"
-            onClick={scrollToTop}
-            title="Kembali ke atas"
-            className="w-10 h-10 rounded-full bg-[#120B24]/90 border border-purple-500/40 text-purple-300 hover:text-white flex items-center justify-center shadow-xl backdrop-blur-md hover:scale-110 active:scale-95 transition-all cursor-pointer pointer-events-auto"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
-        )}
       </div>
 
       {/* Social Reaction Bar with Emojis & Counts */}
