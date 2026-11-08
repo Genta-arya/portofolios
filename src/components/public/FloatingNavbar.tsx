@@ -152,10 +152,10 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
                 ? 'bg-[#120B24]/90 border-cyan-500/35 text-cyan-300 hover:border-cyan-400'
                 : 'bg-[#120B24]/90 border-purple-500/35 text-purple-300 hover:border-purple-400'
             }`}
-            title="Ubah Mode Tampilan (3D / Sederhana)"
+            title="Ubah Mode Tampilan (3D / Ringan)"
           >
             {isLite ? <Zap className="w-3 h-3 text-cyan-400" /> : <Box className="w-3 h-3 text-purple-400" />}
-            <span>{isLite ? 'Lite' : '3D'}</span>
+            <span>{isLite ? 'Ringan' : '3D'}</span>
           </button>
 
           <Magnet magnetStrength={0.2}>
@@ -207,7 +207,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
             className="w-full text-center py-2.5 rounded-xl text-xs font-bold bg-[#140A28] border border-purple-500/30 text-purple-300 flex items-center justify-center gap-2 mt-1"
           >
             {isLite ? <Zap className="w-3.5 h-3.5 text-cyan-400" /> : <Box className="w-3.5 h-3.5 text-purple-400" />}
-            <span>Mode Tampilan: {isLite ? 'Sederhana (Lite)' : '3D Imersif'}</span>
+            <span>Mode Tampilan: {isLite ? 'Ringan (Fast)' : '3D Imersif'}</span>
           </button>
           <a
             href="/#contact"

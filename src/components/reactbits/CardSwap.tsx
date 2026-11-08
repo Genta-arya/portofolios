@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TechLogo from '../ui/TechLogo';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface CardSwapItem {
   id?: number | string;
@@ -59,6 +60,7 @@ export default function CardSwap({
   pauseOnHover = true,
   className = '',
 }: CardSwapProps) {
+  const { isLite } = useDisplayMode();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
@@ -143,14 +145,14 @@ export default function CardSwap({
             const color = item.glowColor || '#8B5CF6';
             const Icon = item.icon;
 
-            // Progressive depth transforms
+            // Progressive depth transforms (flat in lite mode)
             const targetY = depth * verticalDistance;
             const targetX =
-              depth === 0
+              depth === 0 || isLite
                 ? 0
                 : (depth % 2 === 1 ? 1 : -1) * (depth * cardDistance * 0.45);
             const targetRotate =
-              depth === 0
+              depth === 0 || isLite
                 ? 0
                 : (depth % 2 === 1 ? 1 : -1) * (depth * 2.5);
             const targetScale = 1 - depth * 0.05;
@@ -182,7 +184,7 @@ export default function CardSwap({
                   scale: 0.82,
                   y: 40,
                   opacity: 0,
-                  rotate: direction === 'next' ? 12 : -12,
+                  rotate: isLite ? 0 : (direction === 'next' ? 12 : -12),
                 }}
                 animate={{
                   x: targetX,

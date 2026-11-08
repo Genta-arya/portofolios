@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface AccordionGalleryItem {
   num: string;
@@ -27,6 +28,7 @@ export default function AccordionGallery({
   tilt = 6,
   className = '',
 }: AccordionGalleryProps) {
+  const { isLite } = useDisplayMode();
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -41,15 +43,15 @@ export default function AccordionGallery({
 
   return (
     <div className={`w-full select-none ${className}`}>
-      {/* Desktop View: Horizontal Smooth Accordion with 3D Tilt Dynamics */}
-      <div className="hidden md:flex flex-row w-full h-[420px] gap-3 items-stretch perspective-[1200px]">
+      {/* Desktop View: Horizontal Smooth Accordion (3D Tilt on 3D mode, Flat on Lite mode) */}
+      <div className={`hidden md:flex flex-row w-full h-[420px] gap-3 items-stretch ${isLite ? '' : 'perspective-[1200px]'}`}>
         {items.map((item, idx) => {
           const isActive = activeIndex === idx;
           const Icon = item.icon;
 
-          // Calculate subtle 3D tilt based on position relative to active card
+          // Calculate subtle 3D tilt based on position relative to active card (disabled in lite mode)
           let rotateY = 0;
-          if (!isActive) {
+          if (!isActive && !isLite) {
             rotateY = idx < activeIndex ? tilt : -tilt;
           }
 
@@ -67,7 +69,7 @@ export default function AccordionGallery({
                 layout: { duration: 0.55, ease: [0.25, 1, 0.5, 1] },
               }}
               style={{
-                transform: `perspective(1000px) rotateY(${rotateY}deg)`,
+                transform: !isLite && rotateY !== 0 ? `perspective(1000px) rotateY(${rotateY}deg)` : undefined,
                 transformOrigin: idx < activeIndex ? 'right center' : 'left center',
                 borderColor: isActive ? `${item.accentColor}80` : 'rgba(168, 85, 247, 0.18)',
                 boxShadow: isActive

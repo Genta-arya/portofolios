@@ -15,6 +15,7 @@ import {
 import ShinyText from '../reactbits/ShinyText';
 import ScrollStack, { ScrollStackItem } from '../reactbits/ScrollStack';
 import ElectricBorder from '../reactbits/ElectricBorder';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface ExperienceItem {
   id: string;
@@ -96,6 +97,8 @@ const experiences: ExperienceItem[] = [
 ];
 
 export default function CareerExperience() {
+  const { isLite } = useDisplayMode();
+
   return (
     <section id="experience" className="py-24 relative overflow-x-clip max-w-full">
       {/* Ambient Aurora Glow behind Career Section - Clipped to prevent mobile horizontal scroll */}
@@ -126,12 +129,12 @@ export default function CareerExperience() {
 
         {/* React Bits ScrollStack: Authentic Scroll Pinned Card Stacking */}
         <ScrollStack
-          itemDistance={150}
-          itemStackDistance={30}
+          itemDistance={isLite ? 90 : 150}
+          itemStackDistance={isLite ? 16 : 30}
           stackPosition="14%"
-          itemScale={0.038}
-          baseScale={0.88}
-          blurAmount={1.8}
+          itemScale={isLite ? 0.02 : 0.038}
+          baseScale={isLite ? 0.94 : 0.88}
+          blurAmount={isLite ? 0 : 1.8}
           rotationAmount={0}
           useWindowScroll={true}
         >

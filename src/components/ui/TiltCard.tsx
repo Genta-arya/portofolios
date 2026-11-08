@@ -1,4 +1,5 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface TiltCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -25,11 +26,13 @@ export function TiltCard({
   onMouseLeave,
   ...props
 }: TiltCardProps) {
+  const { isLite } = useDisplayMode();
   const cardRef = useRef<HTMLDivElement>(null);
   const glareRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      if (isLite) return;
       const card = cardRef.current;
       if (!card) return;
 
@@ -56,11 +59,12 @@ export function TiltCard({
 
       onMouseMove?.(e);
     },
-    [maxTilt, scale, glareColor, glareSize, perspective, onMouseMove]
+    [isLite, maxTilt, scale, glareColor, glareSize, perspective, onMouseMove]
   );
 
   const handleMouseEnter = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      if (isLite) return;
       const card = cardRef.current;
       if (card) {
         card.style.transition = 'transform 0.15s ease-out';
@@ -70,11 +74,12 @@ export function TiltCard({
       }
       onMouseEnter?.(e);
     },
-    [onMouseEnter]
+    [isLite, onMouseEnter]
   );
 
   const handleMouseLeave = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      if (isLite) return;
       const card = cardRef.current;
       if (card) {
         card.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
@@ -85,8 +90,19 @@ export function TiltCard({
       }
       onMouseLeave?.(e);
     },
-    [perspective, onMouseLeave]
+    [isLite, perspective, onMouseLeave]
   );
+
+  // Pure 2D Flat Card in Lite Mode (Zero 3D calculations, zero frame drops)
+  if (isLite) {
+    return (
+      <div className={`w-full ${containerClassName}`}>
+        <div className={`relative transition-all duration-200 hover:-translate-y-1 ${className}`} style={style} {...props}>
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -135,6 +151,16 @@ export function TiltItem({
   style,
   ...props
 }: TiltItemProps) {
+  const { isLite } = useDisplayMode();
+
+  if (isLite) {
+    return (
+      <div className={className} style={style} {...props}>
+        {children}
+      </div>
+    );
+  }
+
   const zValue = typeof translateZ === 'number' ? `${translateZ}px` : translateZ;
 
   return (

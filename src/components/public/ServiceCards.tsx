@@ -4,6 +4,7 @@ import { LayoutDashboard, Smartphone, Sparkles, ArrowUpRight } from 'lucide-reac
 import PixelCard from '../reactbits/PixelCard';
 import DepthCarousel from '../reactbits/DepthCarousel';
 import ShinyText from '../reactbits/ShinyText';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 interface ServiceItem {
   id?: number;
@@ -63,6 +64,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
     return getOrder(a.title) - getOrder(b.title);
   });
 
+  const { isLite } = useDisplayMode();
   const [currentActiveIndex, setCurrentActiveIndex] = useState(1); // Default fokus pada Web Application di tengah
 
   return (
@@ -94,72 +96,54 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
           </p>
         </motion.div>
 
-        {/* 3D Depth Carousel Container with Purple PixelCards */}
-        <DepthCarousel
-          initialIndex={1}
-          autoplay={false}
-          autoplayInterval={5500}
-          onIndexChange={(idx) => setCurrentActiveIndex(idx)}
-        >
-          {items.map((svc, idx) => {
-            const isFeatured = svc.isPopular || svc.title.toLowerCase().includes('web') || idx === 1;
-            const isCurrentActive = idx === currentActiveIndex;
+        {/* In Lite Mode: Pure 2D Flat Responsive Grid (0% 3D / 0% canvas load) */}
+        {isLite ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {items.map((svc, idx) => {
+              const isFeatured = svc.isPopular || svc.title.toLowerCase().includes('web') || idx === 1;
+              const renderIcon = () => {
+                if (svc.title.toLowerCase().includes('web') || svc.iconName === 'LayoutDashboard') {
+                  return <LayoutDashboard className="w-6 h-6" />;
+                }
+                if (svc.title.toLowerCase().includes('mobile') || svc.iconName === 'Smartphone') {
+                  return <Smartphone className="w-6 h-6" />;
+                }
+                return <Sparkles className="w-6 h-6" />;
+              };
 
-            // Resolusi icon berdasarkan title atau iconName
-            const renderIcon = () => {
-              if (svc.title.toLowerCase().includes('web') || svc.iconName === 'LayoutDashboard') {
-                return <LayoutDashboard className="w-6 h-6" />;
-              }
-              if (svc.title.toLowerCase().includes('mobile') || svc.iconName === 'Smartphone') {
-                return <Smartphone className="w-6 h-6" />;
-              }
-              return <Sparkles className="w-6 h-6" />;
-            };
-
-            return (
-              <div key={svc.title} className="h-full">
-                {/* React Bits PixelCard with Purple Particles */}
-                <PixelCard
-                  colors="#A855F7,#C084FC,#E879F9,#9333EA,#D946EF,#7E22CE,#F472B6"
-                  gap={5}
-                  pixelSize={3.5}
-                  speed={45}
-                  alwaysSparkle={true}
-                  className={`relative group rounded-3xl p-7 sm:p-8 flex flex-col justify-between h-[510px] sm:h-[530px] transition-all duration-300 ${
-                    isCurrentActive
-                      ? 'bg-gradient-to-b from-[#180E30]/95 via-[#110A24]/95 to-[#0D0818]/95 border-2 border-purple-500/50 shadow-[0_20px_60px_rgba(139,92,246,0.35)]'
-                      : 'bg-[#0D0818]/90 border border-purple-500/25 hover:border-purple-400/50 shadow-[0_12px_40px_rgba(0,0,0,0.6)]'
+              return (
+                <div
+                  key={svc.title}
+                  className={`relative rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
+                    isFeatured
+                      ? 'bg-gradient-to-b from-[#180E30]/95 via-[#110A24]/95 to-[#0D0818]/95 border-2 border-purple-500/50 shadow-[0_15px_45px_rgba(139,92,246,0.25)]'
+                      : 'bg-[#0D0818]/90 border border-purple-500/25 shadow-lg'
                   }`}
                 >
-                  {/* Popular Pill untuk kartu tengah Web Application */}
                   {isFeatured && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-                      <div className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/50 uppercase tracking-wider border border-white/20 whitespace-nowrap">
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                      <div className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg uppercase tracking-wider border border-white/20 whitespace-nowrap">
                         Paling Diminati
                       </div>
                     </div>
                   )}
 
-                  <div className="flex flex-col flex-1 justify-start">
-                    {/* Icon Box */}
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600/25 to-fuchsia-600/15 border border-purple-500/30 flex items-center justify-center text-purple-300 mb-6 group-hover:scale-110 group-hover:bg-purple-600/35 group-hover:text-purple-200 shadow-md shadow-purple-900/30 transition-all duration-300">
+                  <div className="flex flex-col flex-1">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600/25 to-fuchsia-600/15 border border-purple-500/30 flex items-center justify-center text-purple-300 mb-6 shadow-md shadow-purple-900/30">
                       {renderIcon()}
                     </div>
 
-                    {/* Title & Subtitle */}
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-purple-200 transition-colors">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                       {svc.title}
                     </h3>
                     <p className="text-xs text-purple-300 font-medium mb-4">
                       {svc.subtitle}
                     </p>
 
-                    {/* Description */}
                     <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6">
                       {svc.description}
                     </p>
 
-                    {/* Tech Tags */}
                     {svc.tags && svc.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mb-6 mt-auto">
                         {svc.tags.map((tag) => (
@@ -174,27 +158,128 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
                     )}
                   </div>
 
-                  {/* Order CTA Button */}
                   <div className="pt-4 border-t border-purple-500/20 mt-auto">
                     <a
                       href={svc.ctaUrl || '#contact'}
                       target={svc.ctaUrl?.startsWith('http') ? '_blank' : '_self'}
                       rel="noopener noreferrer"
                       className={`w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                        isCurrentActive
-                          ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/40 hover:shadow-purple-500/60 hover:brightness-110 active:scale-[0.98]'
-                          : 'bg-[#150D2A] text-zinc-200 border border-purple-500/30 hover:border-purple-400 hover:text-white hover:bg-purple-900/50 shadow-md active:scale-[0.98]'
+                        isFeatured
+                          ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/40 hover:brightness-110 active:scale-[0.98]'
+                          : 'bg-[#150D2A] text-zinc-200 border border-purple-500/30 hover:border-purple-400 hover:text-white active:scale-[0.98]'
                       }`}
                     >
                       <span>Pesan Layanan / Konsultasi</span>
                       <ArrowUpRight className="w-4 h-4" />
                     </a>
                   </div>
-                </PixelCard>
-              </div>
-            );
-          })}
-        </DepthCarousel>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          /* 3D Depth Carousel Container with Purple PixelCards in 3D Mode */
+          <DepthCarousel
+            initialIndex={1}
+            autoplay={false}
+            autoplayInterval={5500}
+            onIndexChange={(idx) => setCurrentActiveIndex(idx)}
+          >
+            {items.map((svc, idx) => {
+              const isFeatured = svc.isPopular || svc.title.toLowerCase().includes('web') || idx === 1;
+              const isCurrentActive = idx === currentActiveIndex;
+
+              // Resolusi icon berdasarkan title atau iconName
+              const renderIcon = () => {
+                if (svc.title.toLowerCase().includes('web') || svc.iconName === 'LayoutDashboard') {
+                  return <LayoutDashboard className="w-6 h-6" />;
+                }
+                if (svc.title.toLowerCase().includes('mobile') || svc.iconName === 'Smartphone') {
+                  return <Smartphone className="w-6 h-6" />;
+                }
+                return <Sparkles className="w-6 h-6" />;
+              };
+
+              return (
+                <div key={svc.title} className="h-full">
+                  {/* React Bits PixelCard with Purple Particles */}
+                  <PixelCard
+                    colors="#A855F7,#C084FC,#E879F9,#9333EA,#D946EF,#7E22CE,#F472B6"
+                    gap={5}
+                    pixelSize={3.5}
+                    speed={45}
+                    alwaysSparkle={true}
+                    className={`relative group rounded-3xl p-7 sm:p-8 flex flex-col justify-between h-[510px] sm:h-[530px] transition-all duration-300 ${
+                      isCurrentActive
+                        ? 'bg-gradient-to-b from-[#180E30]/95 via-[#110A24]/95 to-[#0D0818]/95 border-2 border-purple-500/50 shadow-[0_20px_60px_rgba(139,92,246,0.35)]'
+                        : 'bg-[#0D0818]/90 border border-purple-500/25 hover:border-purple-400/50 shadow-[0_12px_40px_rgba(0,0,0,0.6)]'
+                    }`}
+                  >
+                    {/* Popular Pill untuk kartu tengah Web Application */}
+                    {isFeatured && (
+                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
+                        <div className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/50 uppercase tracking-wider border border-white/20 whitespace-nowrap">
+                          Paling Diminati
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="flex flex-col flex-1 justify-start">
+                      {/* Icon Box */}
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600/25 to-fuchsia-600/15 border border-purple-500/30 flex items-center justify-center text-purple-300 mb-6 group-hover:scale-110 group-hover:bg-purple-600/35 group-hover:text-purple-200 shadow-md shadow-purple-900/30 transition-all duration-300">
+                        {renderIcon()}
+                      </div>
+
+                      {/* Title & Subtitle */}
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-purple-200 transition-colors">
+                        {svc.title}
+                      </h3>
+                      <p className="text-xs text-purple-300 font-medium mb-4">
+                        {svc.subtitle}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6">
+                        {svc.description}
+                      </p>
+
+                      {/* Tech Tags */}
+                      {svc.tags && svc.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mb-6 mt-auto">
+                          {svc.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-purple-950/70 text-purple-200 border border-purple-500/30"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Order CTA Button */}
+                    <div className="pt-4 border-t border-purple-500/20 mt-auto">
+                      <a
+                        href={svc.ctaUrl || '#contact'}
+                        target={svc.ctaUrl?.startsWith('http') ? '_blank' : '_self'}
+                        rel="noopener noreferrer"
+                        className={`w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                          isCurrentActive
+                            ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/40 hover:shadow-purple-500/60 hover:brightness-110 active:scale-[0.98]'
+                            : 'bg-[#150D2A] text-zinc-200 border border-purple-500/30 hover:border-purple-400 hover:text-white hover:bg-purple-900/50 shadow-md active:scale-[0.98]'
+                        }`}
+                      >
+                        <span>Pesan Layanan / Konsultasi</span>
+                        <ArrowUpRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </PixelCard>
+                </div>
+              );
+            })}
+          </DepthCarousel>
+        )}
 
       </div>
     </section>

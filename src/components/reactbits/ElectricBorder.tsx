@@ -1,5 +1,6 @@
 import React, { useRef, useState, useId } from 'react';
 import type { CSSProperties } from 'react';
+import { useDisplayMode } from '../../lib/displayModeStore';
 
 export interface ElectricBorderProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ export default function ElectricBorder({
   style,
   ...props
 }: ElectricBorderProps) {
+  const { isLite } = useDisplayMode();
   const rawId = useId();
   // Sanitize id for valid SVG filter reference in all browsers
   const filterId = `electric-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
@@ -37,6 +39,19 @@ export default function ElectricBorder({
 
   const resolvedGlow = glowColor || color;
   const radiusValue = borderRadius || 'inherit';
+
+  // In Lite Mode: Pure lightweight CSS border without continuous SVG turbulence filters
+  if (isLite) {
+    return (
+      <div
+        className={`border border-purple-500/25 ${className}`}
+        style={{ borderRadius: radiusValue, ...style }}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!interactive || !containerRef.current) return;
