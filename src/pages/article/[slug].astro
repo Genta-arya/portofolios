@@ -50,13 +50,14 @@ try {
       coverImageUrl: blogPosts.coverImageUrl,
       readingTimeMinutes: blogPosts.readingTimeMinutes,
       createdAt: blogPosts.createdAt,
+      publishedAt: blogPosts.publishedAt,
     })
     .from(blogPosts)
     .where(ne(blogPosts.slug, slug))
     .orderBy(desc(blogPosts.createdAt))
     .limit(3);
 
-  // Artikel Lainnya (Rekomendasi 3 artikel untuk section bawah)
+  // Artikel Lainnya (Rekomendasi 5 artikel untuk section bawah berbentuk memanjang flex-col)
   moreArticles = await db
     .select({
       id: blogPosts.id,
@@ -72,7 +73,7 @@ try {
     .where(ne(blogPosts.slug, slug))
     .orderBy(desc(blogPosts.createdAt))
     .offset(1)
-    .limit(3);
+    .limit(5);
 } catch (err) {
   console.error('Error fetching blog post:', err);
   return Astro.redirect('/article');
@@ -326,23 +327,36 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
-          <div class="p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20 shadow-xl">
-            <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-4">
-              Artikel Terkait
+          <div class="p-5 sm:p-6 rounded-3xl bg-[#0D0818]/90 border border-purple-500/20 shadow-xl">
+            <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
+              <span>Artikel Terkait</span>
             </h3>
-            <div class="space-y-4">
+            <div class="space-y-3.5">
               {relatedPosts.map((r) => (
                 <a
                   key={r.id}
                   href={`/article/${r.slug}`}
-                  class="group block p-3 rounded-2xl bg-[#120B24]/60 border border-purple-500/15 hover:border-purple-400/40 transition-all"
+                  class="group flex items-center gap-3.5 p-2.5 rounded-2xl bg-[#120B24]/60 border border-purple-500/15 hover:border-purple-400/40 hover:bg-[#160D2C] transition-all"
                 >
-                  <h4 class="text-xs font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 mb-1">
-                    {r.title}
-                  </h4>
-                  <span class="text-[10px] text-zinc-500">
-                    {r.readingTimeMinutes || 3} min baca
-                  </span>
+                  <div class="w-16 h-12 rounded-xl overflow-hidden bg-[#0a0515] border border-purple-500/20 shrink-0 flex items-center justify-center">
+                    <img
+                      src={r.coverImageUrl}
+                      alt={r.title}
+                      loading="lazy"
+                      class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 leading-snug mb-1">
+                      {r.title}
+                    </h4>
+                    <div class="flex items-center gap-2 text-[10px] text-zinc-400">
+                      <span>{formatDate(r.publishedAt || r.createdAt)}</span>
+                      <span>•</span>
+                      <span class="text-purple-300">{r.readingTimeMinutes || 3} min</span>
+                    </div>
+                  </div>
                 </a>
               ))}
             </div>
@@ -375,44 +389,48 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
           </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex flex-col gap-4">
           {moreArticles.map((art) => (
             <a
               key={art.id}
               href={`/article/${art.slug}`}
-              class="group rounded-3xl bg-gradient-to-br from-[#0F0820]/90 to-[#0A0515]/90 border border-purple-500/20 hover:border-purple-400/50 p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_12px_35px_rgba(139,92,246,0.2)] hover:-translate-y-1.5"
+              class="group rounded-3xl bg-gradient-to-r from-[#0F0820]/90 via-[#130A26]/85 to-[#0A0515]/90 border border-purple-500/20 hover:border-purple-400/50 p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 transition-all duration-300 hover:shadow-[0_12px_35px_rgba(139,92,246,0.2)] hover:-translate-y-1"
             >
-              <div>
-                <div class="aspect-[16/9] rounded-2xl overflow-hidden mb-4 bg-[#0a0515] border border-purple-500/20 flex items-center justify-center">
-                  <img
-                    src={art.coverImageUrl}
-                    alt={art.title}
-                    loading="lazy"
-                    class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                <div class="flex items-center gap-2.5 text-[11px] text-zinc-400 mb-2.5">
-                  <span class="flex items-center gap-1 text-purple-300 font-medium">
-                    <Clock className="w-3.5 h-3.5 text-purple-400" />
-                    <span>{art.readingTimeMinutes || 4} min baca</span>
-                  </span>
-                  <span>•</span>
-                  <span>{formatDate(art.publishedAt || art.createdAt)}</span>
-                </div>
-
-                <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 leading-snug mb-2">
-                  {art.title}
-                </h4>
-
-                <p class="text-xs text-zinc-400 leading-relaxed line-clamp-2">
-                  {art.excerpt}
-                </p>
+              {/* Thumbnail Container: Aspect 16/9 with contain */}
+              <div class="relative w-full sm:w-56 md:w-64 sm:min-w-[224px] md:min-w-[256px] aspect-[16/9] rounded-2xl overflow-hidden bg-[#0a0515] border border-purple-500/20 shrink-0 flex items-center justify-center">
+                <img
+                  src={art.coverImageUrl}
+                  alt={art.title}
+                  loading="lazy"
+                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
 
-              <div class="mt-5 pt-3 border-t border-purple-500/15 flex items-center justify-between text-xs font-semibold text-purple-400 group-hover:text-purple-300">
-                <span>Baca Sekarang</span>
-                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              {/* Content Details */}
+              <div class="flex-1 flex flex-col justify-between min-w-0">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2.5 text-[11px] text-zinc-400 mb-2">
+                    <span class="flex items-center gap-1 text-purple-300 font-medium">
+                      <Clock className="w-3.5 h-3.5 text-purple-400" />
+                      <span>{art.readingTimeMinutes || 4} min baca</span>
+                    </span>
+                    <span>•</span>
+                    <span>{formatDate(art.publishedAt || art.createdAt)}</span>
+                  </div>
+
+                  <h4 class="text-base sm:text-lg font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 leading-snug mb-2">
+                    {art.title}
+                  </h4>
+
+                  <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed line-clamp-2">
+                    {art.excerpt}
+                  </p>
+                </div>
+
+                <div class="mt-3.5 pt-2.5 border-t border-purple-500/15 flex items-center justify-between text-xs font-semibold text-purple-400 group-hover:text-purple-300">
+                  <span>Baca Selengkapnya</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
               </div>
             </a>
           ))}
