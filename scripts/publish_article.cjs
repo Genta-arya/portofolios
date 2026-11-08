@@ -1,7 +1,34 @@
 const mysql = require('mysql2/promise');
 const cloudinary = require('cloudinary').v2;
 const si = require('simple-icons');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
+
+// Folder khusus penyimpanan sementara gambar hasil generate
+const GENERATED_IMAGES_DIR = path.resolve(__dirname, '../generated-images');
+
+// Pastikan folder khusus selalu ada
+if (!fs.existsSync(GENERATED_IMAGES_DIR)) {
+  fs.mkdirSync(GENERATED_IMAGES_DIR, { recursive: true });
+}
+
+// Bersihkan file lama jika ada yang tertinggal
+function cleanOldGeneratedFiles() {
+  try {
+    if (!fs.existsSync(GENERATED_IMAGES_DIR)) return;
+    const files = fs.readdirSync(GENERATED_IMAGES_DIR);
+    for (const file of files) {
+      if (file === '.gitkeep') continue;
+      const fullPath = path.join(GENERATED_IMAGES_DIR, file);
+      try {
+        fs.unlinkSync(fullPath);
+      } catch (_) {}
+    }
+  } catch (err) {
+    // Abaikan jika folder bersih
+  }
+}
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -19,7 +46,6 @@ function getGeminiKey() {
   if (!keys.length) {
     throw new Error('GEMINI_API_KEYS tidak ditemukan di file .env');
   }
-  // Ambil key acak untuk load balancing
   return keys[Math.floor(Math.random() * keys.length)];
 }
 
@@ -67,7 +93,6 @@ async function scrapeUrlContent(targetUrl) {
       }
     });
     const html = await res.text();
-    // Bersihkan tag script, style, html tags
     const textOnly = html
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ' ')
       .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, ' ')
@@ -75,7 +100,7 @@ async function scrapeUrlContent(targetUrl) {
       .replace(/\s+/g, ' ')
       .trim();
 
-    return textOnly.slice(0, 15000); // Batasi 15k karakter pertama
+    return textOnly.slice(0, 15000);
   } catch (err) {
     console.warn(`[Scraper Agent] Gagal scrape URL: ${err.message}`);
     return '';
@@ -123,7 +148,7 @@ Tugasmu:
   "categoryId": 4, 
   "tags": ["Tag1", "Tag2", "Tag3", "Tag4"],
   "primaryBrand": "Claude",
-  "secondaryBrand": "Anthropic"
+  "secondaryBrand": "OpenAI"
 }
 \`\`\`
 Catatan categoryId:
@@ -151,25 +176,30 @@ function resolveBrandIcon(brandName) {
   if (b.includes('google')) return { name: 'DeepMind', path: si.siGoogle.path, color: '#EA4335' };
   if (b.includes('openai') || b.includes('gpt') || b.includes('codex')) return { name: 'OpenAI', path: si.siOpenai.path, color: '#10B981' };
   if (b.includes('copilot') || b.includes('github')) return { name: 'Copilot', path: si.siGithubcopilot.path, color: '#60A5FA' };
+  if (b.includes('bun')) return { name: 'Bun', path: si.siBun ? si.siBun.path : si.siJavascript.path, color: '#FBF0DF' };
   if (b.includes('astro')) return { name: 'Astro 5', path: si.siAstro.path, color: '#BC52EE' };
   if (b.includes('drizzle')) return { name: 'Drizzle', path: si.siDrizzle.path, color: '#C5F74F' };
   if (b.includes('react')) return { name: 'React', path: si.siReact.path, color: '#61DAFB' };
   if (b.includes('typescript') || b.includes('ts')) return { name: 'TypeScript', path: si.siTypescript.path, color: '#3178C6' };
+  if (b.includes('javascript') || b.includes('js')) return { name: 'JavaScript', path: si.siJavascript.path, color: '#F7DF1E' };
+  if (b.includes('node')) return { name: 'Node.js', path: si.siNodedotjs ? si.siNodedotjs.path : si.siJavascript.path, color: '#5FA04E' };
   if (b.includes('docker')) return { name: 'Docker', path: si.siDocker.path, color: '#2496ED' };
   if (b.includes('k8s') || b.includes('kubernetes')) return { name: 'Kubernetes', path: si.siKubernetes.path, color: '#326CE5' };
   if (b.includes('mysql')) return { name: 'MySQL', path: si.siMysql.path, color: '#38BDF8' };
   if (b.includes('snyk') || b.includes('security')) return { name: 'Snyk Audit', path: si.siSnyk.path, color: '#4C54FD' };
   if (b.includes('cloudflare')) return { name: 'Cloudflare', path: si.siCloudflare.path, color: '#F38020' };
+  if (b.includes('python')) return { name: 'Python', path: si.siPython.path, color: '#3776AB' };
+  if (b.includes('git')) return { name: 'Git', path: si.siGit.path, color: '#F05032' };
   
-  // Default fallback
-  return { name: 'Code Core', path: si.siOpenai.path, color: '#8B5CF6' };
+  return { name: 'Engineering', path: si.siOpenai.path, color: '#8B5CF6' };
 }
 
+// GENERATOR THUMBNAIL DINAMIS (BEBAS GAYA TEMA, TETAP NYAMBUNG KE TOPIK)
 function generateSvgThumbnail(meta) {
   const icon1 = resolveBrandIcon(meta.primaryBrand);
-  const icon2 = resolveBrandIcon(meta.secondaryBrand || 'React');
+  const icon2 = resolveBrandIcon(meta.secondaryBrand || 'TypeScript');
 
-  // Wrap title lines cleanly into chunks of max ~24 chars so it never overlaps icons
+  // Wrap title lines cleanly max ~24 chars
   const titleWords = (meta.title || '').toUpperCase().split(' ');
   const lines = [];
   let cur = '';
@@ -184,9 +214,9 @@ function generateSvgThumbnail(meta) {
   }
   if (cur) lines.push(cur);
 
-  const fontSize = lines.length >= 3 ? 32 : (lines.length === 2 ? 38 : 44);
+  const fontSize = lines.length >= 4 ? 30 : (lines.length === 3 ? 34 : (lines.length === 2 ? 40 : 44));
   const lineGap = fontSize + 12;
-  const startY = lines.length >= 3 ? 205 : (lines.length === 2 ? 230 : 255);
+  const startY = lines.length >= 4 ? 195 : (lines.length === 3 ? 215 : (lines.length === 2 ? 235 : 260));
   const subtitleY = lines.length * lineGap + 20;
 
   const titleSvg = lines.map((l, idx) => 
@@ -209,23 +239,29 @@ function generateSvgThumbnail(meta) {
   return `
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
+    <!-- Background Gradient -->
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#05030A"/>
       <stop offset="50%" stop-color="#090514"/>
       <stop offset="100%" stop-color="#0E0820"/>
     </linearGradient>
+
+    <!-- Ambient Glow Blobs -->
     <radialGradient id="glow1" cx="75%" cy="35%" r="60%">
-      <stop offset="0%" stop-color="${icon1.color}" stop-opacity="0.35"/>
+      <stop offset="0%" stop-color="${icon1.color}" stop-opacity="0.38"/>
       <stop offset="100%" stop-color="${icon1.color}" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="glow2" cx="20%" cy="85%" r="50%">
-      <stop offset="0%" stop-color="${icon2.color}" stop-opacity="0.22"/>
+      <stop offset="0%" stop-color="${icon2.color}" stop-opacity="0.25"/>
       <stop offset="100%" stop-color="${icon2.color}" stop-opacity="0"/>
     </radialGradient>
+
+    <!-- Glow Filter -->
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="6" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
+
     <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FFFFFF"/>
       <stop offset="88%" stop-color="#F1F5F9"/>
@@ -237,7 +273,7 @@ function generateSvgThumbnail(meta) {
   <rect width="1200" height="630" fill="url(#glow1)"/>
   <rect width="1200" height="630" fill="url(#glow2)"/>
 
-  <!-- High-Tech Grid -->
+  <!-- High-Tech Engineering Grid -->
   <g opacity="0.07" stroke="#8B5CF6" stroke-width="1">
     <path d="M0,70 H1200 M0,140 H1200 M0,210 H1200 M0,280 H1200 M0,350 H1200 M0,420 H1200 M0,490 H1200 M0,560 H1200"/>
     <path d="M100,0 V630 M200,0 V630 M300,0 V630 M400,0 V630 M500,0 V630 M600,0 V630 M700,0 V630 M800,0 V630 M900,0 V630 M1000,0 V630 M1100,0 V630"/>
@@ -319,12 +355,16 @@ function slugify(text) {
 }
 
 // 4. MAIN ORCHESTRATOR PIPELINE
-async function runArticlePipeline({ topic, url = '', isFeatured = false }) {
+async function runArticlePipeline({ topic, url = '', image = '', isFeatured = false }) {
   console.log('====================================================');
   console.log(`🚀 MEMULAI PIPELINE AI AGENT PUBLISHER`);
   console.log(`Topik: ${topic}`);
   if (url) console.log(`Sumber Scraper: ${url}`);
+  if (image) console.log(`Custom Image: ${image}`);
   console.log('====================================================\n');
+
+  // Bersihkan file generate lama agar penyimpanan tidak penuh
+  cleanOldGeneratedFiles();
 
   // STEP 1: SCRAPER AGENT
   let scrapedContext = '';
@@ -361,7 +401,6 @@ Di bagian paling bawah, sertakan blok JSON metadata seperti yang ditentukan.
 
   const editedResponse = await callGemini(editPrompt, EDITOR_SYSTEM_PROMPT);
 
-  // Pisahkan konten markdown dan JSON metadata
   const jsonMatch = editedResponse.match(/```json\s*([\s\S]*?)\s*```/);
   let metadata = {
     title: topic,
@@ -396,71 +435,99 @@ Di bagian paling bawah, sertakan blok JSON metadata seperti yang ditentukan.
   console.log(`  Reading Time: ${metadata.readingTimeMinutes} menit`);
   console.log(`  Tags: ${metadata.tags.join(', ')}\n`);
 
-  // STEP 4: PUBLISHER AGENT
-  console.log('🎨 [4/4] Agen Publisher membuat thumbnail resmi & mengunggah...');
+  // STEP 4: PUBLISHER AGENT & IMAGE MANAGER
+  console.log('🎨 [4/4] Agen Publisher menyiapkan thumbnail...');
   const baseSlug = slugify(metadata.title);
   const slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
 
-  const svg = generateSvgThumbnail(metadata);
-  const base64 = Buffer.from(svg).toString('base64');
-  const dataUri = 'data:image/svg+xml;base64,' + base64;
+  let localImagePath = '';
+  let isCustomFile = false;
 
-  const uploadRes = await cloudinary.uploader.upload(dataUri, {
-    folder: 'gentha-portfolio/blog/branded-thumbs',
-    resource_type: 'image',
-    format: 'png',
-    public_id: `thumb_${slug}`,
-    overwrite: true
-  });
+  try {
+    if (image && fs.existsSync(image)) {
+      // Jika user menyediakan custom image (misal hasil AI generate)
+      const ext = path.extname(image) || '.png';
+      localImagePath = path.join(GENERATED_IMAGES_DIR, `custom_${slug}${ext}`);
+      fs.copyFileSync(image, localImagePath);
+      isCustomFile = true;
+      console.log(`📁 Menggunakan gambar custom di folder: ${localImagePath}`);
+    } else {
+      // Generate SVG thumbnail dinamis yang relevan dengan topik
+      const svg = generateSvgThumbnail(metadata);
+      localImagePath = path.join(GENERATED_IMAGES_DIR, `thumb_${slug}.svg`);
+      fs.writeFileSync(localImagePath, svg, 'utf8');
+      console.log(`📁 Thumbnail disimpan sementara di folder: ${localImagePath}`);
+    }
 
-  console.log(`✓ Thumbnail Cloudinary: ${uploadRes.secure_url}`);
+    console.log('☁️ Mengunggah thumbnail ke Cloudinary...');
+    const uploadRes = await cloudinary.uploader.upload(localImagePath, {
+      folder: 'gentha-portfolio/blog/branded-thumbs',
+      resource_type: 'image',
+      format: 'png',
+      public_id: `thumb_${slug}`,
+      overwrite: true
+    });
 
-  // Simpan ke Remote MySQL Database
-  const conn = await mysql.createConnection({
-    uri: process.env.DATABASE_URL,
-    charset: 'utf8mb4'
-  });
+    console.log(`✓ Thumbnail Cloudinary: ${uploadRes.secure_url}`);
 
-  const [insertResult] = await conn.execute(`
-    INSERT INTO blog_posts (
-      title, slug, excerpt, content, cover_image_url, cover_image_public_id,
-      reading_time_minutes, views_count, status, is_featured,
-      published_at, category_id, tags, created_at, updated_at
-    ) VALUES (
-      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, NOW(), NOW()
-    )
-  `, [
-    metadata.title,
-    slug,
-    metadata.excerpt,
-    cleanContent,
-    uploadRes.secure_url,
-    uploadRes.public_id,
-    metadata.readingTimeMinutes,
-    0,
-    'published',
-    isFeatured ? 1 : 0,
-    metadata.categoryId,
-    JSON.stringify(metadata.tags)
-  ]);
+    // Simpan ke Remote MySQL Database
+    console.log('💾 Menerbitkan artikel ke remote database MySQL...');
+    const conn = await mysql.createConnection({
+      uri: process.env.DATABASE_URL,
+      charset: 'utf8mb4'
+    });
 
-  await conn.end();
+    const [insertResult] = await conn.execute(`
+      INSERT INTO blog_posts (
+        title, slug, excerpt, content, cover_image_url, cover_image_public_id,
+        reading_time_minutes, views_count, status, is_featured,
+        published_at, category_id, tags, created_at, updated_at
+      ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, NOW(), NOW()
+      )
+    `, [
+      metadata.title,
+      slug,
+      metadata.excerpt,
+      cleanContent,
+      uploadRes.secure_url,
+      uploadRes.public_id,
+      metadata.readingTimeMinutes,
+      0,
+      'published',
+      isFeatured ? 1 : 0,
+      metadata.categoryId,
+      JSON.stringify(metadata.tags)
+    ]);
 
-  const liveUrl = `https://mgentaarya.my.id/blog/${slug}`;
-  console.log('\n====================================================');
-  console.log(`🎉 ARTIKEL BERHASIL DITERBITKAN SECARA OTOMATIS!`);
-  console.log(`ID Database : ${insertResult.insertId}`);
-  console.log(`Judul       : ${metadata.title}`);
-  console.log(`URL Live    : ${liveUrl}`);
-  console.log('====================================================\n');
+    await conn.end();
 
-  return {
-    id: insertResult.insertId,
-    title: metadata.title,
-    slug,
-    liveUrl,
-    thumbnailUrl: uploadRes.secure_url
-  };
+    const liveUrl = `https://mgentaarya.my.id/blog/${slug}`;
+    console.log('\n====================================================');
+    console.log(`🎉 ARTIKEL BERHASIL DITERBITKAN SECARA OTOMATIS!`);
+    console.log(`ID Database : ${insertResult.insertId}`);
+    console.log(`Judul       : ${metadata.title}`);
+    console.log(`URL Live    : ${liveUrl}`);
+    console.log('====================================================\n');
+
+    return {
+      id: insertResult.insertId,
+      title: metadata.title,
+      slug,
+      liveUrl,
+      thumbnailUrl: uploadRes.secure_url
+    };
+  } finally {
+    // PEMBERSIHAN OTOMATIS: Hapus file lokal di folder generated-images agar tidak menumpuk
+    if (localImagePath && fs.existsSync(localImagePath)) {
+      try {
+        fs.unlinkSync(localImagePath);
+        console.log(`🗑️ Berhasil menghapus file lokal: ${path.basename(localImagePath)} (folder generated-images/ tetap bersih)`);
+      } catch (err) {
+        console.warn(`Gagal menghapus file sementara: ${err.message}`);
+      }
+    }
+  }
 }
 
 // CLI Execution Handler
@@ -468,23 +535,25 @@ if (require.main === module) {
   const args = process.argv.slice(2);
   let topic = '';
   let url = '';
+  let image = '';
 
   for (const arg of args) {
     if (arg.startsWith('--topic=')) topic = arg.replace('--topic=', '');
     else if (arg.startsWith('--url=')) url = arg.replace('--url=', '');
+    else if (arg.startsWith('--image=')) image = arg.replace('--image=', '');
     else if (!topic) topic = arg;
   }
 
   if (!topic) {
     console.error('Penggunaan:');
-    console.error('  node scripts/publish_article.cjs --topic="Topik Artikel" [--url="https://sumber-referensi.com"]');
+    console.error('  node scripts/publish_article.cjs --topic="Topik Artikel" [--url="https://sumber-referensi.com"] [--image="path/to/custom.png"]');
     process.exit(1);
   }
 
-  runArticlePipeline({ topic, url }).catch(err => {
+  runArticlePipeline({ topic, url, image }).catch(err => {
     console.error('Pipeline Error:', err);
     process.exit(1);
   });
 }
 
-module.exports = { runArticlePipeline, generateSvgThumbnail };
+module.exports = { runArticlePipeline, generateSvgThumbnail, GENERATED_IMAGES_DIR };
