@@ -40,6 +40,31 @@ const metaDescription = truncateCleanly(rawDesc, 155);
 // 2. OpenGraph / WhatsApp / Twitter social cards preview: 110 - 125 characters (prevents truncation on mobile)
 const ogDescription = truncateCleanly(rawDesc, 125);
 
+// Optimal SEO Title Lengths:
+// 1. Google title sweet spot: <= 60 characters
+// 2. OpenGraph og:title sweet spot: <= 60 characters
+// 3. Twitter title sweet spot: <= 70 characters
+const rawTitle = (title || '').trim();
+
+const formatTitleCleanly = (str: string, maxLen: number) => {
+  if (!str || str.length <= maxLen) return str || '';
+  if (str.includes(' — ')) {
+    const mainTitle = str.split(' — ')[0].trim();
+    if (mainTitle.length <= maxLen) return mainTitle;
+    return truncateCleanly(mainTitle, maxLen);
+  }
+  if (str.includes(' | ')) {
+    const mainTitle = str.split(' | ')[0].trim();
+    if (mainTitle.length <= maxLen) return mainTitle;
+    return truncateCleanly(mainTitle, maxLen);
+  }
+  return truncateCleanly(str, maxLen);
+};
+
+const metaTitle = formatTitleCleanly(rawTitle, 60);
+const ogTitle = formatTitleCleanly(rawTitle, 60);
+const twitterTitle = formatTitleCleanly(rawTitle, 70);
+
 // Dynamic origin resolution: uses actual incoming host header so OG URLs always match current deployment domain
 const forwardedProto = Astro.request.headers.get('x-forwarded-proto') || 'https';
 const forwardedHost = Astro.request.headers.get('x-forwarded-host') || Astro.request.headers.get('host');
@@ -48,9 +73,10 @@ const originFromHeader = forwardedHost ? `${forwardedProto}://${forwardedHost}` 
 const siteUrl = originFromHeader || (Astro.url.origin && !Astro.url.origin.includes('localhost') ? Astro.url.origin : (Astro.site?.toString().replace(/\/$/, '') || 'https://portofolio-beta-two-98.vercel.app'));
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 
-const absoluteOgImage = ogImage.startsWith('http')
-  ? ogImage
-  : `${siteUrl}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+const rawOgImage = (ogImage && ogImage.trim()) ? ogImage.trim() : '/og-image.png';
+const absoluteOgImage = rawOgImage.startsWith('http')
+  ? rawOgImage
+  : `${siteUrl}${rawOgImage.startsWith('/') ? '' : '/'}${rawOgImage}`;
 
 // Schema.org Structured Data Graph
 const structuredData = {
@@ -130,8 +156,8 @@ const structuredData = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
     <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
+    <title>{metaTitle}</title>
+    <meta name="title" content={metaTitle} />
     <meta name="description" content={metaDescription} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Gentha Arya Pratama" />
@@ -146,22 +172,22 @@ const structuredData = {
     <meta property="og:site_name" content="Gentha Arya Pratama" />
     <meta property="og:locale" content="id_ID" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:image" content={absoluteOgImage} />
     <meta property="og:image:secure_url" content={absoluteOgImage} />
     <meta property="og:image:type" content={absoluteOgImage.endsWith('.png') ? 'image/png' : 'image/jpeg'} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={title} />
+    <meta property="og:image:alt" content={ogTitle} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={twitterTitle} />
     <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={absoluteOgImage} />
-    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:image:alt" content={twitterTitle} />
     <meta name="twitter:creator" content="@mgentaarya" />
     <meta name="twitter:site" content="@mgentaarya" />
 

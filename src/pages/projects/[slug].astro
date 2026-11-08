@@ -36,9 +36,9 @@ try {
 ---
 
 <PublicLayout
-  title={`${project.title} — Studi Kasus Portofolio Gentha Arya Pratama`}
+  title={project.title}
   description={project.shortDescription}
-  ogImage={project.thumbnailUrl}
+  ogImage={project.thumbnailUrl || '/og-image.png'}
 >
   <article class="pt-32 pb-24 max-w-5xl mx-auto px-4 sm:px-6">
     

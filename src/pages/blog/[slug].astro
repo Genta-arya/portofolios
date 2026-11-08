@@ -67,9 +67,9 @@ while ((match = headingRegex.exec(post.content)) !== null) {
 ---
 
 <PublicLayout
-  title={`${post.seoTitle || post.title} — Gentha Arya Pratama`}
+  title={post.seoTitle || post.title}
   description={post.seoDescription || post.excerpt}
-  ogImage={post.coverImageUrl}
+  ogImage={post.coverImageUrl || '/og-image.png'}
   type="article"
   publishedTime={post.createdAt ? new Date(post.createdAt).toISOString() : undefined}
 >
