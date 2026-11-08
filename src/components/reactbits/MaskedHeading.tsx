@@ -8,7 +8,8 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import { gsap } from 'gsap';
+import gsapPkg from 'gsap';
+const gsap: any = (gsapPkg as any)?.gsap || (gsapPkg as any)?.default || gsapPkg;
 
 import './MaskedHeading.css';
 
