@@ -132,9 +132,11 @@ export default function TechCircularShowcase() {
   const activeTech = techItems[activeTechIndex] || techItems[0];
 
   return (
-    <section id="tech-circular" className="py-24 relative overflow-hidden">
-      {/* Background Ambient Cosmic Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] h-[550px] bg-gradient-to-r from-purple-700/25 via-cyan-600/20 to-fuchsia-600/25 blur-[140px] pointer-events-none -z-10 rounded-full" />
+    <section id="tech-circular" className="py-24 relative overflow-hidden max-w-full">
+      {/* Background Ambient Cosmic Glows - Clipped for mobile overflow safety */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] max-w-none h-[550px] bg-gradient-to-r from-purple-700/25 via-cyan-600/20 to-fuchsia-600/25 blur-[140px] rounded-full" />
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         

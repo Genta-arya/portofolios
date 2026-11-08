@@ -66,9 +66,11 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
   const [currentActiveIndex, setCurrentActiveIndex] = useState(1); // Default fokus pada Web Application di tengah
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden">
-      {/* Ambient Aurora Glow behind Services */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[520px] bg-gradient-to-r from-fuchsia-600/30 via-purple-600/25 to-indigo-600/25 blur-[130px] pointer-events-none -z-10 rounded-full" />
+    <section id="services" className="py-24 relative overflow-hidden max-w-full">
+      {/* Ambient Aurora Glow behind Services - Clipped for mobile overflow safety */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-none h-[520px] bg-gradient-to-r from-fuchsia-600/30 via-purple-600/25 to-indigo-600/25 blur-[130px] rounded-full" />
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         

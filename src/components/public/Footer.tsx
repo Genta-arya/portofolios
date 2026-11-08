@@ -20,7 +20,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="relative border-t border-purple-500/20 bg-[#05030A] pt-16 pb-12 overflow-hidden">
+      <footer className="relative border-t border-purple-500/20 bg-[#05030A] pt-16 pb-12 overflow-hidden overflow-x-clip max-w-full">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-12 border-b border-purple-500/15">
             

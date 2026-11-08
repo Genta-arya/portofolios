@@ -147,7 +147,8 @@ export default function DepthCarousel({
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full h-[580px] sm:h-[620px] flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing [perspective:1200px]"
+        style={{ contain: 'paint' }}
+        className="relative w-full max-w-full h-[580px] sm:h-[620px] flex items-center justify-center overflow-hidden overflow-clip cursor-grab active:cursor-grabbing [perspective:1200px]"
       >
         <div className="relative w-full max-w-5xl h-full flex items-center justify-center [transform-style:preserve-3d]">
           {childrenArray.map((child, idx) => {

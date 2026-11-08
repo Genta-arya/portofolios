@@ -97,9 +97,11 @@ const experiences: ExperienceItem[] = [
 
 export default function CareerExperience() {
   return (
-    <section id="experience" className="py-24 relative overflow-visible">
-      {/* Ambient Aurora Glow behind Career Section */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[550px] bg-gradient-to-r from-fuchsia-600/25 via-purple-600/30 to-indigo-600/25 blur-[140px] pointer-events-none -z-10 rounded-full" />
+    <section id="experience" className="py-24 relative overflow-x-clip max-w-full">
+      {/* Ambient Aurora Glow behind Career Section - Clipped to prevent mobile horizontal scroll */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] max-w-none h-[550px] bg-gradient-to-r from-fuchsia-600/25 via-purple-600/30 to-indigo-600/25 blur-[140px] rounded-full" />
+      </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 overflow-visible">
         {/* Section Header */}

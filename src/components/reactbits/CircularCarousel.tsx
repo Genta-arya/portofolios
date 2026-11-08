@@ -216,7 +216,8 @@ export default function CircularCarousel({
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full h-[460px] sm:h-[520px] flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing [perspective:1100px]"
+        style={{ contain: 'paint' }}
+        className="relative w-full max-w-full h-[460px] sm:h-[520px] flex items-center justify-center overflow-hidden overflow-clip cursor-grab active:cursor-grabbing [perspective:1100px]"
       >
         {/* Revolving 3D Ring Cylinder */}
         <div

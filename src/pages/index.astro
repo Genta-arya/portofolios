@@ -72,9 +72,11 @@ try {
 
   {/* 6. Latest Insights & Blog Posts Section */}
   {latestBlogs.length > 0 && (
-    <section class="py-24 relative overflow-hidden">
-      {/* Ambient Aurora Glow behind Blog */}
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-gradient-to-r from-purple-600/30 via-fuchsia-600/25 to-indigo-600/20 blur-[130px] pointer-events-none -z-10 rounded-full" />
+    <section class="py-24 relative overflow-hidden max-w-full">
+      {/* Ambient Aurora Glow behind Blog - Clipped for mobile overflow safety */}
+      <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-none h-[500px] bg-gradient-to-r from-purple-600/30 via-fuchsia-600/25 to-indigo-600/20 blur-[130px] rounded-full" />
+      </div>
 
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">

@@ -25,7 +25,7 @@ export default function HeroSection({
   const { isLite } = useDisplayMode();
 
   return (
-    <section id="hero" className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 overflow-hidden">
+    <section id="hero" className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 overflow-hidden overflow-x-clip max-w-full">
       
       {/* 3D Lanyard ID Card - Only on 3D Mode (Desktop) */}
       {!isLite && (

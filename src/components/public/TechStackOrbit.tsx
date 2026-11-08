@@ -115,9 +115,11 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
   };
 
   return (
-    <section id="tech-stack" className="py-24 relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-purple-600/10 rounded-full blur-[140px]" />
+    <section id="tech-stack" className="py-24 relative overflow-hidden max-w-full">
+      {/* Background ambient lighting - Clipped for mobile overflow safety */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] max-w-none h-[700px] bg-purple-600/10 rounded-full blur-[140px]" />
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         

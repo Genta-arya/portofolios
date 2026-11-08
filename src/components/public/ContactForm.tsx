@@ -64,7 +64,7 @@ export default function ContactForm({
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
+    <section id="contact" className="py-24 relative overflow-hidden overflow-x-clip max-w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Header with Scroll Reveal */}

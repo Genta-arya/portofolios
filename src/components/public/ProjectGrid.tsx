@@ -185,9 +185,11 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
   };
 
   return (
-    <section id="portfolio" className="py-24 relative overflow-hidden">
-      {/* Ambient Aurora Glow behind Portfolio Section */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-gradient-to-r from-purple-600/30 via-fuchsia-600/25 to-cyan-500/20 blur-[130px] pointer-events-none -z-10 rounded-full" />
+    <section id="portfolio" className="py-24 relative overflow-hidden max-w-full">
+      {/* Ambient Aurora Glow behind Portfolio Section - Clipped for mobile overflow safety */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-none h-[550px] bg-gradient-to-r from-purple-600/30 via-fuchsia-600/25 to-cyan-500/20 blur-[130px] rounded-full" />
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         

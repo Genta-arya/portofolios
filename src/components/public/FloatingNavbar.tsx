@@ -73,7 +73,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-3 sm:py-4 pointer-events-none [perspective:1200px]">
+    <header className="fixed top-0 left-0 right-0 w-full max-w-full z-50 flex justify-center px-4 py-3 sm:py-4 pointer-events-none [perspective:1200px] overflow-x-clip">
       <motion.nav
         ref={navRef}
         onMouseMove={handleMouseMove}
