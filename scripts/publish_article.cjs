@@ -477,6 +477,20 @@ Di bagian paling bawah, sertakan blok JSON metadata seperti yang ditentukan.
       charset: 'utf8mb4'
     });
 
+    // Render markdown to structured semantic HTML
+    const MarkdownIt = require('markdown-it');
+    const md = new MarkdownIt({ html: true, linkify: true, typographer: true, breaks: false });
+    let cleanMd = cleanContent.replace(/^#\s+[^\n]+\n+/, '');
+    let htmlContent = md.render(cleanMd);
+
+    // Inject id attributes into <h2> for TOC navigation
+    htmlContent = htmlContent.replace(/<h2([^>]*)>(.*?)<\/h2>/gi, (match, attrs, titleText) => {
+      if (attrs.includes('id=')) return match;
+      const cleanTitle = titleText.replace(/<[^>]+>/g, '').trim();
+      const id = cleanTitle.toLowerCase().replace(/[^\w]+/g, '-');
+      return `<h2 id="${id}"${attrs}>${titleText}</h2>`;
+    });
+
     const [insertResult] = await conn.execute(`
       INSERT INTO blog_posts (
         title, slug, excerpt, content, cover_image_url, cover_image_public_id,
@@ -489,7 +503,7 @@ Di bagian paling bawah, sertakan blok JSON metadata seperti yang ditentukan.
       metadata.title,
       slug,
       metadata.excerpt,
-      cleanContent,
+      htmlContent,
       uploadRes.secure_url,
       uploadRes.public_id,
       metadata.readingTimeMinutes,

@@ -5,6 +5,7 @@ import { blogPosts, blogCategories } from '../../db/schema';
 import { eq, ne, desc } from 'drizzle-orm';
 import { formatDate } from '../../lib/utils';
 import { Clock, Eye, Share2, Calendar, ArrowLeft, BookOpen, MessageSquare, Check, Copy } from 'lucide-react';
+import MarkdownIt from 'markdown-it';
 
 const { slug } = Astro.params;
 
@@ -55,13 +56,45 @@ try {
   return Astro.redirect('/blog');
 }
 
+// Markdown-to-HTML parser setup
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+  breaks: false
+});
+
+let renderedContent = post.content || '';
+
+// Detect if post.content is Markdown
+const isMarkdown = post.content && (
+  post.content.trim().startsWith('#') ||
+  post.content.includes('\n## ') ||
+  post.content.includes('```') ||
+  !/<(p|h2|h3|div|ul|ol|pre)[^>]*>/i.test(post.content)
+);
+
+if (isMarkdown) {
+  // Strip duplicate top-level # H1 if present
+  let cleanMd = post.content.replace(/^#\s+[^\n]+\n+/, '');
+  renderedContent = md.render(cleanMd);
+}
+
+// Ensure all <h2> tags have an id for TOC jumping
+renderedContent = renderedContent.replace(/<h2([^>]*)>(.*?)<\/h2>/gi, (match: string, attrs: string, titleText: string) => {
+  if (attrs.includes('id=')) return match;
+  const cleanTitle = titleText.replace(/<[^>]+>/g, '').trim();
+  const id = cleanTitle.toLowerCase().replace(/[^\w]+/g, '-');
+  return `<h2 id="${id}"${attrs}>${titleText}</h2>`;
+});
+
 // Generate simple Table of Contents from h2 headers in HTML
-const headingRegex = /<h2[^>]*>(.*?)<\/h2>/g;
+const headingRegex = /<h2[^>]*id=["']([^"']+)["'][^>]*>(.*?)<\/h2>/gi;
 const headings: { title: string; id: string }[] = [];
 let match;
-while ((match = headingRegex.exec(post.content)) !== null) {
-  const title = match[1].replace(/<[^>]+>/g, '');
-  const id = title.toLowerCase().replace(/[^\w]+/g, '-');
+while ((match = headingRegex.exec(renderedContent)) !== null) {
+  const id = match[1];
+  const title = match[2].replace(/<[^>]+>/g, '').trim();
   headings.push({ title, id });
 }
 ---
@@ -136,7 +169,7 @@ while ((match = headingRegex.exec(post.content)) !== null) {
       <div class="lg:col-span-8">
         <div
           class="prose prose-invert prose-purple max-w-none text-zinc-300 leading-relaxed text-base space-y-4 prose-headings:text-white prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-code:text-purple-300 prose-code:bg-[#120B24] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:border prose-code:border-purple-500/20 prose-pre:bg-[#0D0818] prose-pre:border prose-pre:border-purple-500/25 prose-img:rounded-2xl"
-          set:html={post.content}
+          set:html={renderedContent}
         />
 
         {/* Share & Feedback Action Bar */}
