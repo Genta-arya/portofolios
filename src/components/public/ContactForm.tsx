@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, Briefcase, Globe, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { FastworkIcon } from '../ui/Icons';
 import DataFetchLoader from '../ui/DataFetchLoader';
 
 interface ContactFormProps {
@@ -121,11 +122,10 @@ export default function ContactForm({
                 <a
                   href={fastworkUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
                   className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-[#120B24]/90 border border-fuchsia-500/30 hover:border-fuchsia-400 text-zinc-200 hover:text-white transition-all group"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 group-hover:scale-105 transition-transform">
-                    <Briefcase className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-fuchsia-500/20 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
+                    <FastworkIcon className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
                     <div className="text-[11px] text-zinc-400">Fastwork Order &amp; Chat</div>

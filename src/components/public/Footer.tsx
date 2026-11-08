@@ -1,4 +1,5 @@
 import React from 'react';
+import { FastworkIcon } from '../ui/Icons';
 
 export default function Footer() {
   return (
@@ -40,9 +41,7 @@ export default function Footer() {
               className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1A0E2E] border border-purple-500/30 text-amber-300 hover:text-white hover:border-amber-400 transition-all font-semibold shadow-sm"
               title="Hire Gentha Arya on Fastwork"
             >
-              <svg className="w-3.5 h-3.5 fill-current text-amber-400" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              </svg>
+              <FastworkIcon className="w-3.5 h-3.5 text-amber-400 fill-current" />
               <span>Fastwork Profile</span>
             </a>
           </div>
