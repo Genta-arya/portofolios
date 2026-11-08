@@ -73,7 +73,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 w-full max-w-full z-50 flex justify-center px-4 py-3 sm:py-4 pointer-events-none [perspective:1200px] overflow-x-clip">
+    <header className="fixed top-0 left-0 right-0 w-full max-w-full z-[80] flex justify-center px-4 py-3 sm:py-4 pointer-events-none md:[perspective:1200px] overflow-x-clip">
       <motion.nav
         ref={navRef}
         onMouseMove={handleMouseMove}
@@ -81,12 +81,12 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
         style={{
           rotateX,
           rotateY,
-          transformStyle: 'preserve-3d',
+          transformStyle: isLite ? 'flat' : 'preserve-3d',
         }}
-        className={`pointer-events-auto relative w-full max-w-5xl rounded-2xl sm:rounded-full transition-all duration-300 flex items-center justify-between px-4 sm:px-6 py-2 sm:py-2.5 ${
+        className={`pointer-events-auto relative z-[85] w-full max-w-5xl rounded-2xl sm:rounded-full transition-all duration-300 flex items-center justify-between px-4 sm:px-6 py-2 sm:py-2.5 ${
           scrolled
-            ? 'bg-[#0E0720]/90 backdrop-blur-2xl border-t border-t-white/25 border-b-2 border-b-[#2E1065]/90 border-x border-purple-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_30px_rgba(168,85,247,0.25),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_-3px_6px_rgba(0,0,0,0.7)]'
-            : 'bg-[#0C061C]/75 backdrop-blur-xl border-t border-t-white/15 border-b-2 border-b-[#1F0A43]/80 border-x border-purple-500/20 shadow-[0_12px_35px_rgba(0,0,0,0.7),0_0_20px_rgba(168,85,247,0.15),inset_0_1px_1px_rgba(255,255,255,0.15)]'
+            ? 'bg-[#0E0720]/95 backdrop-blur-2xl border-t border-t-white/25 border-b-2 border-b-[#2E1065]/90 border-x border-purple-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_30px_rgba(168,85,247,0.25),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_-3px_6px_rgba(0,0,0,0.7)]'
+            : 'bg-[#0C061C]/85 backdrop-blur-xl border-t border-t-white/15 border-b-2 border-b-[#1F0A43]/80 border-x border-purple-500/20 shadow-[0_12px_35px_rgba(0,0,0,0.7),0_0_20px_rgba(168,85,247,0.15),inset_0_1px_1px_rgba(255,255,255,0.15)]'
         }`}
       >
         {/* Top 3D Specular Light Bevel Reflection */}
@@ -178,9 +178,12 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
             e.stopPropagation();
             setMobileMenuOpen((prev) => !prev);
           }}
+          onPointerDown={(e) => {
+            e.stopPropagation();
+          }}
           aria-label="Toggle Navigation Menu"
           aria-expanded={mobileMenuOpen}
-          className="md:hidden relative z-30 p-2.5 rounded-xl bg-[#140A28] border-t border-t-white/25 border-b-2 border-b-[#2E1065] border-x border-purple-500/35 text-purple-300 hover:text-white active:scale-95 transition-transform cursor-pointer shadow-[0_3px_0_#2E1065,0_6px_15px_rgba(0,0,0,0.6)]"
+          className="md:hidden relative z-[90] p-2.5 rounded-xl bg-[#140A28] border-t border-t-white/25 border-b-2 border-b-[#2E1065] border-x border-purple-500/35 text-purple-300 hover:text-white active:scale-90 transition-transform cursor-pointer shadow-[0_3px_0_#2E1065,0_6px_15px_rgba(0,0,0,0.6)] touch-manipulation select-none"
         >
           {mobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-purple-300" />}
         </button>
@@ -189,14 +192,14 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
       {/* Mobile 3D Suspended Glass Menu - Rendered with AnimatePresence & pointer-events-auto */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 md:hidden pointer-events-auto">
+          <div className="fixed inset-0 z-[110] md:hidden pointer-events-auto">
             {/* Backdrop blur overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/75 backdrop-blur-md"
             />
 
             {/* Menu Container Card */}
@@ -205,7 +208,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="absolute top-20 inset-x-4 max-w-lg mx-auto bg-[#0D071E]/95 backdrop-blur-2xl rounded-3xl p-5 border-t border-t-white/25 border-b-2 border-b-[#2E1065] border-x border-purple-500/35 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(168,85,247,0.3)] flex flex-col gap-2 z-10"
+              className="absolute top-20 inset-x-4 max-w-lg mx-auto bg-[#0D071E] rounded-3xl p-5 border border-purple-500/40 shadow-[0_20px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(168,85,247,0.35)] flex flex-col gap-2.5 z-20"
             >
               <div className="flex items-center justify-between pb-3 border-b border-purple-500/20 mb-1">
                 <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Navigasi Menu</span>
