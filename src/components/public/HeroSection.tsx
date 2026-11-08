@@ -47,8 +47,8 @@ export default function HeroSection({
         </motion.div>
       )}
 
-      {/* Hero Content Container - Full comfortable width on tablet */}
-      <div className={`max-w-5xl md:max-w-6xl xl:max-w-[1380px] mx-auto px-6 sm:px-10 md:px-12 xl:px-12 w-full ${!isLite ? 'xl:pl-80 2xl:pl-96' : 'xl:pl-10'}`}>
+      {/* Hero Content Container - Exactly identical max-w-6xl px-4 sm:px-6 with Tahapan Pengerjaan */}
+      <div className={`max-w-6xl mx-auto px-4 sm:px-6 w-full ${!isLite ? 'xl:pl-80 2xl:pl-96' : ''}`}>
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-3 md:gap-4 xl:gap-12 items-center">
           
           {/* Left Column: Headlines, Bio, CTAs, Counters */}
