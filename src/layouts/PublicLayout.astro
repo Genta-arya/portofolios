@@ -19,14 +19,33 @@ interface Props {
 
 const {
   title = 'Gentha Arya Pratama — Fullstack Developer · Web & Mobile',
-  description = 'Portofolio resmi Gentha Arya Pratama. Fullstack Developer spesialis perancangan sistem web enterprise berkecepatan tinggi, REST API terstruktur, serta aplikasi mobile modern.',
-  ogImage = '/projects/elibrary-smk.png',
+  description = 'Portofolio Gentha Arya Pratama, Fullstack Developer spesialis web enterprise cepat, arsitektur REST API, dan aplikasi mobile modern.',
+  ogImage = '/og-image.png',
   type = 'website',
   publishedTime,
   keywords = 'Gentha Arya Pratama, Fullstack Developer, Web Developer Indonesia, React Developer, Astro Developer, React Native, Mobile App Developer, Express JS, MySQL, Frontend Engineer, Software Engineer, Portfolio Developer, Jasa Pembuatan Website, Fastwork Freelancer',
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://www.mgentaarya.my.id';
+// Helper: Truncate descriptions cleanly to satisfy strict SEO & OpenGraph length recommendations
+const truncateCleanly = (text: string, maxLen: number) => {
+  if (!text || text.length <= maxLen) return text || '';
+  const truncated = text.slice(0, maxLen - 3);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + '...';
+};
+
+const rawDesc = (description || '').trim();
+// 1. Google Search snippet recommendation: 140 - 155 characters (max 160)
+const metaDescription = truncateCleanly(rawDesc, 155);
+// 2. OpenGraph / WhatsApp / Twitter social cards preview: 110 - 125 characters (prevents truncation on mobile)
+const ogDescription = truncateCleanly(rawDesc, 125);
+
+// Dynamic origin resolution: uses actual incoming host header so OG URLs always match current deployment domain
+const forwardedProto = Astro.request.headers.get('x-forwarded-proto') || 'https';
+const forwardedHost = Astro.request.headers.get('x-forwarded-host') || Astro.request.headers.get('host');
+const originFromHeader = forwardedHost ? `${forwardedProto}://${forwardedHost}` : null;
+
+const siteUrl = originFromHeader || (Astro.url.origin && !Astro.url.origin.includes('localhost') ? Astro.url.origin : (Astro.site?.toString().replace(/\/$/, '') || 'https://portofolio-beta-two-98.vercel.app'));
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 
 const absoluteOgImage = ogImage.startsWith('http')
@@ -42,7 +61,7 @@ const structuredData = {
       '@id': `${siteUrl}/#website`,
       'url': siteUrl,
       'name': 'Gentha Arya Pratama — Fullstack Developer Portfolio',
-      'description': description,
+      'description': metaDescription,
       'inLanguage': 'id-ID',
       'publisher': {
         '@id': `${siteUrl}/#person`,
@@ -56,7 +75,7 @@ const structuredData = {
       'url': siteUrl,
       'jobTitle': 'Fullstack Developer',
       'description': 'Fullstack Developer spesialis web enterprise berkecepatan tinggi dan aplikasi mobile React Native & Android.',
-      'image': `${siteUrl}/avatar.png`,
+      'image': `${siteUrl}/images/gentha-photo.jpg`,
       'sameAs': [
         'https://github.com/Genta-arya',
         'https://fastwork.id/user/babfpfzm',
@@ -88,7 +107,7 @@ const structuredData = {
               '@id': `${siteUrl}/#person`,
             },
             'headline': title,
-            'description': description,
+            'description': metaDescription,
             'image': absoluteOgImage,
             'datePublished': publishedTime,
             'mainEntityOfPage': canonicalURL.toString(),
@@ -113,7 +132,7 @@ const structuredData = {
     <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Gentha Arya Pratama" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -122,22 +141,27 @@ const structuredData = {
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="Gentha Arya Pratama" />
     <meta property="og:locale" content="id_ID" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:secure_url" content={absoluteOgImage} />
+    <meta property="og:image:type" content={absoluteOgImage.endsWith('.png') ? 'image/png' : 'image/jpeg'} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={title} />
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={absoluteOgImage} />
+    <meta name="twitter:image:alt" content={title} />
     <meta name="twitter:creator" content="@mgentaarya" />
     <meta name="twitter:site" content="@mgentaarya" />
 
