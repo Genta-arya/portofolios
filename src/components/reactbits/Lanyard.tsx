@@ -243,7 +243,7 @@ export default function Lanyard({
           dh = diam / aspect;
         }
         dx = photoCenterX - dw / 2;
-        dy = photoCenterY - dh / 2;
+        dy = photoCenterY - dh * 0.36; // Geser fokus ke atas agar rambut/kepala tidak terpotong
         ctx.drawImage(userImg, dx, dy, dw, dh);
       } else {
         ctx.fillStyle = '#2A1850';

@@ -198,13 +198,13 @@ export default function HeroSection({
               /* Lightweight 2D Developer Identity Card (0% Three.js / WebGL load) */
               <div className="w-full max-w-md p-7 rounded-3xl bg-gradient-to-b from-[#150B28]/90 via-[#0E071D]/90 to-[#070310]/90 border border-purple-500/30 shadow-[0_15px_40px_rgba(139,92,246,0.18)]">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="relative w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-purple-500 to-cyan-400">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 bg-gradient-to-tr from-purple-500 to-cyan-400 shrink-0">
                     <img
                       src="/images/gentha-photo.jpg"
                       alt={fullName}
-                      className="w-full h-full object-cover rounded-full"
+                      className="w-full h-full object-cover object-[50%_10%] rounded-full"
                     />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#0D0818] flex items-center justify-center">
+                    <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#0D0818] flex items-center justify-center">
                       <div className="w-3.5 h-3.5 rounded-full bg-emerald-400 animate-pulse" />
                     </div>
                   </div>
