@@ -99,6 +99,13 @@ while ((match = headingRegex.exec(renderedContent)) !== null) {
   const title = match[2].replace(/<[^>]+>/g, '').trim();
   headings.push({ title, id });
 }
+
+// Dynamic origin resolution from incoming request headers
+const forwardedProto = Astro.request.headers.get('x-forwarded-proto') || 'https';
+const forwardedHost = Astro.request.headers.get('x-forwarded-host') || Astro.request.headers.get('host');
+const originFromHeader = forwardedHost ? `${forwardedProto}://${forwardedHost}` : null;
+const resolvedSiteUrl = originFromHeader || (Astro.url.origin && !Astro.url.origin.includes('localhost') ? Astro.url.origin : 'https://mgentaarya.my.id');
+const shareUrl = `${resolvedSiteUrl}/blog/${post.slug}`;
 ---
 
 <PublicLayout
@@ -197,7 +204,8 @@ while ((match = headingRegex.exec(renderedContent)) !== null) {
 
             {/* WhatsApp */}
             <a
-              href={`https://wa.me/?text=${encodeURIComponent(post.title + ' — ' + Astro.url.href)}`}
+              href={`https://wa.me/?text=${encodeURIComponent(post.title + ' — ' + shareUrl)}`}
+              data-share="whatsapp"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3 py-1.5 rounded-xl bg-[#0b2416]/70 border border-emerald-500/30 text-xs font-medium text-emerald-300 hover:text-white hover:bg-emerald-900/60 hover:border-emerald-400 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
@@ -209,7 +217,8 @@ while ((match = headingRegex.exec(renderedContent)) !== null) {
 
             {/* Facebook */}
             <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+              data-share="facebook"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3 py-1.5 rounded-xl bg-[#0d1c3a]/70 border border-blue-500/30 text-xs font-medium text-blue-300 hover:text-white hover:bg-blue-900/60 hover:border-blue-400 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
@@ -221,7 +230,8 @@ while ((match = headingRegex.exec(renderedContent)) !== null) {
 
             {/* Telegram */}
             <a
-              href={`https://t.me/share/url?url=${encodeURIComponent(Astro.url.href)}&text=${encodeURIComponent(post.title)}`}
+              href={`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`}
+              data-share="telegram"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3 py-1.5 rounded-xl bg-[#092232]/70 border border-sky-500/30 text-xs font-medium text-sky-300 hover:text-white hover:bg-sky-900/60 hover:border-sky-400 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
@@ -244,7 +254,8 @@ while ((match = headingRegex.exec(renderedContent)) !== null) {
 
             {/* LinkedIn */}
             <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+              data-share="linkedin"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3 py-1.5 rounded-xl bg-[#0a1f33]/70 border border-cyan-500/30 text-xs font-medium text-cyan-300 hover:text-white hover:bg-cyan-900/60 hover:border-cyan-400 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
@@ -326,7 +337,21 @@ while ((match = headingRegex.exec(renderedContent)) !== null) {
   {/* Client script for auto-incrementing view count, copy button, and code block copy buttons */}
   <script define:vars={{ slug }}>
     // Increment view count in background
-    fetch(`/api/blog/${slug}/view`, { method: 'POST' }).catch(() => {});
+    // Automatically update share URLs to active browser URL (avoiding localhost or stale host)
+    const currentUrl = window.location.href;
+    const postTitle = document.title || 'Artikel';
+
+    const waLink = document.querySelector('a[data-share="whatsapp"]');
+    if (waLink) waLink.href = `https://wa.me/?text=${encodeURIComponent(postTitle + ' — ' + currentUrl)}`;
+
+    const fbLink = document.querySelector('a[data-share="facebook"]');
+    if (fbLink) fbLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+
+    const tgLink = document.querySelector('a[data-share="telegram"]');
+    if (tgLink) tgLink.href = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(postTitle)}`;
+
+    const inLink = document.querySelector('a[data-share="linkedin"]');
+    if (inLink) inLink.href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
 
     // Copy link helper
     const copyBtn = document.getElementById('copy-link-btn');

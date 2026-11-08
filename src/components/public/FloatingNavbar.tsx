@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Sparkles, Box, Zap } from 'lucide-react';
 import Magnet from '../reactbits/Magnet';
 import { useDisplayMode } from '../../lib/displayModeStore';
@@ -173,51 +173,95 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
 
         {/* Mobile Menu 3D Toggle Button */}
         <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setMobileMenuOpen((prev) => !prev);
+          }}
           aria-label="Toggle Navigation Menu"
-          className="md:hidden p-2 rounded-xl bg-[#140A28] border-t border-t-white/20 border-b-2 border-b-[#2E1065] border-x border-purple-500/30 text-purple-300 hover:text-white shadow-[0_3px_0_#2E1065,0_6px_15px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-[0_1px_0_#2E1065]"
+          aria-expanded={mobileMenuOpen}
+          className="md:hidden relative z-30 p-2.5 rounded-xl bg-[#140A28] border-t border-t-white/25 border-b-2 border-b-[#2E1065] border-x border-purple-500/35 text-purple-300 hover:text-white active:scale-95 transition-transform cursor-pointer shadow-[0_3px_0_#2E1065,0_6px_15px_rgba(0,0,0,0.6)]"
         >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-purple-300" />}
         </button>
       </motion.nav>
 
-      {/* Mobile 3D Suspended Glass Menu */}
-      {mobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -15, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -15, scale: 0.95 }}
-          className="md:hidden fixed top-20 inset-x-4 bg-[#0D071E]/95 backdrop-blur-2xl rounded-2xl p-5 border-t border-t-white/25 border-b-2 border-b-[#2E1065] border-x border-purple-500/35 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(168,85,247,0.3)] flex flex-col gap-2.5 z-50 pointer-events-auto"
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
+      {/* Mobile 3D Suspended Glass Menu - Rendered with AnimatePresence & pointer-events-auto */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 z-50 md:hidden pointer-events-auto">
+            {/* Backdrop blur overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-2.5 text-sm font-semibold text-zinc-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/25 hover:to-fuchsia-600/15 rounded-xl border border-transparent hover:border-purple-500/30 transition-all"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            {/* Menu Container Card */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="absolute top-20 inset-x-4 max-w-lg mx-auto bg-[#0D071E]/95 backdrop-blur-2xl rounded-3xl p-5 border-t border-t-white/25 border-b-2 border-b-[#2E1065] border-x border-purple-500/35 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(168,85,247,0.3)] flex flex-col gap-2 z-10"
             >
-              {link.label}
-            </a>
-          ))}
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              window.dispatchEvent(new CustomEvent('open-mode-modal'));
-            }}
-            className="w-full text-center py-2.5 rounded-xl text-xs font-bold bg-[#140A28] border border-purple-500/30 text-purple-300 flex items-center justify-center gap-2 mt-1"
-          >
-            {isLite ? <Zap className="w-3.5 h-3.5 text-cyan-400" /> : <Box className="w-3.5 h-3.5 text-purple-400" />}
-            <span>Mode Tampilan: {isLite ? 'Ringan (Fast)' : '3D Imersif'}</span>
-          </button>
-          <a
-            href="/#contact"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full text-center py-3 rounded-xl text-sm font-bold bg-gradient-to-b from-fuchsia-500 via-purple-600 to-indigo-700 text-white border-t border-t-white/30 border-b-2 border-b-[#3B0764] shadow-[0_4px_0_#3B0764,0_10px_20px_rgba(168,85,247,0.4)] mt-2 active:translate-y-0.5"
-          >
-            Let&apos;s Talk ↗
-          </a>
-        </motion.div>
-      )}
+              <div className="flex items-center justify-between pb-3 border-b border-purple-500/20 mb-1">
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Navigasi Menu</span>
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 rounded-lg text-zinc-400 hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {navLinks.map((link) => {
+                const isActive = link.isExternalPage
+                  ? currentPath.startsWith('/blog')
+                  : activeSection === link.id;
+
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-4 py-3 text-sm font-semibold rounded-2xl border transition-all ${
+                      isActive
+                        ? 'bg-purple-600/30 text-white border-purple-500/50 shadow-md'
+                        : 'text-zinc-300 hover:text-white bg-[#140A28]/60 border-purple-500/15 hover:border-purple-500/35'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  window.dispatchEvent(new CustomEvent('open-mode-modal'));
+                }}
+                className="w-full text-center py-3 rounded-2xl text-xs font-bold bg-[#140A28] border border-purple-500/30 text-purple-300 hover:text-white flex items-center justify-center gap-2 mt-1 cursor-pointer transition-colors"
+              >
+                {isLite ? <Zap className="w-3.5 h-3.5 text-cyan-400" /> : <Box className="w-3.5 h-3.5 text-purple-400" />}
+                <span>Mode Tampilan: {isLite ? 'Ringan (Fast)' : '3D Imersif'}</span>
+              </button>
+
+              <a
+                href="/#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center py-3.5 rounded-2xl text-sm font-bold bg-gradient-to-b from-fuchsia-500 via-purple-600 to-indigo-700 text-white border-t border-t-white/30 border-b-2 border-b-[#3B0764] shadow-[0_4px_0_#3B0764,0_10px_20px_rgba(168,85,247,0.4)] mt-2 active:scale-95 transition-transform"
+              >
+                Let&apos;s Talk ↗
+              </a>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
