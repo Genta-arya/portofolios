@@ -106,15 +106,18 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
           <p className="text-xs text-zinc-400">Coba ubah kata kunci pencarian atau pilih topik lainnya.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-5 sm:gap-6">
           {filtered.map((post) => (
-            <a
+            <article
               key={post.id}
-              href={`/blog/${post.slug}`}
-              className="group rounded-3xl bg-[#0D0818]/80 border border-purple-500/20 hover:border-purple-400/50 p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_12px_35px_rgba(139,92,246,0.2)] hover:-translate-y-1.5"
+              className="group relative rounded-3xl bg-gradient-to-r from-[#0E081D]/90 via-[#120B24]/80 to-[#0A0615]/90 border border-purple-500/20 hover:border-purple-400/50 p-4 sm:p-6 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(139,92,246,0.18)] hover:-translate-y-1"
             >
-              <div>
-                <div className="aspect-[16/10] rounded-2xl overflow-hidden mb-5 bg-[#120B24] border border-purple-500/20 relative">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 sm:gap-6">
+                {/* Thumbnail Container */}
+                <a
+                  href={`/blog/${post.slug}`}
+                  className="relative w-full sm:w-64 md:w-72 sm:min-w-[256px] md:min-w-[288px] aspect-[16/10] rounded-2xl overflow-hidden bg-[#120B24] border border-purple-500/25 shrink-0 block"
+                >
                   <img
                     src={post.coverImageUrl}
                     alt={post.title}
@@ -126,30 +129,55 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
                       {post.categoryName}
                     </div>
                   )}
+                </a>
+
+                {/* Content Details */}
+                <div className="flex-1 flex flex-col justify-between min-w-0">
+                  <div>
+                    {/* Meta Info */}
+                    <div className="flex flex-wrap items-center gap-2.5 text-xs text-zinc-400 mb-2.5">
+                      <span className="flex items-center gap-1 font-medium text-purple-300">
+                        <Clock className="w-3.5 h-3.5 text-purple-400" />
+                        <span>{post.readingTimeMinutes || 3} min baca</span>
+                      </span>
+                      <span>•</span>
+                      <span>{formatDate(post.publishedAt || post.createdAt)}</span>
+                      {post.isFeatured && (
+                        <>
+                          <span>•</span>
+                          <span className="text-[10px] font-bold text-amber-400 px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
+                            Unggulan
+                          </span>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-300 transition-colors leading-snug mb-2 line-clamp-2">
+                      <a href={`/blog/${post.slug}`}>
+                        {post.title}
+                      </a>
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4">
+                      {post.excerpt}
+                    </p>
+                  </div>
+
+                  {/* Action Link & Read Indicator */}
+                  <div className="pt-3 border-t border-purple-500/15 flex items-center justify-between">
+                    <a
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors"
+                    >
+                      <span>Baca Selengkapnya</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+                  </div>
                 </div>
-
-                <div className="flex items-center gap-3 text-[11px] text-zinc-400 mb-3">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-purple-400" />
-                    <span>{post.readingTimeMinutes || 3} min</span>
-                  </span>
-                  <span>•</span>
-                  <span>{formatDate(post.publishedAt || post.createdAt)}</span>
-                </div>
-
-                <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 mb-2">
-                  {post.title}
-                </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed line-clamp-3">
-                  {post.excerpt}
-                </p>
               </div>
-
-              <div className="mt-6 pt-4 border-t border-purple-500/15 flex items-center justify-between text-xs font-semibold text-purple-400">
-                <span>Baca Artikel</span>
-                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </div>
-            </a>
+            </article>
           ))}
         </div>
       )}
