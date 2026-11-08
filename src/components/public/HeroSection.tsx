@@ -47,9 +47,9 @@ export default function HeroSection({
         </motion.div>
       )}
 
-      {/* Hero Content Container - Centered on mobile & tablet with generous padding */}
-      <div className={`max-w-4xl lg:max-w-7xl xl:max-w-[1380px] mx-auto px-6 sm:px-12 md:px-16 lg:px-8 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-8'}`}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 xl:gap-12 items-center">
+      {/* Hero Content Container - Generous padding on tablet and mobile to prevent text from touching screen edges */}
+      <div className={`max-w-4xl lg:max-w-7xl xl:max-w-[1380px] mx-auto px-8 sm:px-16 md:px-24 lg:px-12 w-full ${!isLite ? 'lg:pl-72 xl:pl-80 2xl:pl-96' : 'lg:pl-10'}`}>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14 xl:gap-12 items-center">
           
           {/* Left Column: Headlines, Bio, CTAs, Counters */}
           <motion.div
@@ -73,7 +73,7 @@ export default function HeroSection({
             </motion.div>
 
             {/* Headline Title with Official React Bits MaskedHeading */}
-            <div className="w-full max-w-2xl mx-auto lg:mx-0 mb-5">
+            <div className="w-full max-w-xl mx-auto lg:mx-0 px-2 sm:px-4 md:px-6 lg:px-0 mb-6">
               <MaskedHeading
                 text="Membangun Solusi Digital Modern, Cepat & Skalabel"
                 tag="h1"
@@ -86,7 +86,7 @@ export default function HeroSection({
                 trigger="view"
                 align="center"
                 weight={800}
-                textScale={0.075}
+                textScale={0.065}
                 spotlight={true}
                 spotlightRadius={180}
                 outline={true}
@@ -101,7 +101,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0 text-center lg:text-left"
+              className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0 text-center lg:text-left px-2 sm:px-4 lg:px-0"
             >
               Halo! Saya <DecryptedText text={fullName} speed={35} className="text-purple-300 font-semibold" />, pengembang{' '}
               <span className="text-white font-medium">Aplikasi Web Enterprise</span> dan{' '}
