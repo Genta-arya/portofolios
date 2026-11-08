@@ -69,7 +69,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
     { label: 'Services', href: '/#services', id: 'services' },
     { label: 'Portfolio', href: '/#portfolio', id: 'portfolio' },
     { label: 'Tech Stack', href: '/#tech-circular', id: 'tech-circular' },
-    { label: 'Blog', href: '/blog', isExternalPage: true },
+    { label: 'Article', href: '/blog', isExternalPage: true },
   ];
 
   return (
