@@ -67,9 +67,9 @@ const experiences: ExperienceItem[] = [
     status: 'completed',
     icon: Activity,
     logoUrl: '/images/logo-rsud.png',
-    accentColor: '#6366F1',
-    glowColor: 'rgba(99, 102, 241, 0.30)',
-    badgeBg: 'bg-sky-950/60 text-sky-200 border-sky-500/40',
+    accentColor: '#14B8A6',
+    glowColor: 'rgba(20, 184, 166, 0.30)',
+    badgeBg: 'bg-teal-950/60 text-teal-200 border-teal-500/40',
     summary:
       'Bertugas sebagai Staff IT Support selama 1 tahun di RSUD dr. Agoesdjam Ketapang, bertanggung jawab atas kelancaran operasional Sistem Informasi Manajemen Rumah Sakit (SIMRS), pemeliharaan infrastruktur jaringan, hardware medis dan administrasi, serta dukungan teknis pengguna 24/7.',
     highlightMetric: 'Dukungan IT Medis & SIMRS',
