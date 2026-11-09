@@ -152,7 +152,7 @@ export default function AuroraBackground() {
             scale: [1, 1.18, 0.9, 1],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
-          className="absolute top-1/3 left-1/3 -translate-x-1/2 w-[780px] h-[780px] rounded-full bg-gradient-to-r from-fuchsia-500/45 via-purple-600/40 to-pink-500/35 blur-[95px] opacity-85"
+          className="absolute top-1/3 left-1/3 -translate-x-1/2 w-[780px] h-[780px] rounded-full bg-violet-900/30 blur-[95px] opacity-85"
         />
 
         {/* Electric Indigo & Cyan Ambient Beam (Mid-Right) */}
@@ -168,7 +168,7 @@ export default function AuroraBackground() {
 
         {/* Sweeping Aurora Curtains Across Header and Middle */}
         <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-purple-600/25 via-fuchsia-600/15 to-transparent pointer-events-none" />
-        <div className="absolute top-1/2 left-0 right-0 h-48 bg-gradient-to-r from-purple-600/20 via-cyan-500/15 to-fuchsia-600/20 blur-[60px] pointer-events-none" />
+        <div className="absolute top-1/2 left-0 right-0 h-48 bg-violet-900/20 blur-[60px] pointer-events-none" />
       </motion.div>
 
       {/* ---------------- 3. NEAR LIGHT BEAM TIER (Mouse Responsive Flare) ---------------- */}
@@ -182,7 +182,7 @@ export default function AuroraBackground() {
             scale: [0.95, 1.08, 0.95],
           }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 left-1/2 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-fuchsia-500/35 via-cyan-400/25 to-purple-500/30 blur-[80px]"
+          className="absolute top-1/4 left-1/2 w-[520px] h-[520px] rounded-full bg-violet-900/25 blur-[80px]"
         />
       </motion.div>
 

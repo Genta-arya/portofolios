@@ -134,7 +134,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
                   <motion.div
                     layoutId="activeNavPill"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    className="absolute inset-0 rounded-full bg-gradient-to-b from-purple-500/60 via-purple-600/45 to-fuchsia-600/35 border-t border-t-white/40 border-b border-b-purple-900/80 border-x border-purple-400/40 shadow-[0_4px_14px_rgba(168,85,247,0.5),inset_0_1px_1px_rgba(255,255,255,0.35),inset_0_-1px_2px_rgba(0,0,0,0.5)] -z-10"
+                    className="absolute inset-0 rounded-full bg-violet-600/70 border-t border-t-white/40 border-b border-b-purple-900/80 border-x border-purple-400/40 shadow-[0_4px_14px_rgba(168,85,247,0.5),inset_0_1px_1px_rgba(255,255,255,0.35),inset_0_-1px_2px_rgba(0,0,0,0.5)] -z-10"
                   />
                 )}
                 <span className="relative z-10">{link.label}</span>

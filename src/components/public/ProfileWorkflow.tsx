@@ -63,7 +63,7 @@ export default function ProfileWorkflow() {
     <section id="profile" className="py-24 relative overflow-hidden max-w-full">
       {/* Ambient Aurora Glow behind Profile & Workflow - Clipped for mobile overflow safety */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] max-w-none h-[550px] bg-gradient-to-r from-violet-800/30 via-purple-600/30 to-fuchsia-600/25 blur-[135px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] max-w-none h-[550px] bg-violet-900/20 blur-[135px] rounded-full" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

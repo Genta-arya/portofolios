@@ -293,7 +293,7 @@ export default function CircularCarousel({
                   aria-label={`Ke Tech ${i + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                     i === activeIndex
-                      ? 'w-6 bg-gradient-to-r from-purple-500 to-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]'
+                      ? 'w-6 bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]'
                       : 'w-2 bg-purple-900/60 hover:bg-purple-500/50'
                   }`}
                 />

@@ -102,7 +102,7 @@ export default function CareerExperience() {
     <section id="experience" className="py-24 relative overflow-x-clip max-w-full">
       {/* Ambient Aurora Glow behind Career Section - Clipped to prevent mobile horizontal scroll */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] max-w-none h-[550px] bg-gradient-to-r from-fuchsia-600/25 via-purple-600/30 to-violet-800/25 blur-[140px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] max-w-none h-[550px] bg-violet-900/20 blur-[140px] rounded-full" />
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 overflow-visible">
