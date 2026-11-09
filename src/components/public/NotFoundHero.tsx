@@ -105,10 +105,10 @@ export default function NotFoundHero() {
             borderRadius="1.25rem"
             className="rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.7)]"
           >
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#0D071D]/90 border border-purple-500/30 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#0D071D] border border-purple-500/30 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href="/"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white text-xs font-bold shadow-lg shadow-purple-600/35 hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white text-xs font-bold shadow-lg shadow-purple-600/35 hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 <Home className="w-4 h-4" />
                 <span>Kembali ke Beranda</span>

@@ -113,7 +113,7 @@ export default function AuroraBackground() {
             scale: [1, 1.18, 0.94, 1],
           }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-32 -left-32 w-[720px] h-[720px] rounded-full bg-gradient-to-tr from-purple-600/50 via-violet-600/40 to-indigo-700/35 blur-[95px] opacity-85"
+          className="absolute -top-32 -left-32 w-[720px] h-[720px] rounded-full bg-gradient-to-tr from-purple-600/50 via-violet-600/40 to-violet-900/35 blur-[95px] opacity-85"
         />
 
         {/* Luminous Magenta & Cosmic Rose Horizon (Bottom) */}
@@ -124,7 +124,7 @@ export default function AuroraBackground() {
             scale: [1, 1.15, 0.9, 1],
           }}
           transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute -bottom-40 left-1/5 w-[900px] h-[620px] rounded-full bg-gradient-to-tr from-purple-700/50 via-fuchsia-600/40 to-indigo-800/35 blur-[105px] opacity-80"
+          className="absolute -bottom-40 left-1/5 w-[900px] h-[620px] rounded-full bg-gradient-to-tr from-purple-700/50 via-fuchsia-600/40 to-violet-950/35 blur-[105px] opacity-80"
         />
       </motion.div>
 
@@ -163,7 +163,7 @@ export default function AuroraBackground() {
             scale: [0.95, 1.12, 1, 0.95],
           }}
           transition={{ duration: 17, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          className="absolute top-1/2 -right-28 w-[680px] h-[680px] rounded-full bg-gradient-to-tl from-indigo-500/40 via-purple-600/35 to-cyan-500/25 blur-[90px] opacity-85"
+          className="absolute top-1/2 -right-28 w-[680px] h-[680px] rounded-full bg-gradient-to-tl from-violet-600/40 via-purple-600/35 to-cyan-500/25 blur-[90px] opacity-85"
         />
 
         {/* Sweeping Aurora Curtains Across Header and Middle */}

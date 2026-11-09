@@ -305,7 +305,7 @@ export default function Hero3DScene() {
 
         {/* Badge 4: Astro 5 & Tailwind CSS */}
         <div
-          className="absolute bottom-3 right-1 sm:right-3 px-3.5 py-1.5 rounded-full bg-[#0D071E]/90 backdrop-blur-md border border-indigo-500/40 text-indigo-300 text-xs font-semibold shadow-[0_0_20px_rgba(99,102,241,0.35)] animate-float hover:scale-105 pointer-events-auto transition-transform flex items-center gap-2"
+          className="absolute bottom-3 right-1 sm:right-3 px-3.5 py-1.5 rounded-full bg-[#0D071E]/90 backdrop-blur-md border border-violet-500/40 text-violet-300 text-xs font-semibold shadow-[0_0_20px_rgba(139,92,246,0.35)] animate-float hover:scale-105 pointer-events-auto transition-transform flex items-center gap-2"
           style={{ animationDelay: '0.8s' }}
         >
           <div className="flex items-center -space-x-0.5">

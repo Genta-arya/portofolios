@@ -161,7 +161,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
           <Magnet magnetStrength={0.2}>
             <a
               href="/#contact"
-              className="relative group inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-extrabold text-white tracking-wide cursor-pointer select-none bg-gradient-to-b from-fuchsia-500 via-purple-600 to-indigo-700 border-t border-t-white/45 border-x border-purple-400/30 border-b-2 border-b-[#4A154B] shadow-[0_4px_0_#4A154B,0_8px_20px_rgba(168,85,247,0.45),inset_0_1px_1px_rgba(255,255,255,0.45)] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_6px_0_#4A154B,0_12px_26px_rgba(192,132,252,0.6)] active:translate-y-1 active:shadow-[0_1px_0_#4A154B,0_4px_10px_rgba(168,85,247,0.4)]"
+              className="relative group inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-extrabold text-white tracking-wide cursor-pointer select-none bg-gradient-to-b from-fuchsia-500 via-purple-600 to-violet-800 border-t border-t-white/45 border-x border-purple-400/30 border-b-2 border-b-[#4A154B] shadow-[0_4px_0_#4A154B,0_8px_20px_rgba(168,85,247,0.45),inset_0_1px_1px_rgba(255,255,255,0.45)] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_6px_0_#4A154B,0_12px_26px_rgba(192,132,252,0.6)] active:translate-y-1 active:shadow-[0_1px_0_#4A154B,0_4px_10px_rgba(168,85,247,0.4)]"
             >
               {/* Shimmer flare line on button face */}
               <div className="absolute top-0 inset-x-3 h-[1px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
@@ -257,7 +257,7 @@ export default function FloatingNavbar({ currentPath = '/' }: FloatingNavbarProp
               <a
                 href="/#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-3.5 rounded-2xl text-sm font-bold bg-gradient-to-b from-fuchsia-500 via-purple-600 to-indigo-700 text-white border-t border-t-white/30 border-b-2 border-b-[#3B0764] shadow-[0_4px_0_#3B0764,0_10px_20px_rgba(168,85,247,0.4)] mt-2 active:scale-95 transition-transform"
+                className="w-full text-center py-3.5 rounded-2xl text-sm font-bold bg-gradient-to-b from-fuchsia-500 via-purple-600 to-violet-800 text-white border-t border-t-white/30 border-b-2 border-b-[#3B0764] shadow-[0_4px_0_#3B0764,0_10px_20px_rgba(168,85,247,0.4)] mt-2 active:scale-95 transition-transform"
               >
                 Let&apos;s Talk ↗
               </a>

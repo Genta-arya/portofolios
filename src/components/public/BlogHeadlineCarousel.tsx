@@ -130,7 +130,7 @@ export default function BlogHeadlineCarousel({ posts = [] }: BlogHeadlineCarouse
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 5, ease: 'linear' }}
-            className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-400 to-indigo-400 origin-left"
+            className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-400 to-violet-400 origin-left"
           />
         </div>
 
@@ -212,7 +212,7 @@ export default function BlogHeadlineCarousel({ posts = [] }: BlogHeadlineCarouse
                       title={`Lihat headline ${idx + 1}`}
                       className={`h-2 rounded-full transition-all cursor-pointer ${
                         currentIndex === idx
-                          ? 'w-8 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 shadow-md shadow-purple-500/50'
+                          ? 'w-8 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-violet-500 shadow-md shadow-purple-500/50'
                           : 'w-2 bg-zinc-700/80 hover:bg-zinc-500'
                       }`}
                     />

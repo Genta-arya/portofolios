@@ -71,7 +71,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
     <section id="services" className="py-24 relative overflow-hidden max-w-full">
       {/* Ambient Aurora Glow behind Services - Clipped for mobile overflow safety */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-none h-[520px] bg-gradient-to-r from-fuchsia-600/30 via-purple-600/25 to-indigo-600/25 blur-[130px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-none h-[520px] bg-gradient-to-r from-fuchsia-600/30 via-purple-600/25 to-violet-900/25 blur-[130px] rounded-full" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -98,9 +98,10 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
 
         {/* In Lite Mode: Pure 2D Flat Responsive Grid (0% 3D / 0% canvas load) */}
         {isLite ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {items.map((svc, idx) => {
               const isFeatured = svc.isPopular || svc.title.toLowerCase().includes('web') || idx === 1;
+              const colSpan = idx === 1 ? 'lg:col-span-6' : 'lg:col-span-3';
               const renderIcon = () => {
                 if (svc.title.toLowerCase().includes('web') || svc.iconName === 'LayoutDashboard') {
                   return <LayoutDashboard className="w-6 h-6" />;
@@ -114,7 +115,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
               return (
                 <div
                   key={svc.title}
-                  className={`relative rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
+                  className={`relative rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 ${colSpan} ${
                     isFeatured
                       ? 'bg-gradient-to-b from-[#180E30]/95 via-[#110A24]/95 to-[#0D0818]/95 border-2 border-purple-500/50 shadow-[0_15px_45px_rgba(139,92,246,0.25)]'
                       : 'bg-[#0D0818]/90 border border-purple-500/25 shadow-lg'

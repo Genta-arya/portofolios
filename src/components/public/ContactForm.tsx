@@ -198,12 +198,14 @@ export default function ContactForm({
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
+                  <label htmlFor="contact-name" className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
                     Nama Lengkap
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
+                    aria-label="Nama Lengkap"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Contoh: Budi Pratama"
@@ -212,12 +214,14 @@ export default function ContactForm({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
+                  <label htmlFor="contact-email" className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
                     Email Kontak
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     required
+                    aria-label="Email Kontak"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="budi@example.com"
@@ -227,10 +231,12 @@ export default function ContactForm({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
+                <label htmlFor="contact-service" className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
                   Kebutuhan Layanan
                 </label>
                 <select
+                  id="contact-service"
+                  aria-label="Kebutuhan Layanan"
                   value={formData.serviceInterest}
                   onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl bg-[#120B24] border border-purple-500/30 text-white text-sm focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-all"
@@ -243,12 +249,14 @@ export default function ContactForm({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
+                <label htmlFor="contact-message" className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
                   Pesan &amp; Gambaran Proyek
                 </label>
                 <textarea
+                  id="contact-message"
                   rows={4}
                   required
+                  aria-label="Pesan dan Gambaran Proyek"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Ceritakan gambaran singkat kebutuhan atau fitur aplikasi yang ingin Anda bangun..."
@@ -259,7 +267,7 @@ export default function ContactForm({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 rounded-xl text-sm font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-3.5 rounded-xl text-sm font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {loading ? (
                   <>

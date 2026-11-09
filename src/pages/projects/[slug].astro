@@ -79,7 +79,7 @@ try {
             href={project.hireCtaUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            class="flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             <span>Pesan Jasa di Fastwork</span>
             <ExternalLink className="w-4 h-4" />
@@ -191,7 +191,7 @@ try {
     {otherProjects.length > 0 && (
       <div class="pt-12 border-t border-purple-500/20">
         <h2 class="text-xl font-bold text-white mb-6">Proyek Unggulan Lainnya</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {otherProjects.map((item) => (
             <a
               key={item.id}

@@ -158,7 +158,7 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
                   }}
                   className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/35 border border-fuchsia-400/40 scale-105'
+                      ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/35 border border-fuchsia-400/40 scale-105'
                       : 'bg-[#120B24]/80 text-zinc-400 border border-purple-500/20 hover:text-white hover:border-purple-400/40 hover:bg-[#180E30]'
                   }`}
                 >
@@ -205,7 +205,7 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
           ) : (
             /* 2D Flat Constellation Grid in Lite Mode (Zero WebGL overhead) */
             <div className="p-6 sm:p-8 rounded-3xl bg-[#0D0818]/90 border border-purple-500/25">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3.5">
                 {filtered.map((tech) => {
                   const isSelected = selectedTech?.name === tech.name;
                   return (
@@ -238,7 +238,7 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.92 }}
                 transition={{ duration: 0.25 }}
-                className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-20 p-5 rounded-2xl bg-[#0D0818]/95 backdrop-blur-xl border border-purple-500/40 shadow-[0_15px_40px_rgba(0,0,0,0.7)]"
+                className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-20 p-5 rounded-2xl bg-[#0D0818] border border-purple-500/40 shadow-[0_15px_40px_rgba(0,0,0,0.7)]"
                 style={{
                   boxShadow: `0 0 30px ${selectedTech.glowColor || '#8B5CF6'}30, 0 10px 30px rgba(0,0,0,0.8)`,
                 }}

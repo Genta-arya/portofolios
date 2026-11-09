@@ -178,10 +178,10 @@ export default function TechCircularShowcase() {
               return (
                 <div
                   key={tech.name}
-                  className={`relative w-44 sm:w-48 h-56 sm:h-60 rounded-3xl p-5 flex flex-col items-center justify-between text-center transition-all duration-300 backdrop-blur-xl ${
+                  className={`relative w-44 sm:w-48 h-56 sm:h-60 rounded-3xl p-5 flex flex-col items-center justify-between text-center transition-all duration-300 ${
                     isActive
-                      ? 'bg-gradient-to-b from-[#1A0C35]/95 via-[#110724]/95 to-[#070312]/95 border-2 border-purple-400 shadow-[0_0_35px_rgba(168,85,247,0.5)] scale-105'
-                      : 'bg-[#0E061E]/85 border border-purple-500/30 hover:border-purple-400/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)]'
+                      ? 'bg-gradient-to-b from-[#1A0C35] via-[#110724] to-[#070312] border-2 border-purple-400 shadow-[0_0_35px_rgba(168,85,247,0.5)] scale-105'
+                      : 'bg-[#0E061E] border border-purple-500/30 hover:border-purple-400/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)]'
                   }`}
                 >
                   <div
@@ -232,7 +232,7 @@ export default function TechCircularShowcase() {
           </CircularCarousel>
         ) : (
           /* 2D Flat Tech Showcase Grid in Lite Mode (Zero 3D perspective / 0% CPU strain) */
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
             {techItems.map((tech) => {
               const brandColor = `#${tech.hex}`;
               return (
@@ -276,7 +276,7 @@ export default function TechCircularShowcase() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="mt-8 max-w-xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#0D071D]/90 border border-purple-500/30 backdrop-blur-xl shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
+          className="mt-8 max-w-xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#0D071D] border border-purple-500/30 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
         >
           <div className="flex items-center gap-3.5">
             <div

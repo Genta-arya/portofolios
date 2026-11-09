@@ -118,7 +118,7 @@ export default function HeroSection({
               <Magnet magnetStrength={0.22}>
                 <a
                   href="#portfolio"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
                   <span>Lihat Portofolio</span>
                   <ArrowRight className="w-4 h-4" />
@@ -162,7 +162,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-3 pt-3 sm:pt-4 border-t border-purple-500/15 w-full max-w-lg mx-auto xl:mx-0"
+              className="flex items-center justify-between gap-4 pt-3 sm:pt-4 border-t border-purple-500/15 w-full max-w-lg mx-auto xl:mx-0"
             >
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -221,7 +221,7 @@ export default function HeroSection({
                 </div>
 
                 {/* Telemetry Metrics in 2D Lite Mode */}
-                <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#120B24]/90 border border-purple-500/20 mb-5 text-center">
+                <div className="flex items-center justify-around p-3 rounded-2xl bg-[#120B24]/90 border border-purple-500/20 mb-5 text-center">
                   <div>
                     <div className="text-sm font-bold text-white">15+</div>
                     <div className="text-[10px] text-zinc-400">Proyek</div>

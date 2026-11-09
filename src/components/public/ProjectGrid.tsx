@@ -248,7 +248,7 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -16, scale: 0.985 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6"
           >
             {paginatedProjects.map((project, index) => (
               <motion.div
@@ -280,7 +280,7 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
 
                       {/* 3D Floating Subcategory Pill */}
                       {project.subcategoryBadge && (
-                        <div className="absolute top-2.5 left-2.5 z-10 [transform:translateZ(35px)] px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#0D0818]/90 backdrop-blur-md text-purple-300 border border-purple-500/40 shadow-md">
+                        <div className="absolute top-2.5 left-2.5 z-10 [transform:translateZ(35px)] px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#0D0818] text-purple-300 border border-purple-500/40 shadow-md">
                           {project.subcategoryBadge}
                         </div>
                       )}
@@ -394,8 +394,8 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
           transition={{ duration: 0.4 }}
           className="mt-14 flex flex-col items-center gap-4"
         >
-          {/* 3D Floating Glassmorphic Dock */}
-          <div className="inline-flex items-center gap-2 p-2 rounded-2xl bg-[#0E071D]/90 backdrop-blur-xl border border-purple-500/30 shadow-[0_12px_35px_rgba(0,0,0,0.6)]">
+          {/* 3D Floating Pagination Dock */}
+          <div className="inline-flex items-center gap-2 p-2 rounded-2xl bg-[#0E071D] border border-purple-500/30 shadow-[0_12px_35px_rgba(0,0,0,0.6)]">
             {/* Previous Button */}
             <button
               onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
@@ -542,7 +542,7 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
                           href={selectedProject.hireCtaUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
                         >
                           <span>Pesan Jasa di Fastwork</span>
                           <ExternalLink className="w-4 h-4" />
