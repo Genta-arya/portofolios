@@ -33,9 +33,9 @@ export default function ProfileWorkflow() {
       desc: 'Koding clean code berstandar tinggi: integrasi frontend React/Astro, REST API terstruktur, optimasi query MySQL, dan state management.',
       icon: Cpu,
       image: '/images/workflow-development.jpg',
-      accentColor: '#6366F1',
-      glowColor: 'rgba(99, 102, 241, 0.35)',
-      badgeColor: 'text-indigo-400 border-indigo-500/30 bg-indigo-950/40',
+      accentColor: '#8B5CF6',
+      glowColor: 'rgba(139, 92, 246, 0.35)',
+      badgeColor: 'text-violet-400 border-violet-500/30 bg-violet-950/40',
     },
     {
       num: '04',

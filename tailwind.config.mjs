@@ -33,7 +33,7 @@ export default {
         aurora: {
           primary: '#8B5CF6',
           secondary: '#D946EF',
-          indigo: '#6366F1',
+          violet: '#7C3AED',
           cyan: '#06B6D4',
         },
       },

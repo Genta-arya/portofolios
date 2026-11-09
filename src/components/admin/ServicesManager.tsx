@@ -206,7 +206,7 @@ export default function ServicesManager({ initialServices, initialTechs }: Servi
           {/* Tech Stacks Grid */}
           <div className="lg:col-span-7">
             <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Daftar Teknologi</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               {techs.map((t) => (
                 <div
                   key={t.id}
