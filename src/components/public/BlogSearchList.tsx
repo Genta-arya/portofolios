@@ -191,7 +191,7 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
             onClick={() => handleSelectCategory('bookmarks')}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
               selectedCategory === 'bookmarks'
-                ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/40 ring-1 ring-purple-400'
+                ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-md shadow-purple-600/40 ring-1 ring-purple-400'
                 : 'text-zinc-400 hover:text-white bg-[#120B24] border border-purple-500/20'
             }`}
           >
@@ -338,7 +338,7 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
                     aria-current={isActive ? 'page' : undefined}
                     className={`min-w-[34px] sm:min-w-[38px] h-9 px-2.5 rounded-xl text-xs font-bold transition-all select-none cursor-pointer ${
                       isActive
-                        ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/40 ring-1 ring-purple-400/50 scale-105'
+                        ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-md shadow-purple-600/40 ring-1 ring-purple-400/50 scale-105'
                         : 'text-zinc-400 hover:text-white bg-[#120B24] border border-purple-500/20 hover:border-purple-400/40 active:scale-95'
                     }`}
                   >

@@ -240,7 +240,7 @@ export default function Hero3DScene() {
   return (
     <div className="relative w-full aspect-square max-w-[440px] sm:max-w-[480px] lg:max-w-[520px] flex items-center justify-center mx-auto select-none">
       {/* Background radial cosmic glow */}
-      <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-purple-600/20 via-fuchsia-600/15 to-cyan-500/15 blur-3xl pointer-events-none -z-10 animate-pulse" />
+      <div className="absolute inset-4 rounded-full bg-violet-900/20 blur-3xl pointer-events-none -z-10 animate-pulse" />
 
       {mounted ? (
         <Canvas
@@ -268,7 +268,7 @@ export default function Hero3DScene() {
         </Canvas>
       ) : (
         /* SSR Fallback Placeholder with Glowing Cyber Orb */
-        <div className="w-52 h-52 rounded-full bg-gradient-to-tr from-purple-600/40 via-fuchsia-500/30 to-cyan-500/30 blur-2xl animate-pulse" />
+        <div className="w-52 h-52 rounded-full bg-violet-900/30 blur-2xl animate-pulse" />
       )}
 
       {/* Floating Badges Overlay (Framing outside the 3D Cosmic Ball) */}

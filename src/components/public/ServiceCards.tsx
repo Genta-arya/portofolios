@@ -71,7 +71,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
     <section id="services" className="py-24 relative overflow-hidden max-w-full">
       {/* Ambient Aurora Glow behind Services - Clipped for mobile overflow safety */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-none h-[520px] bg-gradient-to-r from-fuchsia-600/30 via-purple-600/25 to-violet-900/25 blur-[130px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-none h-[520px] bg-violet-900/20 blur-[130px] rounded-full" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -123,14 +123,14 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
                 >
                   {isFeatured && (
                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-                      <div className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg uppercase tracking-wider border border-white/20 whitespace-nowrap">
+                      <div className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-lg uppercase tracking-wider border border-white/20 whitespace-nowrap">
                         Paling Diminati
                       </div>
                     </div>
                   )}
 
                   <div className="flex flex-col flex-1">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600/25 to-fuchsia-600/15 border border-purple-500/30 flex items-center justify-center text-purple-300 mb-6 shadow-md shadow-purple-900/30">
+                    <div className="w-12 h-12 rounded-2xl bg-violet-950/40 border border-purple-500/30 flex items-center justify-center text-purple-300 mb-6 shadow-md shadow-purple-900/30">
                       {renderIcon()}
                     </div>
 
@@ -166,7 +166,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
                       rel="noopener noreferrer"
                       className={`w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                         isFeatured
-                          ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/40 hover:brightness-110 active:scale-[0.98]'
+                          ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/40 hover:brightness-110 active:scale-[0.98]'
                           : 'bg-[#150D2A] text-zinc-200 border border-purple-500/30 hover:border-purple-400 hover:text-white active:scale-[0.98]'
                       }`}
                     >
@@ -219,7 +219,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
                     {/* Popular Pill untuk kartu tengah Web Application */}
                     {isFeatured && (
                       <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-                        <div className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/50 uppercase tracking-wider border border-white/20 whitespace-nowrap">
+                        <div className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/50 uppercase tracking-wider border border-white/20 whitespace-nowrap">
                           Paling Diminati
                         </div>
                       </div>
@@ -227,7 +227,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
 
                     <div className="flex flex-col flex-1 justify-start">
                       {/* Icon Box */}
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600/25 to-fuchsia-600/15 border border-purple-500/30 flex items-center justify-center text-purple-300 mb-6 group-hover:scale-110 group-hover:bg-purple-600/35 group-hover:text-purple-200 shadow-md shadow-purple-900/30 transition-all duration-300">
+                      <div className="w-12 h-12 rounded-2xl bg-violet-950/40 border border-purple-500/30 flex items-center justify-center text-purple-300 mb-6 group-hover:scale-110 group-hover:bg-purple-600/35 group-hover:text-purple-200 shadow-md shadow-purple-900/30 transition-all duration-300">
                         {renderIcon()}
                       </div>
 
@@ -267,7 +267,7 @@ export default function ServiceCards({ services }: ServiceCardsProps) {
                         rel="noopener noreferrer"
                         className={`w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                           isCurrentActive
-                            ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-purple-600/40 hover:shadow-purple-500/60 hover:brightness-110 active:scale-[0.98]'
+                            ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/40 hover:shadow-purple-500/60 hover:brightness-110 active:scale-[0.98]'
                             : 'bg-[#150D2A] text-zinc-200 border border-purple-500/30 hover:border-purple-400 hover:text-white hover:bg-purple-900/50 shadow-md active:scale-[0.98]'
                         }`}
                       >

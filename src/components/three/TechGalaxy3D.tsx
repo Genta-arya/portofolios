@@ -610,8 +610,8 @@ export default function TechGalaxy3D({
         /* SSR Fallback Placeholder */
         <div className="w-full h-full flex flex-col items-center justify-center gap-4">
           <div className="relative w-36 h-36 flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600/30 via-fuchsia-500/20 to-violet-800/30 blur-2xl animate-pulse" />
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-black text-xl shadow-[0_0_30px_rgba(217,70,239,0.5)]">
+            <div className="absolute inset-0 rounded-full bg-violet-900/30 blur-2xl animate-pulse" />
+            <div className="w-20 h-20 rounded-full bg-violet-600 hover:bg-violet-500 flex items-center justify-center text-white font-black text-xl shadow-[0_0_30px_rgba(217,70,239,0.5)]">
               <span className="text-2xl">🌌</span>
             </div>
           </div>

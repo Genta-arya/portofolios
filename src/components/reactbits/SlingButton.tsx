@@ -255,7 +255,7 @@ export default function SlingButton({
         onClick={handleClick}
         className={`relative z-10 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing shadow-xl transition-colors duration-200 ${
           isPulling
-            ? 'bg-gradient-to-tr from-fuchsia-600 to-pink-500 border-2 border-white text-white shadow-[0_0_25px_rgba(236,72,153,0.8)] scale-105'
+            ? 'bg-violet-600 border-2 border-white text-white shadow-[0_0_25px_rgba(236,72,153,0.8)] scale-105'
             : 'bg-gradient-to-tr from-[#1E0D3D] to-[#120826] border-2 border-purple-500/50 hover:border-purple-400 text-purple-300 hover:text-white shadow-[0_4px_20px_rgba(139,92,246,0.35)]'
         }`}
       >

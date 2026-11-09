@@ -108,7 +108,7 @@ export default function NotFoundHero() {
             <div className="p-4 sm:p-5 rounded-2xl bg-[#0D071D] border border-purple-500/30 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href="/"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white text-xs font-bold shadow-lg shadow-purple-600/35 hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold shadow-lg shadow-purple-600/35 hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 <Home className="w-4 h-4" />
                 <span>Kembali ke Beranda</span>

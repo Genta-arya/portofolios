@@ -154,7 +154,7 @@ export default function BlogForm({ initialData, categories = [] }: BlogFormProps
             type="button"
             disabled={loading}
             onClick={() => handleSave('published')}
-            className="flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50"
+            className="flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50"
           >
             {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
             <span>Publikasikan Sekarang</span>

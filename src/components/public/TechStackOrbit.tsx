@@ -158,7 +158,7 @@ export default function TechStackOrbit({ initialTechs }: TechStackOrbitProps) {
                   }}
                   className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/35 border border-fuchsia-400/40 scale-105'
+                      ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/35 border border-fuchsia-400/40 scale-105'
                       : 'bg-[#120B24]/80 text-zinc-400 border border-purple-500/20 hover:text-white hover:border-purple-400/40 hover:bg-[#180E30]'
                   }`}
                 >

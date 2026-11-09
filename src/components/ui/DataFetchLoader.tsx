@@ -165,7 +165,7 @@ export default function DataFetchLoader({
       {/* Looping Futuristic Cosmic Animated GIF */}
       <div className="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center mb-3">
         {/* Ambient Radiant Glow Aura */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600/35 via-fuchsia-600/30 to-cyan-400/35 blur-xl pointer-events-none" />
+        <div className="absolute inset-0 rounded-full bg-violet-900/30 blur-xl pointer-events-none" />
 
         {/* Looping Cosmic Quantum GIF Indicator */}
         <img

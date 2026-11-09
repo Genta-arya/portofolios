@@ -267,7 +267,7 @@ export default function ContactForm({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 rounded-xl text-sm font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-3.5 rounded-xl text-sm font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {loading ? (
                   <>

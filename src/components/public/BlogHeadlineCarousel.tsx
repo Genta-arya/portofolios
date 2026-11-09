@@ -89,7 +89,7 @@ export default function BlogHeadlineCarousel({ posts = [] }: BlogHeadlineCarouse
     <div className="mb-14 relative group">
       {/* Top Badge & Carousel Controls Header */}
       <div className="flex items-center justify-between mb-4 px-1">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 text-purple-300 border border-purple-500/30 shadow-sm uppercase tracking-wider">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold bg-violet-950/60 text-purple-300 border border-purple-500/30 shadow-sm uppercase tracking-wider">
           <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
           <span>Top 5 Headline Wawasan Terkini</span>
         </div>
@@ -130,7 +130,7 @@ export default function BlogHeadlineCarousel({ posts = [] }: BlogHeadlineCarouse
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 5, ease: 'linear' }}
-            className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-400 to-violet-400 origin-left"
+            className="h-full bg-violet-500 origin-left"
           />
         </div>
 
@@ -212,7 +212,7 @@ export default function BlogHeadlineCarousel({ posts = [] }: BlogHeadlineCarouse
                       title={`Lihat headline ${idx + 1}`}
                       className={`h-2 rounded-full transition-all cursor-pointer ${
                         currentIndex === idx
-                          ? 'w-8 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-violet-500 shadow-md shadow-purple-500/50'
+                          ? 'w-8 bg-violet-500 shadow-md shadow-purple-500/50'
                           : 'w-2 bg-zinc-700/80 hover:bg-zinc-500'
                       }`}
                     />
@@ -222,7 +222,7 @@ export default function BlogHeadlineCarousel({ posts = [] }: BlogHeadlineCarouse
                 {/* Read Now Button */}
                 <a
                   href={`/article/${current.slug}`}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-105 active:scale-95 transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-md shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-105 active:scale-95 transition-all"
                 >
                   <span>Baca Sekarang</span>
                   <ArrowUpRight className="w-4 h-4" />

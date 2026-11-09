@@ -161,7 +161,7 @@ export default function ModeSelectionModal() {
                       type="button"
                       className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
                         mode === '3d'
-                          ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/40'
+                          ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-md shadow-purple-600/40'
                           : 'bg-purple-600/20 text-purple-300 hover:bg-purple-600 hover:text-white'
                       }`}
                     >

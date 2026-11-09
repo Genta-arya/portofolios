@@ -264,7 +264,7 @@ export default function ProjectManager({ initialProjects }: ProjectManagerProps)
 
         <button
           onClick={handleOpenAdd}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all"
         >
           <Plus className="w-4 h-4" />
           <span>Tambah Proyek Baru</span>
@@ -582,7 +582,7 @@ export default function ProjectManager({ initialProjects }: ProjectManagerProps)
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-xs font-bold shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all flex items-center gap-2"
+                  className="px-6 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all flex items-center gap-2"
                 >
                   {loading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Simpan Proyek</span>

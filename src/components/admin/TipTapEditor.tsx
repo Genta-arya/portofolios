@@ -478,7 +478,7 @@ export default function TipTapEditor({ content, onChange }: TipTapEditorProps) {
                 onClick={() => setActiveImageTab('upload')}
                 className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
                   activeImageTab === 'upload'
-                    ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md'
+                    ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-md'
                     : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
@@ -490,7 +490,7 @@ export default function TipTapEditor({ content, onChange }: TipTapEditorProps) {
                 onClick={() => setActiveImageTab('url')}
                 className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
                   activeImageTab === 'url'
-                    ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md'
+                    ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-md'
                     : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
@@ -668,7 +668,7 @@ export default function TipTapEditor({ content, onChange }: TipTapEditorProps) {
                 type="button"
                 disabled={(!imageUrl && !imagePreview) || isModalUploading}
                 onClick={handleInsertImage}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 <Check className="w-4 h-4" />
                 <span>Sisipkan Gambar</span>
@@ -763,7 +763,7 @@ export default function TipTapEditor({ content, onChange }: TipTapEditorProps) {
                 <button
                   type="button"
                   onClick={handleApplyLink}
-                  className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/30 hover:shadow-purple-500/50"
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-md shadow-purple-600/30 hover:shadow-purple-500/50"
                 >
                   Terapkan Link
                 </button>

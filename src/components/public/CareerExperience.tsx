@@ -286,7 +286,7 @@ export default function CareerExperience() {
 
               <a
                 href="#contact"
-                className="shrink-0 px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-xs font-bold hover:shadow-[0_0_25px_rgba(217,70,239,0.5)] transition-all flex items-center gap-2"
+                className="shrink-0 px-6 py-3 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold hover:shadow-[0_0_25px_rgba(217,70,239,0.5)] transition-all flex items-center gap-2"
               >
                 <span>Hubungi Saya untuk Kolaborasi</span>
                 <ChevronRight className="w-4 h-4" />

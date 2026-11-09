@@ -172,7 +172,7 @@ export default function SettingsForm({ initialSettings = {} }: SettingsFormProps
       <button
         type="submit"
         disabled={loading}
-        className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-xs font-bold shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all flex items-center gap-2"
+        className="px-8 py-3.5 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 transition-all flex items-center gap-2"
       >
         {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
         <span>Simpan Perubahan Pengaturan</span>

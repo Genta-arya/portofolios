@@ -279,7 +279,7 @@ export default function DepthCarousel({
                     aria-label={`Ke Layanan ${i + 1}`}
                     className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                       i === activeIndex
-                        ? 'w-8 bg-gradient-to-r from-purple-500 to-fuchsia-500 shadow-[0_0_12px_rgba(217,70,239,0.8)]'
+                        ? 'w-8 bg-violet-600 shadow-[0_0_12px_rgba(217,70,239,0.8)]'
                         : 'w-2.5 bg-purple-900/60 hover:bg-purple-500/50'
                     }`}
                   />

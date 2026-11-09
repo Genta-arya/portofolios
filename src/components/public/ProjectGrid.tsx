@@ -222,7 +222,7 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
                 onClick={() => handleCategorySelect(cat.id as any)}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   activeCategory === cat.id
-                    ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-md shadow-purple-600/30 font-semibold'
+                    ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-md shadow-purple-600/30 font-semibold'
                     : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -422,7 +422,7 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
                     aria-label={`Ke Halaman ${page}`}
                     className={`relative w-9 h-9 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center cursor-pointer ${
                       isActive
-                        ? 'bg-gradient-to-tr from-purple-600 to-fuchsia-600 text-white shadow-[0_0_20px_rgba(217,70,239,0.55)] scale-110 -translate-y-0.5 border border-fuchsia-400/50'
+                        ? 'bg-violet-600 text-white shadow-[0_0_20px_rgba(217,70,239,0.55)] scale-110 -translate-y-0.5 border border-fuchsia-400/50'
                         : 'text-zinc-400 hover:text-white bg-[#140C26]/80 hover:bg-purple-950/50 border border-purple-500/20 hover:border-purple-400/40 hover:-translate-y-0.5'
                     }`}
                   >
@@ -542,7 +542,7 @@ export default function ProjectGrid({ initialProjects = [] }: ProjectGridProps) 
                           href={selectedProject.hireCtaUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-fuchsia-600 to-violet-700 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
                         >
                           <span>Pesan Jasa di Fastwork</span>
                           <ExternalLink className="w-4 h-4" />
