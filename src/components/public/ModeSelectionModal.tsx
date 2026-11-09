@@ -175,7 +175,7 @@ export default function ModeSelectionModal() {
                   onClick={() => selectMode('lite')}
                   className={`group relative p-5 sm:p-6 rounded-2xl border cursor-pointer transition-all duration-300 flex flex-col justify-between hover:scale-[1.02] ${
                     mode === 'lite'
-                      ? 'bg-gradient-to-b from-cyan-950/40 to-blue-950/40 border-cyan-400 shadow-[0_10px_30px_rgba(6,182,212,0.25)] ring-1 ring-cyan-400'
+                      ? 'bg-gradient-to-b from-cyan-950/40 to-teal-950/40 border-cyan-400 shadow-[0_10px_30px_rgba(6,182,212,0.25)] ring-1 ring-cyan-400'
                       : 'bg-[#120B24]/70 border-purple-500/20 hover:border-cyan-400/60 hover:bg-[#160D2E]/80'
                   }`}
                 >
@@ -203,7 +203,7 @@ export default function ModeSelectionModal() {
                       type="button"
                       className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
                         mode === 'lite'
-                          ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-600/40'
+                          ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-md shadow-cyan-600/40'
                           : 'bg-cyan-600/20 text-cyan-300 hover:bg-cyan-600 hover:text-white'
                       }`}
                     >
