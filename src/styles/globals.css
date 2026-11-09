@@ -53,12 +53,12 @@ html {
 body {
   background-color: #070312;
   background-image: 
-    radial-gradient(ellipse 90% 60% at 20% -10%, rgba(139, 92, 246, 0.35), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 85% 20%, rgba(217, 70, 239, 0.30), transparent 65%),
-    radial-gradient(ellipse 75% 55% at 15% 50%, rgba(124, 58, 237, 0.28), transparent 70%),
-    radial-gradient(ellipse 80% 50% at 85% 70%, rgba(217, 70, 239, 0.32), transparent 70%),
-    radial-gradient(ellipse 70% 45% at 50% 90%, rgba(6, 182, 212, 0.25), transparent 65%),
-    linear-gradient(180deg, #090314 0%, #110524 25%, #0c041a 50%, #100522 75%, #070210 100%);
+    radial-gradient(ellipse 90% 60% at 20% -10%, rgba(124, 58, 237, 0.22), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 85% 20%, rgba(13, 148, 136, 0.18), transparent 65%),
+    radial-gradient(ellipse 75% 55% at 15% 50%, rgba(124, 58, 237, 0.16), transparent 70%),
+    radial-gradient(ellipse 80% 50% at 85% 70%, rgba(13, 148, 136, 0.16), transparent 70%),
+    radial-gradient(ellipse 70% 45% at 50% 90%, rgba(6, 182, 212, 0.18), transparent 65%),
+    linear-gradient(180deg, #090314 0%, #0d061c 25%, #080312 50%, #0c051a 75%, #070210 100%);
   background-attachment: fixed;
   color: #F8FAFC;
   overflow-x: hidden;
