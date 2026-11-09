@@ -213,7 +213,7 @@ export default function DataFetchLoader({
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="w-1/2 h-full bg-gradient-to-r from-transparent via-cyan-400 to-purple-400 rounded-full shadow-[0_0_12px_rgba(6,182,212,0.8)]"
+          className="w-1/2 h-full bg-gradient-to-r from-transparent via-cyan-400 to-teal-400 rounded-full shadow-[0_0_12px_rgba(6,182,212,0.8)]"
         />
       </div>
     </div>

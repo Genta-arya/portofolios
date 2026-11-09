@@ -260,7 +260,7 @@ export default function SlingButton({
         }`}
       >
         {/* Glowing Core */}
-        <div className="absolute inset-1 rounded-full bg-gradient-to-tr from-purple-600/30 via-transparent to-cyan-400/20 pointer-events-none" />
+        <div className="absolute inset-1 rounded-full bg-violet-900/20 pointer-events-none" />
 
         {/* Arrow Icon with Dynamic Tilt & Launch Physics */}
         <motion.div

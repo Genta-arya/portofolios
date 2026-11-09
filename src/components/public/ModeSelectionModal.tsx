@@ -133,7 +133,7 @@ export default function ModeSelectionModal() {
                   onClick={() => selectMode('3d')}
                   className={`group relative p-5 sm:p-6 rounded-2xl border cursor-pointer transition-all duration-300 flex flex-col justify-between hover:scale-[1.02] ${
                     mode === '3d'
-                      ? 'bg-gradient-to-b from-purple-900/40 to-fuchsia-950/40 border-purple-400 shadow-[0_10px_30px_rgba(168,85,247,0.25)] ring-1 ring-purple-400'
+                      ? 'bg-violet-950/50 border-purple-400 shadow-[0_10px_30px_rgba(168,85,247,0.25)] ring-1 ring-purple-400'
                       : 'bg-[#120B24]/70 border-purple-500/20 hover:border-purple-400/60 hover:bg-[#160D2E]/80'
                   }`}
                 >
