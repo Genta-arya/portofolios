@@ -567,7 +567,7 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
   </div>
 
   {/* Client script for auto-incrementing view count, copy button, and code block copy buttons */}
-  <script define:vars={{ slug }}>
+  <script client:load define:vars={{ slug }}>
     // Increment view count in background (with deduplication session via cookie & localStorage)
     const viewStorageKey = `viewed_post_${slug}`;
     const lastViewedAt = localStorage.getItem(viewStorageKey);
