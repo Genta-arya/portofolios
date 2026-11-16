@@ -193,8 +193,9 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
     >
       <img
         id="hero-cover-img"
-        src={post.coverImageUrl}
+        src={post.coverImageUrl || '/projects/elibrary-smk.png'}
         alt={post.title}
+        onerror="this.onerror=null; this.src='/projects/elibrary-smk.png';"
         class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500 pointer-events-none"
       />
       {/* Zoom Badge Indicator */}

@@ -229,9 +229,14 @@ export default function BlogSearchList({ initialPosts = [], categories = [] }: B
                     className="relative w-full sm:w-64 md:w-72 sm:min-w-[256px] md:min-w-[288px] aspect-[16/9] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-[#0a0515] border border-purple-500/25 shrink-0 flex items-center justify-center block shadow-inner"
                   >
                     <img
-                      src={post.coverImageUrl}
+                      src={post.coverImageUrl || '/projects/elibrary-smk.png'}
                       alt={post.title}
                       loading="lazy"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        target.onerror = null;
+                        target.src = '/projects/elibrary-smk.png';
+                      }}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />
                     {post.categoryName && (

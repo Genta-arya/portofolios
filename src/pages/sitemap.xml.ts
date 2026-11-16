@@ -4,7 +4,7 @@ import { blogPosts, projects } from '../db/schema';
 import { eq } from 'drizzle-orm';
 
 export const GET: APIRoute = async () => {
-  const siteUrl = process.env.PUBLIC_SITE_URL || 'https://www.mgentaarya.my.id';
+  const siteUrl = process.env.PUBLIC_SITE_URL || 'https://mgentaarya.my.id';
 
   let posts: any[] = [];
   let projectItems: any[] = [];
