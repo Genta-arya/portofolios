@@ -15,6 +15,7 @@ interface Props {
   ogImage?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
+  modifiedTime?: string;
   keywords?: string;
 }
 
@@ -24,6 +25,7 @@ const {
   ogImage = '/og-image.png',
   type = 'website',
   publishedTime,
+  modifiedTime,
   keywords = 'Gentha Arya Pratama, Fullstack Developer, Web Developer Indonesia, React Developer, Astro Developer, React Native, Mobile App Developer, Express JS, MySQL, Frontend Engineer, Software Engineer, Portfolio Developer, Jasa Pembuatan Website, Fastwork Freelancer',
 } = Astro.props;
 
@@ -36,34 +38,22 @@ const truncateCleanly = (text: string, maxLen: number) => {
 };
 
 const rawDesc = (description || '').trim();
-// 1. Google Search snippet recommendation: 140 - 155 characters (max 160)
+// 1. Google Search snippet recommendation: 155 characters
 const metaDescription = truncateCleanly(rawDesc, 155);
-// 2. OpenGraph / WhatsApp / Twitter social cards preview: 110 - 125 characters (prevents truncation on mobile)
-const ogDescription = truncateCleanly(rawDesc, 125);
+// 2. OpenGraph / WhatsApp preview: 140 characters
+const ogDescription = truncateCleanly(rawDesc, 140);
 
 // Optimal SEO Title Lengths:
-// 1. Google title sweet spot: <= 60 characters
-// 2. OpenGraph og:title sweet spot: <= 60 characters
-// 3. Twitter title sweet spot: <= 70 characters
+// Google standard display title: up to 68-70 characters without cutting technical keywords
 const rawTitle = (title || '').trim();
 
 const formatTitleCleanly = (str: string, maxLen: number) => {
   if (!str || str.length <= maxLen) return str || '';
-  if (str.includes(' — ')) {
-    const mainTitle = str.split(' — ')[0].trim();
-    if (mainTitle.length <= maxLen) return mainTitle;
-    return truncateCleanly(mainTitle, maxLen);
-  }
-  if (str.includes(' | ')) {
-    const mainTitle = str.split(' | ')[0].trim();
-    if (mainTitle.length <= maxLen) return mainTitle;
-    return truncateCleanly(mainTitle, maxLen);
-  }
   return truncateCleanly(str, maxLen);
 };
 
-const metaTitle = formatTitleCleanly(rawTitle, 60);
-const ogTitle = formatTitleCleanly(rawTitle, 60);
+const metaTitle = formatTitleCleanly(rawTitle, 70);
+const ogTitle = formatTitleCleanly(rawTitle, 70);
 const twitterTitle = formatTitleCleanly(rawTitle, 70);
 
 // Dynamic origin resolution: uses actual incoming host header so OG URLs always match current deployment domain
@@ -135,11 +125,36 @@ const structuredData = {
             'description': metaDescription,
             'image': absoluteOgImage,
             'datePublished': publishedTime,
+            'dateModified': modifiedTime || publishedTime,
             'mainEntityOfPage': canonicalURL.toString(),
             'publisher': {
               '@id': `${siteUrl}/#person`,
             },
             'inLanguage': 'id-ID',
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${canonicalURL.toString()}#breadcrumb`,
+            'itemListElement': [
+              {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'Beranda',
+                'item': siteUrl,
+              },
+              {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': 'Artikel',
+                'item': `${siteUrl}/article`,
+              },
+              {
+                '@type': 'ListItem',
+                'position': 3,
+                'name': title,
+                'item': canonicalURL.toString(),
+              },
+            ],
           },
         ]
       : []),

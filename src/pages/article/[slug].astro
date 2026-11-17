@@ -135,6 +135,7 @@ const shareUrl = `${resolvedSiteUrl}/article/${post.slug}`;
   ogImage={post.coverImageUrl || '/og-image.png'}
   type="article"
   publishedTime={post.createdAt ? new Date(post.createdAt).toISOString() : undefined}
+  modifiedTime={post.updatedAt ? new Date(post.updatedAt).toISOString() : (post.createdAt ? new Date(post.createdAt).toISOString() : undefined)}
 >
   <article class="pt-32 pb-24 max-w-5xl mx-auto px-4 sm:px-6">
     
