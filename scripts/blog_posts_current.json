@@ -1,0 +1,738 @@
+[
+  {
+    "id": 1,
+    "title": "Membangun Web Portofolio Interaktif 3D Berkecepatan Tinggi dengan Astro 5 dan React Three Fiber",
+    "slug": "membangun-web-portofolio-3d-astro-5-r3f",
+    "excerpt": "Bagaimana memanfaatkan Astro Island Architecture untuk menyajikan pengalaman 3D Three.js yang memukau tanpa mengorbankan skor Lighthouse dan SEO web Anda.",
+    "seo_title": "Membangun Web Portofolio Interaktif 3D dengan Astro 5",
+    "seo_description": "Panduan lengkap membangun portofolio interaktif 3D menggunakan Astro 5, Three.js, dan React Islands."
+  },
+  {
+    "id": 2,
+    "title": "Mengapa Drizzle ORM Menjadi Pilihan Utama untuk MySQL di Ekosistem Node.js Modern",
+    "slug": "mengapa-drizzle-orm-pilihan-utama-mysql-nodejs",
+    "excerpt": "Perbandingan performa, zero-overhead, dan type-safety Drizzle ORM dibandingkan ORM tradisional seperti Prisma pada aplikasi serverless & SSR.",
+    "seo_title": "Drizzle ORM: Pilihan Terbaik untuk MySQL di Node.js",
+    "seo_description": "Ulasan mendalam keunggulan Drizzle ORM dalam performa dan fleksibilitas query database MySQL."
+  },
+  {
+    "id": 3,
+    "title": "Mendesain Aplikasi Mobile Real-Time BMKG Menggunakan React Native & Expo",
+    "slug": "mendesain-aplikasi-mobile-bmkg-react-native",
+    "excerpt": "Studi kasus implementasi API data gempa BMKG, visualisasi peta episentrum seismik, dan arsitektur state management di Android.",
+    "seo_title": "Mendesain Aplikasi Gempa BMKG dengan React Native",
+    "seo_description": "Eksplorasi pengembangan aplikasi mobile real-time BMKG dengan React Native dan Expo."
+  },
+  {
+    "id": 4,
+    "title": "Panduan Lengkap Vibe Coding: Seni Membangun Software dengan Kecepatan Penuh",
+    "slug": "panduan-lengkap-vibe-coding-era-ai",
+    "excerpt": "Vibe Coding mengubah paradigma rekayasa perangkat lunak dari mengetik sintaks manual menjadi orkestrasi ide, arsitektur, dan iterasi kilat bersama AI.",
+    "seo_title": "Panduan Lengkap Vibe Coding di Era AI 2026",
+    "seo_description": "Pelajari konsep Vibe Coding, cara berkolaborasi dengan AI secara instingtif, serta tips mengalirkan ide langsung menjadi kode produksi nyata."
+  },
+  {
+    "id": 5,
+    "title": "Menguasai Vibe Coding dengan Gemini 2.5 & 3.5: Multimodal & Context Window Raksasa",
+    "slug": "cara-vibe-coding-dengan-google-gemini",
+    "excerpt": "Eksplorasi strategi memanfaatkan model Google Gemini dengan jutaan token context window untuk membaca seluruh codebase dan merancang fitur secara instan.",
+    "seo_title": "Cara Vibe Coding dengan Google Gemini 2026",
+    "seo_description": "Pelajari trik memanfaatkan context window raksasa Google Gemini untuk audit satu repo penuh, integrasi API, dan coding berbasis sketsa UI."
+  },
+  {
+    "id": 6,
+    "title": "Vibe Coding dengan Claude 3.7 Sonnet: Hybrid Reasoning & Claude Code CLI",
+    "slug": "vibe-coding-claude-3-7-sonnet-hybrid-reasoning",
+    "excerpt": "Kupas tuntas era baru Vibe Coding dengan Claude 3.7 Sonnet: model hybrid reasoning pertama dengan extended thinking budget dan agentic workflow via Claude Code CLI.",
+    "seo_title": "Vibe Coding dengan Claude 3.7 Sonnet & Claude Code",
+    "seo_description": "Panduan lengkap Vibe Coding menggunakan Claude 3.7 Sonnet hybrid reasoning dan Claude Code terminal agent untuk refactoring dan rekayasa fullstack."
+  },
+  {
+    "id": 7,
+    "title": "Modern Vibe Coding dengan OpenAI Codex Platform & GitHub Copilot Agent",
+    "slug": "vibe-coding-openai-codex-copilot-agent",
+    "excerpt": "Evolusi OpenAI Codex dan GitHub Copilot dari autocomplete baris menjadi autonomous coding agent berbasis model reasoning o-series.",
+    "seo_title": "Vibe Coding dengan OpenAI Codex & GitHub Copilot 2026",
+    "seo_description": "Panduan praktis menggunakan platform OpenAI Codex dan GitHub Copilot Agent multi-model untuk delegasi issue repositori secara otonom."
+  },
+  {
+    "id": 8,
+    "title": "Teknologi dan Framework Web Paling Populer di Era AI 2026",
+    "slug": "teknologi-framework-web-populer-era-ai",
+    "excerpt": "Ulasan lengkap stack teknologi modern seperti Astro 5, Next.js, Fastify, Bun, dan Drizzle ORM yang dirancang ramah untuk AI-assisted development.",
+    "seo_title": "Teknologi Web Paling Populer Era AI 2026",
+    "seo_description": "Daftar teknologi web modern yang paling diminati industri: Astro 5, Tailwind CSS, TypeScript, Bun, dan Drizzle ORM untuk performa maksimal."
+  },
+  {
+    "id": 9,
+    "title": "Seni Prompt Engineering untuk Developer: Menghasilkan Kode Tanpa Bug",
+    "slug": "seni-prompt-engineering-untuk-developer",
+    "excerpt": "Pelajari formula prompt terstruktur: Context, Persona, Constraint, dan Few-Shot Examples untuk mendapatkan kode produksi yang siap pakai.",
+    "seo_title": "Prompt Engineering untuk Developer: Kode Tanpa Bug",
+    "seo_description": "Trik menyusun prompt teknis yang presisi agar model AI menghasilkan kode berkualitas tinggi, modular, dan sesuai standar industri."
+  },
+  {
+    "id": 10,
+    "title": "Masa Depan Software Engineer: Dari Synthesizer ke Autonomous AI Agent",
+    "slug": "masa-depan-software-engineer-autonomous-agent",
+    "excerpt": "Bagaimana peran programmer berevolusi dari sekadar pembuat kode manual menjadi manajer sistem otonom yang mengorkestrasi multi-agent coding.",
+    "seo_title": "Masa Depan Software Engineer di Era Autonomous Agent",
+    "seo_description": "Analisis masa depan karir programmer: skill apa yang tetap bernilai tinggi ketika AI sudah mampu membuat aplikasi secara mandiri."
+  },
+  {
+    "id": 11,
+    "title": "Komparasi AI Coder 2026: Gemini 2.5 Flash, Claude 3.7 Sonnet, dan OpenAI Codex / o3",
+    "slug": "komparasi-gemini-claude-codex-ai-coder-2026",
+    "excerpt": "Panduan komprehensif memilih model AI coding terbaik: Gemini untuk multimodal & context raksasa, Claude 3.7 untuk hybrid reasoning, dan OpenAI Codex untuk o-series reasoning.",
+    "seo_title": "Komparasi Gemini vs Claude 3.7 vs OpenAI Codex 2026",
+    "seo_description": "Benchmark dan panduan memilih model AI coding modern: Google Gemini 2.5, Anthropic Claude 3.7 Sonnet, dan OpenAI Codex / o3-mini untuk developer."
+  },
+  {
+    "id": 12,
+    "title": "Keamanan Kode di Era AI: Menghindari Celah Vulnerability dari Kode Hasil AI",
+    "slug": "keamanan-kode-di-era-ai-best-practices",
+    "excerpt": "Panduan wajib bagi tim developer dalam mengaudit dependensi, kebocoran API secret key, dan sanitasi query dari kode yang digenerate AI.",
+    "seo_title": "Keamanan Kode di Era AI: Best Practice DevSecOps",
+    "seo_description": "Cara aman mengadopsi AI dalam tim software: hindari halusinasi package palsu, kebocoran credential, dan SQL injection otomatis."
+  },
+  {
+    "id": 13,
+    "title": "Membangun Aplikasi Fullstack dalam 1 Hari dengan Vibe Coding Workflow",
+    "slug": "membangun-aplikasi-fullstack-1-hari-vibe-coding",
+    "excerpt": "Studi kasus nyata membangun aplikasi SaaS lengkap dengan database, autentikasi, pembayaran, dan UI modern dari nol dalam waktu 24 jam.",
+    "seo_title": "Bikin Aplikasi Fullstack 1 Hari dengan Vibe Coding",
+    "seo_description": "Panduan langkah demi langkah membangun aplikasi SaaS fungsional dalam 24 jam memanfaatkan kekuatan Vibe Coding dan AI modern."
+  },
+  {
+    "id": 14,
+    "title": "Mengapa Bun Runtime Mulai Menggeser Node.js di Server Production Kami",
+    "slug": "mengapa-bun-runtime-mulai-menggeser-nodejs-di-server-production-kami-1239",
+    "excerpt": "Pengalaman migrasi core microservice dari Node.js ke Bun runtime di production. Hemat RAM 67%, p99 latency 3.8x lebih cepat, dan build Docker instan.",
+    "seo_title": null,
+    "seo_description": null
+  },
+  {
+    "id": 15,
+    "title": "Tukang Ketik vs Software Engineer: Kenapa AI Hanya Membunuh Programmer Permukaan",
+    "slug": "tukang-ketik-vs-software-engineer-kenapa-ai-hanya-membunuh-programmer-permukaan-2123",
+    "excerpt": "Apakah AI akan memusnahkan programmer? Yang terancam bukan software engineer, melainkan tukang ketik sintaks. Simak bedanya di level production.",
+    "seo_title": null,
+    "seo_description": null
+  },
+  {
+    "id": 16,
+    "title": "Jebakan React 19 Server Actions & Mengapa Kami Melirik TanStack Start serta Islands Architecture",
+    "slug": "jebakan-react-19-server-actions-tanstack-start-islands-architecture",
+    "excerpt": "Bedah tuntas ilusi kemudahan React 19 Server Actions: celah deserialization Flight protocol, masalah memory payload bloat, dan komparasi arsitektur nyata dengan TanStack Start serta Islands Architecture.",
+    "seo_title": null,
+    "seo_description": null
+  },
+  {
+    "id": 17,
+    "title": "Mengapa Astro 5 Content Layer Mengubah Cara Kami Mengelola Headless CMS",
+    "slug": "mengapa-astro-5-content-layer-mengubah-cara-kami-mengelola-headless-cms",
+    "excerpt": "Evolusi Content Layer di Astro 5: dari static collection konvensional menjadi data loader reaktif yang mampu menangani ribuan dokumen markdown, API eksternal, dan database secara instan.",
+    "seo_title": "Mengapa Astro 5 Content Layer Mengubah Cara Kami Mengelola Headless CMS",
+    "seo_description": "Evolusi Content Layer di Astro 5: dari static collection konvensional menjadi data loader reaktif yang mampu menangani ribuan dokumen markdown, API eksternal, dan database secara instan."
+  },
+  {
+    "id": 18,
+    "title": "Bedah Arsitektur Micro-Frontends dengan Module Federation di Tahun 2026",
+    "slug": "bedah-arsitektur-micro-frontends-module-federation-2026",
+    "excerpt": "Apakah micro-frontends masih relevan atau justru menjadi jebakan over-engineering? Simak analisis mendalam implementasi Module Federation 2.0 pada organisasi multi-tim.",
+    "seo_title": "Bedah Arsitektur Micro-Frontends dengan Module Federation di Tahun 2026",
+    "seo_description": "Apakah micro-frontends masih relevan atau justru menjadi jebakan over-engineering? Simak analisis mendalam implementasi Module Federation 2.0 pada organisasi multi-tim."
+  },
+  {
+    "id": 19,
+    "title": "Memaksimalkan CSS Container Queries untuk Desain Komponen Modular Modern",
+    "slug": "memaksimalkan-css-container-queries-desain-komponen-modular",
+    "excerpt": "Selamat tinggal batasan Media Queries viewport! Panduan implementasi CSS Container Queries untuk kartu, widget, dan komponen yang benar-benar responsif terhadap wadahnya.",
+    "seo_title": "Memaksimalkan CSS Container Queries untuk Desain Komponen Modular Modern",
+    "seo_description": "Selamat tinggal batasan Media Queries viewport! Panduan implementasi CSS Container Queries untuk kartu, widget, dan komponen yang benar-benar responsif terhadap wadahnya."
+  },
+  {
+    "id": 20,
+    "title": "Zero-JS Web Applications: Mitos atau Kenyataan yang Layak Dikejar?",
+    "slug": "zero-js-web-applications-mitos-atau-kenyataan",
+    "excerpt": "Analisis filosofi Zero-JS: bagaimana memanfaatkan HTML modern, CSS canggih, dan form submission native untuk membangun web secepat kilat dengan jejak script 0KB.",
+    "seo_title": "Zero-JS Web Applications: Mitos atau Kenyataan yang Layak Dikejar?",
+    "seo_description": "Analisis filosofi Zero-JS: bagaimana memanfaatkan HTML modern, CSS canggih, dan form submission native untuk membangun web secepat kilat dengan jejak script 0KB."
+  },
+  {
+    "id": 21,
+    "title": "Mengapa Web Vitals INP (Interaction to Next Paint) Menjadi Metrik Terpenting",
+    "slug": "mengapa-web-vitals-inp-menjadi-metrik-terpenting",
+    "excerpt": "Google resmi menggantikan FID dengan INP. Pelajari cara mengidentifikasi long-tasks, mengoptimalkan event loop browser, dan menjaga skor responsivitas di zona hijau.",
+    "seo_title": "Mengapa Web Vitals INP (Interaction to Next Paint) Menjadi Metrik Terpenting",
+    "seo_description": "Google resmi menggantikan FID dengan INP. Pelajari cara mengidentifikasi long-tasks, mengoptimalkan event loop browser, dan menjaga skor responsivitas di zona hijau."
+  },
+  {
+    "id": 22,
+    "title": "Memahami Partial Hydration & Resumability: Qwik vs Astro Islands",
+    "slug": "memahami-partial-hydration-resumability-qwik-vs-astro",
+    "excerpt": "Komparasi teknik hidrasi modern: bagaimana konsep Islands Architecture di Astro mengisolasi komponen dinamis dan bagaimana Resumability di Qwik menghapus proses hidrasi sepenuhnya.",
+    "seo_title": "Memahami Partial Hydration & Resumability: Qwik vs Astro Islands",
+    "seo_description": "Komparasi teknik hidrasi modern: bagaimana konsep Islands Architecture di Astro mengisolasi komponen dinamis dan bagaimana Resumability di Qwik menghapus proses hidrasi sepenuhnya."
+  },
+  {
+    "id": 23,
+    "title": "Membangun Sistem Desain UI Berbasis CSS Tokens dan OKLCH Color Space",
+    "slug": "membangun-sistem-desain-ui-css-tokens-oklch-color-space",
+    "excerpt": "Mengapa ruang warna sRGB dan HSL sudah usang untuk tema modern. Pelajari keunggulan perseptual OKLCH dalam menghasilkan palet gelap/terang yang harmonis dan konsisten.",
+    "seo_title": "Membangun Sistem Desain UI Berbasis CSS Tokens dan OKLCH Color Space",
+    "seo_description": "Mengapa ruang warna sRGB dan HSL sudah usang untuk tema modern. Pelajari keunggulan perseptual OKLCH dalam menghasilkan palet gelap/terang yang harmonis dan konsisten."
+  },
+  {
+    "id": 24,
+    "title": "Audit Kinerja Web: Strategi Memangkas Bundle Size JavaScript hingga 70%",
+    "slug": "audit-kinerja-web-strategi-memangkas-bundle-size-70-persen",
+    "excerpt": "Langkah taktis menganalisis treemap bundle produksi, menyingkirkan paket transitif gemuk, dan mengimplementasikan dynamic imports untuk memuat halaman secara instan.",
+    "seo_title": "Audit Kinerja Web: Strategi Memangkas Bundle Size JavaScript hingga 70%",
+    "seo_description": "Langkah taktis menganalisis treemap bundle produksi, menyingkirkan paket transitif gemuk, dan mengimplementasikan dynamic imports untuk memuat halaman secara instan."
+  },
+  {
+    "id": 25,
+    "title": "Mengamankan Header HTTP Produksi: CSP, HSTS, dan Permissions Policy",
+    "slug": "mengamankan-header-http-produksi-csp-hsts-permissions-policy",
+    "excerpt": "Buku saku konfigurasi header keamanan HTTP wajib di level server atau reverse proxy untuk melindungi website Anda dari serangan XSS, clickjacking, dan pencurian sesi.",
+    "seo_title": "Mengamankan Header HTTP Produksi: CSP, HSTS, dan Permissions Policy",
+    "seo_description": "Buku saku konfigurasi header keamanan HTTP wajib di level server atau reverse proxy untuk melindungi website Anda dari serangan XSS, clickjacking, dan pencurian sesi."
+  },
+  {
+    "id": 26,
+    "title": "Panduan Lengkap View Transitions API untuk SPA Tanpa Framework Kompleks",
+    "slug": "panduan-lengkap-view-transitions-api-spa-tanpa-framework",
+    "excerpt": "Bagaimana Native View Transitions API menghadirkan animasi transisi perpindahan halaman setingkat aplikasi mobile native dengan sedikit baris kode CSS dan JavaScript.",
+    "seo_title": "Panduan Lengkap View Transitions API untuk SPA Tanpa Framework Kompleks",
+    "seo_description": "Bagaimana Native View Transitions API menghadirkan animasi transisi perpindahan halaman setingkat aplikasi mobile native dengan sedikit baris kode CSS dan JavaScript."
+  },
+  {
+    "id": 27,
+    "title": "Optimasi Indeks MySQL & PostgreSQL: Membedah EXPLAIN ANALYZE pada Skala 10M Baris",
+    "slug": "optimasi-indeks-mysql-postgresql-bedah-explain-analyze",
+    "excerpt": "Mengapa query pencarian Anda lambat meskipun sudah ada index? Pelajari cara membaca eksekusi plan EXPLAIN ANALYZE, composite indexing order, dan index selectivity.",
+    "seo_title": "Optimasi Indeks MySQL & PostgreSQL: Membedah EXPLAIN ANALYZE pada Skala 10M Baris",
+    "seo_description": "Mengapa query pencarian Anda lambat meskipun sudah ada index? Pelajari cara membaca eksekusi plan EXPLAIN ANALYZE, composite indexing order, dan index selectivity."
+  },
+  {
+    "id": 28,
+    "title": "Mengapa Drizzle ORM Mengungguli Prisma dalam Arsitektur Serverless & Edge",
+    "slug": "mengapa-drizzle-orm-mengungguli-prisma-serverless-edge",
+    "excerpt": "Analisis teknis cold-start time, binary engine bloat, dan kedekatan sintaks SQL yang menjadikan Drizzle ORM standar baru bagi ekosistem backend TypeScript.",
+    "seo_title": "Mengapa Drizzle ORM Mengungguli Prisma dalam Arsitektur Serverless & Edge",
+    "seo_description": "Analisis teknis cold-start time, binary engine bloat, dan kedekatan sintaks SQL yang menjadikan Drizzle ORM standar baru bagi ekosistem backend TypeScript."
+  },
+  {
+    "id": 29,
+    "title": "Strategi Caching Redis: Menghindari Cache Stampede & Thundering Herd Problem",
+    "slug": "strategi-caching-redis-menghindari-cache-stampede",
+    "excerpt": "Apa yang terjadi jika cache untuk artikel viral kedaluwarsa tepat saat ribuan request datang bersamaan? Pelajari teknik Probabilistic Early Expiration (XFetch) dan Mutex Locking.",
+    "seo_title": "Strategi Caching Redis: Menghindari Cache Stampede & Thundering Herd Problem",
+    "seo_description": "Apa yang terjadi jika cache untuk artikel viral kedaluwarsa tepat saat ribuan request datang bersamaan? Pelajari teknik Probabilistic Early Expiration (XFetch) dan Mutex Locking."
+  },
+  {
+    "id": 30,
+    "title": "Mendesain Skema Database Multi-Tenant: Siloed vs Pooled Architecture",
+    "slug": "mendesain-skema-database-multi-tenant-siloed-vs-pooled",
+    "excerpt": "Panduan arsitektur data untuk platform SaaS: memilih antara isolasi fisik database (Siloed), skema per tenant, atau tabel bersama dengan PostgreSQL Row Level Security (RLS).",
+    "seo_title": "Mendesain Skema Database Multi-Tenant: Siloed vs Pooled Architecture",
+    "seo_description": "Panduan arsitektur data untuk platform SaaS: memilih antara isolasi fisik database (Siloed), skema per tenant, atau tabel bersama dengan PostgreSQL Row Level Security (RLS)."
+  },
+  {
+    "id": 31,
+    "title": "REST API vs tRPC vs GraphQL: Memilih Kontrak Komunikasi yang Tepat di 2026",
+    "slug": "rest-api-vs-trpc-vs-graphql-memilih-kontrak-komunikasi-2026",
+    "excerpt": "Komparasi objektif tiga paradigma API terpopuler: kapan REST tetap tak terkalahkan, kapan tRPC memberikan developer experience terbaik, dan kapan GraphQL mutlak diperlukan.",
+    "seo_title": "REST API vs tRPC vs GraphQL: Memilih Kontrak Komunikasi yang Tepat di 2026",
+    "seo_description": "Komparasi objektif tiga paradigma API terpopuler: kapan REST tetap tak terkalahkan, kapan tRPC memberikan developer experience terbaik, dan kapan GraphQL mutlak diperlukan."
+  },
+  {
+    "id": 32,
+    "title": "Mengatasi N+1 Problem pada Query Relasional: Dari ORM hingga Dataloader Pattern",
+    "slug": "mengatasi-n-plus-1-problem-query-relasional-dataloader",
+    "excerpt": "Memahami salah satu biang keladi kelambatan database terbesar: bagaimana pemanggilan query di dalam perulangan merusak response time dan cara mengatasinya dengan batching.",
+    "seo_title": "Mengatasi N+1 Problem pada Query Relasional: Dari ORM hingga Dataloader Pattern",
+    "seo_description": "Memahami salah satu biang keladi kelambatan database terbesar: bagaimana pemanggilan query di dalam perulangan merusak response time dan cara mengatasinya dengan batching."
+  },
+  {
+    "id": 33,
+    "title": "Event-Driven Architecture dengan Apache Kafka & RabbitMQ untuk Pemula",
+    "slug": "event-driven-architecture-apache-kafka-rabbitmq-pemula",
+    "excerpt": "Bongkar arsitektur monolitik sinkron menjadi sistem asinkron berbasis event: perbedaan karakteristik log retention Kafka vs message broker antrean RabbitMQ.",
+    "seo_title": "Event-Driven Architecture dengan Apache Kafka & RabbitMQ untuk Pemula",
+    "seo_description": "Bongkar arsitektur monolitik sinkron menjadi sistem asinkron berbasis event: perbedaan karakteristik log retention Kafka vs message broker antrean RabbitMQ."
+  },
+  {
+    "id": 34,
+    "title": "Panduan Menulis Unit & Integration Test yang Efektif dengan Vitest",
+    "slug": "panduan-menulis-unit-integration-test-efektif-vitest",
+    "excerpt": "Tinggalkan Jest yang lambat dan bermasalah dengan ESM. Pelajari cara mengonfigurasi Vitest untuk pengujian unit logika bisnis dan integrasi database secara instan.",
+    "seo_title": "Panduan Menulis Unit & Integration Test yang Efektif dengan Vitest",
+    "seo_description": "Tinggalkan Jest yang lambat dan bermasalah dengan ESM. Pelajari cara mengonfigurasi Vitest untuk pengujian unit logika bisnis dan integrasi database secara instan."
+  },
+  {
+    "id": 35,
+    "title": "Implementasi Database Connection Pooling Tanpa Crash di Arsitektur Serverless",
+    "slug": "implementasi-database-connection-pooling-serverless",
+    "excerpt": "Mengapa fungsi serverless dapat menghabiskan kuota max_connections database dalam hitungan detik dan bagaimana solusi modern seperti PgBouncer dan HTTP Database Proxies menyelesaikannya.",
+    "seo_title": "Implementasi Database Connection Pooling Tanpa Crash di Arsitektur Serverless",
+    "seo_description": "Mengapa fungsi serverless dapat menghabiskan kuota max_connections database dalam hitungan detik dan bagaimana solusi modern seperti PgBouncer dan HTTP Database Proxies menyelesaikannya."
+  },
+  {
+    "id": 36,
+    "title": "Membangun Audit Log Immutability dengan Database Triggers & Change Data Capture",
+    "slug": "membangun-audit-log-immutability-database-triggers-cdc",
+    "excerpt": "Cara memastikan rekam jejak transaksi finansial dan data krusial tidak dapat dimanipulasi bahkan oleh administrator database menggunakan tabel append-only dan trigger native.",
+    "seo_title": "Membangun Audit Log Immutability dengan Database Triggers & Change Data Capture",
+    "seo_description": "Cara memastikan rekam jejak transaksi finansial dan data krusial tidak dapat dimanipulasi bahkan oleh administrator database menggunakan tabel append-only dan trigger native."
+  },
+  {
+    "id": 37,
+    "title": "React Native New Architecture: Mendalami TurboModules dan Fabric Renderer",
+    "slug": "react-native-new-architecture-turbomodules-fabric-renderer",
+    "excerpt": "Selamat tinggal asynchronous JSON bridge yang lambat! Bedah tuntas bagaimana JavaScript Interface (JSI) menghadirkan komunikasi sinkron berkecepatan native di React Native.",
+    "seo_title": "React Native New Architecture: Mendalami TurboModules dan Fabric Renderer",
+    "seo_description": "Selamat tinggal asynchronous JSON bridge yang lambat! Bedah tuntas bagaimana JavaScript Interface (JSI) menghadirkan komunikasi sinkron berkecepatan native di React Native."
+  },
+  {
+    "id": 38,
+    "title": "Offline-First Mobile Architecture: Sinkronisasi Data Lokal dengan WatermelonDB",
+    "slug": "offline-first-mobile-architecture-sinkronisasi-watermelondb",
+    "excerpt": "Cara membangun aplikasi mobile yang tetap berfungsi 100% lancar di daerah tanpa sinyal internet dan melakukan sinkronisasi delta otomatis saat koneksi kembali aktif.",
+    "seo_title": "Offline-First Mobile Architecture: Sinkronisasi Data Lokal dengan WatermelonDB",
+    "seo_description": "Cara membangun aplikasi mobile yang tetap berfungsi 100% lancar di daerah tanpa sinyal internet dan melakukan sinkronisasi delta otomatis saat koneksi kembali aktif."
+  },
+  {
+    "id": 39,
+    "title": "Optimasi Ukuran APK Android: Dari ProGuard hingga Dynamic Feature Modules",
+    "slug": "optimasi-ukuran-apk-android-proguard-dynamic-features",
+    "excerpt": "Langkah teruji memangkas ukuran download aplikasi Android dari 60MB menjadi 15MB dengan R8 shrinking, format AAB, optimasi WebP, dan modul dinamis.",
+    "seo_title": "Optimasi Ukuran APK Android: Dari ProGuard hingga Dynamic Feature Modules",
+    "seo_description": "Langkah teruji memangkas ukuran download aplikasi Android dari 60MB menjadi 15MB dengan R8 shrinking, format AAB, optimasi WebP, dan modul dinamis."
+  },
+  {
+    "id": 40,
+    "title": "Membangun Background Geolocation Tracking Hemat Baterai di Android & iOS",
+    "slug": "membangun-background-geolocation-tracking-hemat-baterai",
+    "excerpt": "Teknik pelacakan lokasi latar belakang untuk aplikasi logistik dan kurir: memanfaatkan Geofencing dan Fused Location Provider agar baterai ponsel tidak terkuras habis.",
+    "seo_title": "Membangun Background Geolocation Tracking Hemat Baterai di Android & iOS",
+    "seo_description": "Teknik pelacakan lokasi latar belakang untuk aplikasi logistik dan kurir: memanfaatkan Geofencing dan Fused Location Provider agar baterai ponsel tidak terkuras habis."
+  },
+  {
+    "id": 41,
+    "title": "Flutter vs React Native di Tahun 2026: Perspektif Performa & Maintainability",
+    "slug": "flutter-vs-react-native-2026-performa-maintainability",
+    "excerpt": "Komparasi mendalam dua raksasa framework cross-platform: Impeller rendering engine di Flutter vs React Native New Architecture dengan integrasi ekosistem web.",
+    "seo_title": "Flutter vs React Native di Tahun 2026: Perspektif Performa & Maintainability",
+    "seo_description": "Komparasi mendalam dua raksasa framework cross-platform: Impeller rendering engine di Flutter vs React Native New Architecture dengan integrasi ekosistem web."
+  },
+  {
+    "id": 42,
+    "title": "Keamanan Aplikasi Mobile: Mencegah Reverse Engineering dan Mitigasi Root/Jailbreak",
+    "slug": "keamanan-aplikasi-mobile-mencegah-reverse-engineering",
+    "excerpt": "Melindungi aset biner aplikasi Anda dari decompilation APKTool: implementasi SSL Certificate Pinning, pemeriksaan integritas Play Integrity API, dan deteksi Frida hook.",
+    "seo_title": "Keamanan Aplikasi Mobile: Mencegah Reverse Engineering dan Mitigasi Root/Jailbreak",
+    "seo_description": "Melindungi aset biner aplikasi Anda dari decompilation APKTool: implementasi SSL Certificate Pinning, pemeriksaan integritas Play Integrity API, dan deteksi Frida hook."
+  },
+  {
+    "id": 43,
+    "title": "State Management Modern di React Native: Mengapa Zustand Menggantikan Redux",
+    "slug": "state-management-modern-react-native-zustand-vs-redux",
+    "excerpt": "Tinggalkan boilerplate action types, reducers, dan context providers yang berbelit-belit. Rasakan kemudahan store minimalis dengan hooks selector berperforma tinggi.",
+    "seo_title": "State Management Modern di React Native: Mengapa Zustand Menggantikan Redux",
+    "seo_description": "Tinggalkan boilerplate action types, reducers, dan context providers yang berbelit-belit. Rasakan kemudahan store minimalis dengan hooks selector berperforma tinggi."
+  },
+  {
+    "id": 44,
+    "title": "Membangun Push Notification Reliable dengan Firebase Cloud Messaging & Notifee",
+    "slug": "membangun-push-notification-reliable-fcm-notifee",
+    "excerpt": "Panduan menangani notifikasi Android foreground, background, dan killed state: konfigurasi Notification Channels kustom, payload data, dan deep linking interaktif.",
+    "seo_title": "Membangun Push Notification Reliable dengan Firebase Cloud Messaging & Notifee",
+    "seo_description": "Panduan menangani notifikasi Android foreground, background, dan killed state: konfigurasi Notification Channels kustom, payload data, dan deep linking interaktif."
+  },
+  {
+    "id": 45,
+    "title": "Optimasi FlatList & VirtualizedList pada React Native untuk Ribuan Elemen",
+    "slug": "optimasi-flatlist-virtualizedlist-react-native-ribuan-elemen",
+    "excerpt": "Hilangkan lag saat scrolling daftar panjang di aplikasi mobile: konfigurasi getItemLayout, windowSize, maxToRenderPerBatch, dan pertimbangan FlashList dari Shopify.",
+    "seo_title": "Optimasi FlatList & VirtualizedList pada React Native untuk Ribuan Elemen",
+    "seo_description": "Hilangkan lag saat scrolling daftar panjang di aplikasi mobile: konfigurasi getItemLayout, windowSize, maxToRenderPerBatch, dan pertimbangan FlashList dari Shopify."
+  },
+  {
+    "id": 46,
+    "title": "Arsitektur CI/CD Mobile dengan Fastlane dan GitHub Actions",
+    "slug": "arsitektur-cicd-mobile-fastlane-github-actions",
+    "excerpt": "Otomatisasi build APK/AAB dan IPA, signing sertifikat rilis, hingga deployment otomatis ke Google Play Console Internal Track tanpa perlu klik manual di Android Studio.",
+    "seo_title": "Arsitektur CI/CD Mobile dengan Fastlane dan GitHub Actions",
+    "seo_description": "Otomatisasi build APK/AAB dan IPA, signing sertifikat rilis, hingga deployment otomatis ke Google Play Console Internal Track tanpa perlu klik manual di Android Studio."
+  },
+  {
+    "id": 47,
+    "title": "Arsitektur MCP (Model Context Protocol): Menghubungkan AI Agent dengan Sistem Nyata",
+    "slug": "arsitektur-mcp-model-context-protocol-ai-agent-sistem-nyata",
+    "excerpt": "Bagaimana protokol terbuka Model Context Protocol (MCP) memecahkan masalah integrasi data LLM, mengizinkan model AI berinteraksi aman dengan database lokal, Git, dan API eksternal.",
+    "seo_title": "Arsitektur MCP (Model Context Protocol): Menghubungkan AI Agent dengan Sistem Nyata",
+    "seo_description": "Bagaimana protokol terbuka Model Context Protocol (MCP) memecahkan masalah integrasi data LLM, mengizinkan model AI berinteraksi aman dengan database lokal, Git, dan API eksternal."
+  },
+  {
+    "id": 48,
+    "title": "RAG (Retrieval-Augmented Generation) Tingkat Lanjut: HyDE, Reranking, dan Hybrid Search",
+    "slug": "rag-tingkat-lanjut-hyde-reranking-hybrid-search",
+    "excerpt": "Tinggalkan RAG naif berbasis kemiripan kosinus sederhana! Pelajari teknik Hybrid Search (BM25 + Dense Vectors), Hypothetical Document Embeddings, dan Cross-Encoder Reranking.",
+    "seo_title": "RAG (Retrieval-Augmented Generation) Tingkat Lanjut: HyDE, Reranking, dan Hybrid Search",
+    "seo_description": "Tinggalkan RAG naif berbasis kemiripan kosinus sederhana! Pelajari teknik Hybrid Search (BM25 + Dense Vectors), Hypothetical Document Embeddings, dan Cross-Encoder Reranking."
+  },
+  {
+    "id": 49,
+    "title": "Membangun Local AI Coding Assistant dengan Ollama dan DeepSeek-Coder",
+    "slug": "membangun-local-ai-coding-assistant-ollama-deepseek-coder",
+    "excerpt": "Panduan menjalankan model kecerdasan buatan pemrograman secara 100% offline dan privat di laptop sendiri tanpa perlu khawatir kode rahasia perusahaan bocor ke cloud.",
+    "seo_title": "Membangun Local AI Coding Assistant dengan Ollama dan DeepSeek-Coder",
+    "seo_description": "Panduan menjalankan model kecerdasan buatan pemrograman secara 100% offline dan privat di laptop sendiri tanpa perlu khawatir kode rahasia perusahaan bocor ke cloud."
+  },
+  {
+    "id": 50,
+    "title": "Evaluasi Output LLM Secara Otomatis dengan LLM-as-a-Judge Framework",
+    "slug": "evaluasi-output-llm-secara-otomatis-llm-as-a-judge",
+    "excerpt": "Bagaimana menguji kualitas sistem kecerdasan buatan berbasis teks secara objektif dan terukur dalam pipeline CI/CD menggunakan model penilai independen.",
+    "seo_title": "Evaluasi Output LLM Secara Otomatis dengan LLM-as-a-Judge Framework",
+    "seo_description": "Bagaimana menguji kualitas sistem kecerdasan buatan berbasis teks secara objektif dan terukur dalam pipeline CI/CD menggunakan model penilai independen."
+  },
+  {
+    "id": 51,
+    "title": "Fine-Tuning vs RAG: Kapan Anda Harus Melatih Ulang Model Bahasa?",
+    "slug": "fine-tuning-vs-rag-kapan-harus-melatih-ulang-model",
+    "excerpt": "Membedah analogi 'Open Book Exam' vs 'Belajar Gaya Baru': panduan keputusan strategis kapan cukup menggunakan RAG dan kapan fine-tuning LoRA mutlak diperlukan.",
+    "seo_title": "Fine-Tuning vs RAG: Kapan Anda Harus Melatih Ulang Model Bahasa?",
+    "seo_description": "Membedah analogi 'Open Book Exam' vs 'Belajar Gaya Baru': panduan keputusan strategis kapan cukup menggunakan RAG dan kapan fine-tuning LoRA mutlak diperlukan."
+  },
+  {
+    "id": 52,
+    "title": "Mengamankan Aplikasi LLM dari Prompt Injection dan Jailbreak Attack",
+    "slug": "mengamankan-aplikasi-llm-prompt-injection-jailbreak",
+    "excerpt": "Ancaman keamanan nomor 1 di OWASP Top 10 for LLMs: teknik memitigasi indirect prompt injection, pemisahan data vs instruksi, dan guardrails defensif.",
+    "seo_title": "Mengamankan Aplikasi LLM dari Prompt Injection dan Jailbreak Attack",
+    "seo_description": "Ancaman keamanan nomor 1 di OWASP Top 10 for LLMs: teknik memitigasi indirect prompt injection, pemisahan data vs instruksi, dan guardrails defensif."
+  },
+  {
+    "id": 53,
+    "title": "Memahami Structured Outputs di LLM: Dari JSON Schema hingga Tool Calling",
+    "slug": "memahami-structured-outputs-llm-json-schema-tool-calling",
+    "excerpt": "Bagaimana teknik Constrained Decoding dan Grammar-based Sampling menjamin output AI 100% patuh pada skema JSON tanpa pernah menghasilkan JSON parse error.",
+    "seo_title": "Memahami Structured Outputs di LLM: Dari JSON Schema hingga Tool Calling",
+    "seo_description": "Bagaimana teknik Constrained Decoding dan Grammar-based Sampling menjamin output AI 100% patuh pada skema JSON tanpa pernah menghasilkan JSON parse error."
+  },
+  {
+    "id": 54,
+    "title": "Vector Database Deep-Dive: HNSW Indexing vs IVFFlat pada Skala Jutaan Vektor",
+    "slug": "vector-database-deep-dive-hnsw-vs-ivfflat",
+    "excerpt": "Memahami algoritma di balik pencarian semantik berkecepatan tinggi: komparasi konsumsi memori, akurasi recall, dan waktu komputasi query pada database vektor.",
+    "seo_title": "Vector Database Deep-Dive: HNSW Indexing vs IVFFlat pada Skala Jutaan Vektor",
+    "seo_description": "Memahami algoritma di balik pencarian semantik berkecepatan tinggi: komparasi konsumsi memori, akurasi recall, dan waktu komputasi query pada database vektor."
+  },
+  {
+    "id": 55,
+    "title": "Mengelola Biaya Token LLM: Taktik Kompresi Prompt dan Semantic Caching",
+    "slug": "mengelola-biaya-token-llm-kompresi-prompt-semantic-caching",
+    "excerpt": "Taktik memangkas tagihan API OpenAI/Anthropic hingga 60%: bagaimana caching respon semantik di Redis dan optimasi konteks dokumen menyelamatkan keuangan startup Anda.",
+    "seo_title": "Mengelola Biaya Token LLM: Taktik Kompresi Prompt dan Semantic Caching",
+    "seo_description": "Taktik memangkas tagihan API OpenAI/Anthropic hingga 60%: bagaimana caching respon semantik di Redis dan optimasi konteks dokumen menyelamatkan keuangan startup Anda."
+  },
+  {
+    "id": 56,
+    "title": "Evolusi Multi-Agent Systems: Mengapa Koordinasi Tim Agen Lebih Unggul dari Monolithic Prompt",
+    "slug": "evolusi-multi-agent-systems-koordinasi-tim-agen",
+    "excerpt": "Membagi tugas kompleks ke dalam peran spesialis: Agen Scraper, Agen Penulis, Agen Editor, dan Agen Verifikator yang bekerja sama secara otonom menghasilkan kualitas karya luar biasa.",
+    "seo_title": "Evolusi Multi-Agent Systems: Mengapa Koordinasi Tim Agen Lebih Unggul dari Monolithic Prompt",
+    "seo_description": "Membagi tugas kompleks ke dalam peran spesialis: Agen Scraper, Agen Penulis, Agen Editor, dan Agen Verifikator yang bekerja sama secara otonom menghasilkan kualitas karya luar biasa."
+  },
+  {
+    "id": 57,
+    "title": "Docker Multi-Stage Build: Memangkas Ukuran Image Node.js dari 1.2GB ke 120MB",
+    "slug": "docker-multi-stage-build-memangkas-image-nodejs",
+    "excerpt": "Panduan praktis menyusun Dockerfile multi-stage production-ready: membuang devDependencies, compiler build tools, dan menggunakan Alpine/Distroless Linux image.",
+    "seo_title": "Docker Multi-Stage Build: Memangkas Ukuran Image Node.js dari 1.2GB ke 120MB",
+    "seo_description": "Panduan praktis menyusun Dockerfile multi-stage production-ready: membuang devDependencies, compiler build tools, dan menggunakan Alpine/Distroless Linux image."
+  },
+  {
+    "id": 58,
+    "title": "Membangun Zero-Downtime Deployment dengan Blue-Green & Canary Strategy",
+    "slug": "membangun-zero-downtime-deployment-blue-green-canary",
+    "excerpt": "Cara merilis fitur baru ke jutaan pengguna tanpa pernah menampilkan halaman 502 Bad Gateway: perbandingan strategi Blue-Green Switching vs Canary Rollout bertahap.",
+    "seo_title": "Membangun Zero-Downtime Deployment dengan Blue-Green & Canary Strategy",
+    "seo_description": "Cara merilis fitur baru ke jutaan pengguna tanpa pernah menampilkan halaman 502 Bad Gateway: perbandingan strategi Blue-Green Switching vs Canary Rollout bertahap."
+  },
+  {
+    "id": 59,
+    "title": "Prinsip Clean Code & SOLID: Refactoring Kode Kusut Menjadi Komponen Elegan",
+    "slug": "prinsip-clean-code-solid-refactoring-kode-kusut",
+    "excerpt": "Membongkar fungsi 'God Object' 500 baris menjadi modul-modul modular yang mudah diuji: studi kasus nyata penerapan Single Responsibility dan Dependency Inversion.",
+    "seo_title": "Prinsip Clean Code & SOLID: Refactoring Kode Kusut Menjadi Komponen Elegan",
+    "seo_description": "Membongkar fungsi 'God Object' 500 baris menjadi modul-modul modular yang mudah diuji: studi kasus nyata penerapan Single Responsibility dan Dependency Inversion."
+  },
+  {
+    "id": 60,
+    "title": "Observability Sistem: Memahami Tiga Pilar Metrics, Logs, dan Traces dengan OpenTelemetry",
+    "slug": "observability-sistem-tiga-pilar-metrics-logs-traces-opentelemetry",
+    "excerpt": "Bagaimana melacak sumber kelambatan pada sistem multi-service terdistribusi: instrumen OpenTelemetry universal tanpa terikat pada vendor monitoring komersial tertentu.",
+    "seo_title": "Observability Sistem: Memahami Tiga Pilar Metrics, Logs, dan Traces dengan OpenTelemetry",
+    "seo_description": "Bagaimana melacak sumber kelambatan pada sistem multi-service terdistribusi: instrumen OpenTelemetry universal tanpa terikat pada vendor monitoring komersial tertentu."
+  },
+  {
+    "id": 61,
+    "title": "Penerapan GitOps dengan ArgoCD pada Kluster Kubernetes Modern",
+    "slug": "penerapan-gitops-argocd-kluster-kubernetes",
+    "excerpt": "Jadikan Git sebagai satu-satunya sumber kebenaran deklaratif infrastruktur: otomatisasi sinkronisasi manifes k8s dan deteksi configuration drift secara real-time.",
+    "seo_title": "Penerapan GitOps dengan ArgoCD pada Kluster Kubernetes Modern",
+    "seo_description": "Jadikan Git sebagai satu-satunya sumber kebenaran deklaratif infrastruktur: otomatisasi sinkronisasi manifes k8s dan deteksi configuration drift secara real-time."
+  },
+  {
+    "id": 62,
+    "title": "Mengamankan Secrets & Kredensial di CI/CD: Tinggalkan Hardcoded Environment Variables",
+    "slug": "mengamankan-secrets-kredensial-cicd-tinggalkan-hardcoded",
+    "excerpt": "Bahaya laten menyimpan token akses jangka panjang di repository: integrasi OpenID Connect (OIDC) cloud providers untuk otentikasi tanpa kunci rahasia statis.",
+    "seo_title": "Mengamankan Secrets & Kredensial di CI/CD: Tinggalkan Hardcoded Environment Variables",
+    "seo_description": "Bahaya laten menyimpan token akses jangka panjang di repository: integrasi OpenID Connect (OIDC) cloud providers untuk otentikasi tanpa kunci rahasia statis."
+  },
+  {
+    "id": 63,
+    "title": "Panduan Arsitektur Hexagonal (Ports & Adapters) pada Aplikasi Node.js / Go",
+    "slug": "panduan-arsitektur-hexagonal-ports-adapters-nodejs-go",
+    "excerpt": "Cara memisahkan aturan logika bisnis murni (*core domain*) dari framework web dan database sehingga aplikasi Anda kebal terhadap perubahan teknologi luar.",
+    "seo_title": "Panduan Arsitektur Hexagonal (Ports & Adapters) pada Aplikasi Node.js / Go",
+    "seo_description": "Cara memisahkan aturan logika bisnis murni (*core domain*) dari framework web dan database sehingga aplikasi Anda kebal terhadap perubahan teknologi luar."
+  },
+  {
+    "id": 64,
+    "title": "Load Testing Sistem Skala Tinggi: Menguji Titik Hancur Aplikasi dengan k6",
+    "slug": "load-testing-sistem-skala-tinggi-menguji-titik-hancur-k6",
+    "excerpt": "Simulasikan serbuan 50.000 pengguna virtual serentak untuk menemukan memory leak, database bottleneck, dan batas throughput RPS server Anda sebelum hari peluncuran.",
+    "seo_title": "Load Testing Sistem Skala Tinggi: Menguji Titik Hancur Aplikasi dengan k6",
+    "seo_description": "Simulasikan serbuan 50.000 pengguna virtual serentak untuk menemukan memory leak, database bottleneck, dan batas throughput RPS server Anda sebelum hari peluncuran."
+  },
+  {
+    "id": 65,
+    "title": "Strategi Backup & Disaster Recovery Database: Uji Coba RTO dan RPO yang Sebenarnya",
+    "slug": "strategi-backup-disaster-recovery-database-rto-rpo",
+    "excerpt": "Backup yang tidak pernah diuji restore bukanlah backup sejati. Pahami dua metrik terpenting pemulihan bencana: Recovery Time Objective dan Recovery Point Objective.",
+    "seo_title": "Strategi Backup & Disaster Recovery Database: Uji Coba RTO dan RPO yang Sebenarnya",
+    "seo_description": "Backup yang tidak pernah diuji restore bukanlah backup sejati. Pahami dua metrik terpenting pemulihan bencana: Recovery Time Objective dan Recovery Point Objective."
+  },
+  {
+    "id": 66,
+    "title": "Menguasai Regular Expressions (RegEx) Tanpa Sakit Kepala: Pola Penting untuk Developer",
+    "slug": "menguasai-regular-expressions-regex-tanpa-sakit-kepala",
+    "excerpt": "Panduan praktis menaklukkan pola ekspresi reguler yang sering ditakuti programmer: lookaheads, non-capturing groups, dan cara menghindari malapetaka Catastrophic Backtracking.",
+    "seo_title": "Menguasai Regular Expressions (RegEx) Tanpa Sakit Kepala: Pola Penting untuk Developer",
+    "seo_description": "Panduan praktis menaklukkan pola ekspresi reguler yang sering ditakuti programmer: lookaheads, non-capturing groups, dan cara menghindari malapetaka Catastrophic Backtracking."
+  },
+  {
+    "id": 67,
+    "title": "Panduan Deployment & Instalasi Microsoft Office via CLI: Menggunakan Office Deployment Tool (ODT) & OSPP Script",
+    "slug": "panduan-deployment-instalasi-office-via-cli-odt",
+    "excerpt": "Pelajari cara instalasi, kustomisasi paket aplikasi, dan manajemen aktivasi lisensi resmi Microsoft Office/365 secara bersih dan otomatis melalui Command Line Interface (CLI) menggunakan Office Deployment Tool dan ospp.vbs.",
+    "seo_title": null,
+    "seo_description": null
+  },
+  {
+    "id": 68,
+    "title": "Panduan Lengkap Manajemen & Konfigurasi Lisensi Office via Command Prompt (CMD)",
+    "slug": "panduan-manajemen-konfigurasi-lisensi-office-cmd",
+    "excerpt": "Kupas tuntas tata cara instalasi, konfigurasi parameter lisensi resmi, dan diagnostik aktivasi Microsoft Office 2016/2019/365 secara legal melalui Command Prompt (CMD) menggunakan skrip bawaan ospp.vbs.",
+    "seo_title": null,
+    "seo_description": null
+  },
+  {
+    "id": 69,
+    "title": "Cara Install Ulang Windows 10/11 dengan Mudah dan Cepat",
+    "slug": "cara-install-ulang-windows-10-11",
+    "excerpt": "Tutorial lengkap cara menginstal ulang Windows 10 atau 11 dari awal hingga selesai, lengkap dengan persiapan bootable USB, pengaturan BIOS/UEFI, dan langkah-langkah instalasi",
+    "seo_title": null,
+    "seo_description": null
+  },
+  {
+    "id": 70,
+    "title": "Mendesain Arsitektur SaaS Full-Stack Modern dengan Edge Computing & AI Services",
+    "slug": "mendesain-arsitektur-saas-full-stack-modern-edge-computing-ai-services",
+    "excerpt": "Bagaimana merancang SaaS yang skalabel, cepat, dan hemat biaya dengan edge computing, AI services terdistribusi, dan pengembangan multi-cloud menggunakan micro-frontends dan server-side rendering.",
+    "seo_title": "Arsitektur SaaS Modern: Edge Computing & AI Services Guide",
+    "seo_description": "Panduan lengkap merancang arsitektur SaaS modern menggunakan edge computing, micro-frontends, AI services terdistribusi untuk performa optimal dan biaya efisien."
+  },
+  {
+    "id": 71,
+    "title": "Implementasi RAG LLM Hybrid Architecture untuk Chatbots Customer Service B2B",
+    "slug": "implementasi-rag-llm-hybrid-architecture-chatbots-customer-service-b2b",
+    "excerpt": "Implementasi Retrieval-Augmented Generation (RAG) dengan LLM hybrid untuk chatbots customer service B2B yang harus selalu benar, terintegrasi dengan knowledge base perusahaan, dan menjaga konteks percakapan selama berjam-jam.",
+    "seo_title": "RAG LLM Architecture untuk Chatbot B2B Customer Service",
+    "seo_description": "Implementasi lengkap RAG dengan LLM hybrid, vector database, dan knowledge base management untuk chatbots customer service enterprise."
+  },
+  {
+    "id": 72,
+    "title": "TypeScript First Backend: Building Scalable Monolith ke Microservices tanpa Rewrite",
+    "slug": "typescript-first-backend-building-scalable-monolith-ke-microservices-tanpa-rewrite",
+    "excerpt": "Strategi migrasi TypeScript-first monolith ke microservices tanpa downtime, menggunakan gradual service extraction, berbagi kode, dan tipe safety di seluruh arsitektur.",
+    "seo_title": "TypeScript First Backend: Monolith to Microservices",
+    "seo_description": "Panduan migrasi monolitik TypeScript ke microservices dengan micro frontends, shared kernel, dan domain-driven design."
+  },
+  {
+    "id": 73,
+    "title": "Zero-Trust API Security: From Internal Network ke Zero Trust dengan mTLS & OAuth 2.0",
+    "slug": "zero-trust-api-security-internal-network-zero-trust-mtls-oauth-2-0",
+    "excerpt": "Migrasi dari keamanan perimeter-based ke zero-trust architecture dengan mTLS mutual authentication, OAuth 2.0/OpenID Connect, dan API gateway microsegmentasi.",
+    "seo_title": "Zero Trust API Security with mTLS & OAuth 2.0",
+    "seo_description": "Implementasi zero-trust networking untuk API dengan mutual TLS, OAuth 2.0, API gateway security, dan microsegmentasi."
+  },
+  {
+    "id": 74,
+    "title": "Progressive Web Apps (PWA) 2024: Migration Guide dari React Web ke SPA Modern",
+    "slug": "progressive-web-apps-pwa-2024-migration-guide-react-web-spa-modern",
+    "excerpt": "Strategi lengkap migrasi aplikasi web React ke Progressive Web App dengan service workers, push notifications, offline cache strategies, dan native-like experience.",
+    "seo_title": "PWA 2024: Migration Guide React Web ke SPA Modern",
+    "seo_description": "Cara implementasi Progressive Web Apps dengan service worker, offline strategies, push notifications, dan manifest web untuk pengalaman mobile native."
+  },
+  {
+    "id": 75,
+    "title": "Container-Native AI/ML Pipeline: Kubernetes GPU Orchestration untuk Model Training",
+    "slug": "container-native-ai-ml-pipeline-kubernetes-gpu-orchestration-model-training",
+    "excerpt": "Membangun pipeline ML lengkap di Kubernetes dengan GPU autoscaling, distributed training jobs, model serving, dan CI/CD pipeline untuk AI/ML ops produksi.",
+    "seo_title": "Container-Native AI/ML Pipeline with Kubernetes GPU",
+    "seo_description": "Panduan lengkap training model ML di Kubernetes, GPU orchestration, distributed training, dan AI/ML ops produksi."
+  },
+  {
+    "id": 76,
+    "title": "GraphQL Federation 2.0: Menggabungkan Microservices GraphQL tanpa API Gateway",
+    "slug": "graphql-federation-2.0-menggabungkan-microservices-graphql-tanpa-api-gateway",
+    "excerpt": "Implementasi GraphQL Federation 2.0 dengan subgraphs yang didefinisikan, introspection discovery, dan schema stitching untuk tanpa API gateway pusat.",
+    "seo_title": "GraphQL Federation 2.0: Microservices without API Gateway",
+    "seo_description": "Cara mengimplementasi GraphQL Federation 2.0 dengan subgraph definition, introspection discovery, dan schema stitching."
+  },
+  {
+    "id": 77,
+    "title": "Serverless-First Architecture: Dari Monolith Serverless ke Step Functions & Event-Driven",
+    "slug": "serverless-first-architecture-monolith-serverless-step-functions-event-driven",
+    "excerpt": "Migrasi monolit ke serverless-first architecture menggunakan AWS Lambda, Step Functions, event-driven design, dan desain event bus untuk aplikasi cloud native.",
+    "seo_title": "Serverless-First Architecture with Step Functions",
+    "seo_description": "Panduan migrasi aplikasi web ke serverless-first architecture menggunakan Lambda, Step Functions, dan event-driven design."
+  },
+  {
+    "id": 78,
+    "title": "WebAssembly (WASM) Backend: Go + WASM untuk Server-Side Rendering & API Ultra-Cepat",
+    "slug": "webassembly-wasm-backend-go-wasm-server-side-rendering-api-ultra-cepat",
+    "excerpt": "Membangun backend Go yang dikompilasi ke WebAssembly untuk server-side rendering ultra-cepat, loading hampir-instan, dan endpoint API yang berjalan di browser & server.",
+    "seo_title": "WebAssembly Backend: Go + WASM for Ultra-Fast API",
+    "seo_description": "Cara membangun server backend Go yang dikompilasi ke WebAssembly untuk SSR, API, dan performa web yang luar biasa."
+  },
+  {
+    "id": 79,
+    "title": "CyberSecurity DevSecOps: Automated Threat Detection with SIEM & Machine Learning",
+    "slug": "cybersecurity-devsecops-automated-threat-detection-siems-machine-learning",
+    "excerpt": "Integrasi DevSecOps dengan SIEM, network traffic analysis, dan ML model deteksi anomali untuk threat hunting proaktif dan compliance otomatis.",
+    "seo_title": "DevSecOps Threat Detection with SIEM & ML",
+    "seo_description": "Cara mengimplementasi SIEM, ML-based threat detection, dan DevSecOps pipeline untuk keamanan proaktif."
+  },
+  {
+    "id": 80,
+    "title": "JAMStack to AI-Native: Migration Architecture untuk Modern Web Applications",
+    "slug": "jamstack-to-ai-native-migration-architecture-modern-web-applications",
+    "excerpt": "Panduan migrasi JAMStack (HTML, CSS, JS) ke AI-native architecture dengan LLM integration, embedding models, dan AI-first development untuk web modern.",
+    "seo_title": "JAMStack to AI-Native: Migration Architecture",
+    "seo_description": "Cara mengimplementasi AI-native architecture dengan LLM, embedding models, dan AI-first development untuk aplikasi web."
+  },
+  {
+    "id": 81,
+    "title": "Rust + WebAssembly Backend: Build Ultra-Secure, High-Performance APIs dengan Rust",
+    "slug": "rust-webassembly-backend-build-ultra-secure-high-performance-apis-rust",
+    "excerpt": "Membangun backend Rust yang dikompilasi ke WebAssembly untuk API yang aman, cepat, dengan memory safety, dan ketergantungan nol saat runtime.",
+    "seo_title": "Rust + WASM Backend: Ultra-Secure APIs",
+    "seo_description": "Cara membangun backend Rust yang dikompilasi ke WebAssembly untuk API yang aman dan berperforma tinggi."
+  },
+  {
+    "id": 82,
+    "title": "Multi-Cloud Strategy: Kubernetes Cluster Federation & Service Mesh Global",
+    "slug": "multi-cloud-strategy-kubernetes-cluster-federation-service-mesh-global",
+    "excerpt": "Membangun multi-cloud k8s federation dengan Istio/Consul service mesh, global service discovery, dan traffic management antar cloud providers.",
+    "seo_title": "Multi-Cloud Strategy: Kubernetes Federation & Service Mesh",
+    "seo_description": "Cara mengimplementasi multi-cloud k8s federation dengan service mesh global, traffic management, dan service discovery."
+  },
+  {
+    "id": 83,
+    "title": "Event-Driven Architecture with Apache Kafka: Microservices Communication Patterns",
+    "slug": "event-driven-architecture-apache-kafka-microservices-communication-patterns",
+    "excerpt": "Membangun event-driven microservices dengan Apache Kafka untuk komunikasi asinkron, event sourcing, dan event streaming di arsitektur distributed.",
+    "seo_title": "Event-Driven Architecture with Apache Kafka",
+    "seo_description": "Cara mengimplementasi event-driven microservices dengan Apache Kafka untuk komunikasi asinkron dan event streaming."
+  },
+  {
+    "id": 84,
+    "title": "Continuous Security Testing: SAST, DAST, dan RAST Terintegrasi dalam CI/CD Pipeline",
+    "slug": "continuous-security-testing-sast-dast-rest-integrated-cicd-pipeline",
+    "excerpt": "Integrasi keamanan sast, dast, dan rast secara otomatis dalam CI/CD pipeline untuk deteksi kerentanan sejak awal hingga deployment.",
+    "seo_title": "Continuous Security Testing in CI/CD Pipeline",
+    "seo_description": "Cara mengintegrasikan SAST, DAST, dan RAST secara otomatis dalam CI/CD pipeline untuk keamanan devops."
+  },
+  {
+    "id": 85,
+    "title": "GraphQL Subscriptions + WebSocket: Real-Time Communication dengan Efficient Connection Management",
+    "slug": "graphql-subscriptions-websocket-real-time-communication-efficient-connection-management",
+    "excerpt": "Implementasi GraphQL subscriptions dengan WebSocket untuk real-time communication, connection pooling, dan efficient message handling di aplikasi modern.",
+    "seo_title": "GraphQL Subscriptions + WebSocket Real-Time",
+    "seo_description": "Cara mengimplementasi GraphQL subscriptions dengan WebSocket untuk komunikasi real-time dan connection management."
+  },
+  {
+    "id": 86,
+    "title": "Cybersecurity for IoT: Secure Device Onboarding & Data Encryption Edge",
+    "slug": "cybersecurity-iot-secure-device-onboarding-data-encryption-edge",
+    "excerpt": "Mengimplementasi keamanan siber untuk perangkat IoT: onboarding device aman, enkripsi end-to-end, dan edge computing security untuk jaringan IoT.",
+    "seo_title": "Cybersecurity for IoT: Secure Device Onboarding & Edge Encryption",
+    "seo_description": "Implementasi keamanan siber untuk IoT: onboarding device, enkripsi end-to-end, dan edge computing security."
+  },
+  {
+    "id": 87,
+    "title": "Serverless API Gateway: AWS API Gateway v2 + Lambda + Custom Domain Names",
+    "slug": "serverless-api-gateway-aws-api-gateway-v2-lambda-custom-domain-names",
+    "excerpt": "Membangun serverless API gateway dengan AWS API Gateway v2, Lambda integration, custom domain names, dan CI/CD pipeline untuk deployment API.",
+    "seo_title": "Serverless API Gateway with AWS API Gateway v2",
+    "seo_description": "Cara mengimplementasi serverless API gateway menggunakan AWS API Gateway v2, Lambda, dan custom domain names."
+  },
+  {
+    "id": 88,
+    "title": "Real-Time Analytics with Apache Pulsar: Stream Processing untuk Event-Driven Systems",
+    "slug": "real-time-analytics-apache-pulsar-stream-processing-event-driven-systems",
+    "excerpt": "Implementasi Apache Pulsar untuk stream processing, real-time analytics, dan event streaming pada arsitektur event-driven microservices.",
+    "seo_title": "Real-Time Analytics with Apache Pulsar",
+    "seo_description": "Cara mengimplementasi Apache Pulsar untuk stream processing, real-time analytics, dan event-driven architecture."
+  },
+  {
+    "id": 89,
+    "title": "Modern Monitoring Stack: Prometheus + Grafana + Alertmanager untuk Observability",
+    "slug": "modern-monitoring-stack-prometheus-grafana-alertmanager-observability",
+    "excerpt": "Membangun stack monitoring modern dengan Prometheus metrics collection, Grafana dashboards, dan Alertmanager untuk alerting dan observability.",
+    "seo_title": "Modern Monitoring Stack with Prometheus + Grafana",
+    "seo_description": "Panduan lengkap monitoring dengan Prometheus metrics, Grafana dashboards, dan Alertmanager untuk observability."
+  },
+  {
+    "id": 90,
+    "title": "Security-First Development: GitOps + Terraform + OPA Policy as Code",
+    "slug": "security-first-development-gitops-terraform-opa-policy-as-code",
+    "excerpt": "Implementasi DevSecOps dengan GitOps, Terraform infrastructure, dan Open Policy Agent policy-as-code untuk keamanan otomatis. infrastructure-as-code.",
+    "seo_title": "Security-First Development with GitOps + Terraform + OPA",
+    "seo_description": "Cara mengimplementasi GitOps, Terraform, dan OPA policy-as-code untuk keamanan otomatis dalam infrastruktur."
+  },
+  {
+    "id": 92,
+    "title": "Teknologi Backend Modern: Panduan Lengkap 2024",
+    "slug": "teknologi-backend-modern-panduan-lengkap-2024",
+    "excerpt": "Panduan lengkap tentang teknologi backend modern 2024, mulai dari Node.js, Python, Go, Rust, hingga arsitektur microservices dan database.",
+    "seo_title": null,
+    "seo_description": null
+  },
+  {
+    "id": 93,
+    "title": "Cara Instalasi Opencode di Tahun 2026",
+    "slug": "cara-instalasi-opencode-tahun-2026",
+    "excerpt": "Panduan lengkap cara instalasi dan penggunaan opencode di tahun 2026, mulai dari persyaratan sistem, metode instalasi, konfigurasi, hingga tips & best practices",
+    "seo_title": null,
+    "seo_description": null
+  }
+]
